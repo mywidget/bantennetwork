@@ -1,0 +1,9 @@
+application/logs/*
+.well-known/*
+application/config
+backup_db/*
+assets/banner/*
+assets/post/*
+application/config/database.php
+
+.htaccess
