@@ -398,23 +398,12 @@
 			return 'errors';
 		}
 	}
-	function title(){
+	function pengaturan($val){
 		$ci = & get_instance();
-		$title = $ci->db->query("SELECT nama_website FROM identitas ORDER BY id_identitas DESC LIMIT 1")->row_array();
-		return $title['nama_website'];
+		$title = $ci->db->query("SELECT * FROM setting where name='$val'")->row_array();
+		return $title['value'];
 	}
 	
-	function description(){
-		$ci = & get_instance();
-		$title = $ci->db->query("SELECT meta_deskripsi FROM identitas ORDER BY id_identitas DESC LIMIT 1")->row_array();
-		return $title['meta_deskripsi'];
-	}
-	
-	function keywords(){
-		$ci = & get_instance();
-		$title = $ci->db->query("SELECT meta_keyword FROM identitas ORDER BY id_identitas DESC LIMIT 1")->row_array();
-		return $title['meta_keyword'];
-	}
 	
 	function favicon(){
 		$ci = & get_instance();
