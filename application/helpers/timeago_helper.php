@@ -270,6 +270,11 @@
 		$tgl_post = date('Y-m-d',strtotime($tglp));
 		return $tgl_post;		 
 	}
+	
+	function tanggal_post($tglp){
+		$tgl_post = date('Y-m-d H:i',strtotime($tglp));
+		return $tgl_post;		 
+	}
 	function tanggal2($tglp){
 		$tgl_post = date('d/m/Y H:i',strtotime($tglp));
 		return $tgl_post;		 

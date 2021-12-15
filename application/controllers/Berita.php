@@ -538,7 +538,7 @@
 						<div class="ns-url" id="link_show'.$lastid.'">'.$link.'</div> 
 						<div class="ns-class" id="eclass_show'.$lastid.'">'.$eclass.'</div>
 						<div class="ns-actions">
-						<a class="edit-button" id="'.$lastid.'" label="'.$label.'" link="'.$link.'" eclass="'.$eclass.'" parentc="'.$treeview.'"><i class="fa fa-pencil"></i></a>
+						<a class="edit-button" id="'.$lastid.'" label="'.$label.'" link="'.$link.'" eclass="'.$eclass.'"><i class="fa fa-pencil"></i></a>
 						<a href="#" class="confirm-delete" data-id="'.$lastid.'" id="'.$lastid.'"><i class="fa fa-trash"></i></a>
 						</div> 
 						</div>

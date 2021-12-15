@@ -332,6 +332,29 @@
 			return $html;
 		}
 	}
+	function produk_jenis($data, $parent = 0, $parent_id = 0, $Nilai='') {
+		static $i = 1;
+		$ieTab = str_repeat("&nbsp;&nbsp;&nbsp;", $i * 2);
+		$tab = $i * 0 ;
+		if (isset($data[$parent])) {
+			$i++;
+			$html = "";
+			foreach ($data[$parent] as $v) {
+				$child = produk_jenis($data, $v['id_jenis'], $parent_id, $Nilai);
+				//Edit Di Item
+				
+				$_arrNilai = explode(',', $Nilai);
+				// $_arrNilai = $Nilai;
+				$_ck = (array_search($v['id_jenis'], $_arrNilai) === false)? '' : 'selected';
+				$html .= ''.$ieTab .'<option value="'.$v['id_jenis'].'" '.$_ck.'>&nbsp;'.$Nilai.$v['nama_jenis'].'</option>';
+				
+				if ($child) { 
+					$i--; $html .= $child; 
+				}
+			}
+			return $html;
+		}
+	}
 	function breadcrumb_tag($data, $parent = 0, $parent_id = 0, $Nilai=''){
 		static $i = 1;
 		$ieTab = str_repeat("&nbsp;|&nbsp;", $i * 1);
@@ -377,7 +400,7 @@
 		$ci = & get_instance();
 		if ($ci->agent->is_mobile())
 		{ 
-			$query = $ci->db->query("SELECT * FROM `themes` where publish='M'");
+			$query = $ci->db->query("SELECT * FROM `themes` where publish='Y'");
 			}else{
 			$query = $ci->db->query("SELECT * FROM `themes` where publish='Y'");
 		}

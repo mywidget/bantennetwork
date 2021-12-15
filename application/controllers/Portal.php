@@ -13,10 +13,12 @@
 			$google_client->addScope('email');
             $google_client->addScope('profile');
 			$login_button = '<a href="'.$google_client->createAuthUrl().'" class="btn mb-1 font-medium-4 border-danger"><i class="icon-google text-danger"></i><span class="px-1 text-danger">google</span> </a>';
-			$data['login_button'] = $login_button;
+			$data['login_button'] = '';
 			// echo json_encode($this->session->userdata('access_token')); 
 			if (isset($_POST['submit'])){
 				$data['title'] = 'Administrator &rsaquo; Log In';
+				$data['sub_1'] = '<h3>Masuk dengan</h3>';
+				$data['sub_2'] = '<p>Atau gunakan akun detail</p>';
 				$data['error'] = '';
 				$data['none'] = '';
 				$data['show'] = 'display:none';
@@ -38,6 +40,7 @@
 						'g_level'   =>$row['level'],
 						'g_id'      =>$row['id_user'],
 						'go_id'     =>$row['google_id'],
+						'random_filemanager_key' =>session_id(),
 						'upload_image_file_manager'=>true
 						);
 						$this->session->set_userdata($user_data);
@@ -62,9 +65,23 @@
 					redirect('main');
 					}else{
 					$data['title'] = 'Administrator &rsaquo; Log In';
+					$data['title'] = 'Administrator &rsaquo; Log In';
+					$data['sub_1'] = '<h3>Login Akun</h3>';
+					$data['sub_2'] = '';
 					$data['error'] = '';
 					$data['none'] = '';
 					$data['show'] = 'display:none';
+					
+					$data['setting'] = ["site_name"  =>pengaturan('site_name'),
+					"site_url" =>pengaturan('site_url'),
+					"site_title" =>pengaturan('site_title'),
+					"site_keys" =>pengaturan('site_keys'),
+					"site_desc" =>pengaturan('site_desc'),
+					"site_company" =>pengaturan('site_company'),
+					"site_favicon" =>pengaturan('site_favicon'),
+					"site_logo" =>pengaturan('site_logo')
+					];
+					
 					$this->load->view('themes/admin/login', $data);
 				}
 			}

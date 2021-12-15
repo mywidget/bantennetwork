@@ -169,7 +169,6 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 alert(error);
-                $(".loadingcrud").hide();
             },
         });
         return false;
@@ -208,7 +207,6 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 alert(error);
-                $(".loadingcrud").hide();
             },
         });
     });
@@ -258,7 +256,6 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 alert(error);
-                $(".loadingcrud").hide();
             },
         });
         
@@ -323,7 +320,6 @@ $(document).on("click", "#btnYes", function() {
         },
         error: function(xhr, status, error) {
             alert(error);
-            $(".loadingcrud").hide();
         },
     });
 });
