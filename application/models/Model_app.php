@@ -90,6 +90,13 @@
             return $this->db->get()->result_array();
         }
         
+        public function view_order($table,$order,$ordering){
+            $this->db->select('*');
+            $this->db->from($table);
+            $this->db->order_by($order,$ordering);
+            return $this->db->get()->result();
+        }
+        
         public function view_where_ordering($table,$data,$order,$ordering){
             $this->db->where($data);
             $this->db->order_by($order,$ordering);
