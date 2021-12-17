@@ -1,4 +1,13 @@
 <?php 
+	function rp($angka){
+		$konversi = ''.number_format($angka, 0, ',', '.');
+		return $konversi;
+	}
+	function maxIDT($array,$key){
+		$arr = max(array_column($array,$key));
+		$data = $arr+1;
+		return $data;
+	}
 	function slugify($string)
     {
         // Replace unsupported characters (add your owns if necessary)
@@ -626,4 +635,4 @@
 		}
         $text = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $text);
         return $text;
-	}                    					
+	}                    						

@@ -121,10 +121,10 @@
             
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
-                $nama_file = "";
             if ( ! $this->upload->do_upload('input_logo'))
             {
-                $data = array('error' => $this->upload->display_errors());
+                $error = array('error' => $this->upload->display_errors());
+                $nama_file = "";
             }
             else
             {

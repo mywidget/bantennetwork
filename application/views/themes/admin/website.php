@@ -60,7 +60,7 @@
 								</div>
 								<div class="form-group col-md-6">
 									<label>Favicon</label>
-									<input type="file" id="input_icon"  class="file-upload-default"  accept="image/*">
+									<input type="file" id="input_icon" name="input_icon" class="file-upload-default"  accept="image/*">
 									<div class="input-group col-xs-12">
 										<input type="text" id="img_icon" value="<?=$setting['site_favicon'];?>" name="img_icon" class="form-control file-upload-info" readonly="" placeholder="Upload Favicon">
 										<span class="input-group-append">
@@ -234,64 +234,39 @@
 		});
 		$('#input_icon').on("change", function () {
 			
-            var $files = $(this).get(0).files;
-            if ($files.length) {
-				
-                // Reject big files
-                if ($files[0].size > $(this).data("max-size") * 1024) {
-                    console.log("Please select a smaller file");
-                    return false;
-				}
-				
-				var mm =Math.random().toString(36).substring(7) + new Date().getTime(); //to add new name of file
-                // Replace ctrlq with your own API key
-                var apiKey = 'e41e84702d59f507a5fec9ced34faf02';
-                var apiUrl = 'https://api.imgbb.com/1/upload?name='+mm+'&key='+apiKey;
-				
-                var formData = new FormData();
-                formData.append("image", $files[0]);
-				
-                var settings = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": apiUrl,
-                    "method": "POST",
-                    "datatype": "json",
-                    "mimeType": "multipart/form-data",
-                    "processData": false,
-                    "contentType": false,
-                    "data": formData,
-                    beforeSend: function (xhr) {
-						$(".se-pre-con").fadeIn();
-						NProgress.start();
-                        // console.log("Uploading | 上传中");
-					},
-                    success: function (res) {
-                        // console.log(res.url);
-						
-						$(".se-pre-con").fadeOut('slow');
-						NProgress.done();
-                        // $('body').append('<img src="' + res.data.link + '" />');
-					},
-                    error: function (xhr, status, error) {
-						showNotif('bottom-right','Update Profil',error,'error');
-						$(".se-pre-con").fadeOut('slow');
-						NProgress.done();
-						$("#logo_url").val('');
-                        // alert("Failed | 上传失败");
-					}
-				}
-                $.ajax(settings).done(function (response) {
-					var jx = JSON.parse(response);
-					$("#logo_url").val(jx.data.url);
-					$('#img-logo').attr('src', jx.data.url);
-					// $('.avatar').attr('src', jx.data.url);
-					$(".se-pre-con").fadeOut('slow');
-					NProgress.done();
-					showNotif('bottom-right','Upload Image','Data berhasil di upload','success');
-                    // console.log("Done | 成功");
-				});
+            var file_data = $("#input_icon").prop('files')[0]; 
+			var img_logo = $("#img_icon").val(); 
+			// console.log(file_data)
+			var form_data = new FormData(); 
+			var ext = $("#input_icon").val().split('.').pop().toLowerCase();
+			if ($.inArray(ext, ['png','jpg','jpeg']) == -1)   {
+				alert("only jpg and png images allowed");
+				return;
+			}  
+			var picsize = (file_data.size);
+			if(picsize > 2097152) /* 2mb*/
+			{
+				alert("Image allowd less than 2 mb")
+				return;
 			}
+			form_data.append('input_icon', file_data);  
+			form_data.append('input_name', img_logo);  
+			$.ajax({
+				url: '<?php echo base_url()?>info/uploadIcon', /*point to server-side PHP script */
+				dataType: 'json',  
+				cache: false,
+				contentType: false,
+				processData: false,
+				data: form_data,                         
+				type: 'post',
+				success: function(res){
+					// $(".alert_success").show();
+					if(res.status==200){
+						$("#img_icon").val(res.name);
+					}
+					// window.location.hash = '#success_message';
+				}
+			});
 		});
 	});
 	

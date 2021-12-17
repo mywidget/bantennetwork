@@ -48,10 +48,15 @@
 		public function data_array(array $val)
 		{
 			
-			$sql = $this->db->query("SELECT * FROM ".$val['table']." WHERE  id_user='".$val['iduser']."'");
+			$sql = $this->db->query("SELECT * FROM ".$val['table']." WHERE  id_produk='".$val['id']."'");
 			if($sql->num_rows() > 0){
 				$rows=$sql->row_array();
-				$dataJson = $rows['data_json'];
+				if(!empty($rows['detail']))
+				{
+					$dataJson = $rows['detail'];
+					}else{
+					$dataJson = '{"detail":[{"id":1,"harga":"0","bahan":"-","satuan":"-"}]}';
+				}
 				$array_data = json_decode($dataJson);
 				}else{
 				$array_data = ['status'=>'error'];
@@ -297,7 +302,7 @@
 					break;
 				}
 			}
-
+			
 			return $data;
 		}
 		public function themeget(array $val)
@@ -311,9 +316,9 @@
 			$ARRAY = json_decode($dataJson);
 			$arr = $ARRAY->theme;
 			$arr = $arr[0];
-					$data = array(
-					'kolom' => $arr->kolom
-					);	
+			$data = array(
+			'kolom' => $arr->kolom
+			);	
 			return $data;
 		}
 		public function limit_get(array $val)
@@ -338,7 +343,7 @@
 					break;
 				}
 			}
-
+			
 			return $data;
 		}
 		public function konsumen_get(array $val)
@@ -352,7 +357,7 @@
 			$ARRAY = json_decode($dataJson);
 			foreach ($ARRAY->konsumen as $item) {
 				if ($item->id == $val['getid']) {
-				
+					
 					$data = array(
 					'id'	       => encrypt_url($item->id),
 					'tgl'          => $item->tgl,
@@ -366,7 +371,7 @@
 					break;
 				}
 			}
-
+			
 			return $data;
 		}
-	}													
+	}														
