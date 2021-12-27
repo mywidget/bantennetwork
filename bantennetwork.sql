@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 05, 2021 at 03:22 PM
+-- Generation Time: Dec 17, 2021 at 01:16 PM
 -- Server version: 8.0.18
 -- PHP Version: 7.3.11
 
@@ -118,7 +118,7 @@ CREATE TABLE `gtbl_user` (
 --
 
 INSERT INTO `gtbl_user` (`id_user`, `google_id`, `parent`, `idmenu`, `id_level`, `idlevel`, `username`, `password`, `pass_two`, `nama_lengkap`, `daftar`, `tgl_daftar`, `alamat`, `email`, `no_hp`, `profile_image`, `level`, `id_lock`, `aktif`, `hak_akses`, `id_session`, `verify`) VALUES
-(2, NULL, 0, '1,2,24,33,109,112,114,116,117,118,119,138,140,141,144,146,156,167', '1', '1,2,3,4', 'admin', '$2y$10$KPlYuQgn42rXvRNSPea/QOpDzuISMuIG1d1otiveO/mdNySnjD9RO', '$2y$10$ve992eTK.MCNz2M9P1Mz0OcNwLS441L3054xxzrxbet/IfHDHJ8vW', 'Administrator', NULL, '2020-08-28 00:00:00', 'Serang Banten', 'admin@bantennetwork.co.id', '089611274798', 'https://i.ibb.co/C2dyx8H/miq8mk1622221636773.jpg', 'admin', 1, 'Y', 0, 'bee0-71a0-f4ea-b4cd-df1a', 1);
+(2, NULL, 0, '1,2,24,33,109,112,114,116,117,118,119,138,140,141,144,146,156,167,168', '1', '1,2,3,4', 'admin', '$2y$10$KPlYuQgn42rXvRNSPea/QOpDzuISMuIG1d1otiveO/mdNySnjD9RO', '$2y$10$ve992eTK.MCNz2M9P1Mz0OcNwLS441L3054xxzrxbet/IfHDHJ8vW', 'Administrator', NULL, '2020-08-28 00:00:00', 'Serang Banten', 'admin@bantennetwork.co.id', '089611274798', 'https://i.ibb.co/C2dyx8H/miq8mk1622221636773.jpg', 'admin', 1, 'Y', 0, 'bee0-71a0-f4ea-b4cd-df1a', 1);
 
 -- --------------------------------------------------------
 
@@ -255,30 +255,30 @@ INSERT INTO `label` (`id`, `name`, `slug`, `color`) VALUES
 --
 
 CREATE TABLE `menu` (
-  `id` int(10) NOT NULL,
+  `idmenu` int(10) NOT NULL,
   `category` varchar(20) DEFAULT NULL,
-  `name` varchar(100) DEFAULT NULL,
+  `nama_menu` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   `link` text,
   `app` varchar(100) DEFAULT NULL,
-  `parent_id` int(5) NOT NULL DEFAULT '0',
-  `status` int(5) NOT NULL DEFAULT '0',
+  `idparent` int(5) NOT NULL DEFAULT '0',
+  `aktif` int(1) NOT NULL DEFAULT '0',
   `short` int(5) NOT NULL DEFAULT '0',
-  `level` int(5) NOT NULL DEFAULT '3',
+  `id_level` int(5) NOT NULL DEFAULT '3',
   `home` int(5) NOT NULL DEFAULT '0',
   `title` varchar(100) DEFAULT NULL,
   `sub_menu` int(2) NOT NULL DEFAULT '0',
-  `sub_name` varchar(100) DEFAULT NULL,
-  `class` varchar(200) DEFAULT NULL,
+  `treeview` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `icon` varchar(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   `style` text,
   `position` enum('Top','Bottom') NOT NULL DEFAULT 'Bottom',
-  `global` int(1) NOT NULL DEFAULT '0'
+  `urutan` int(3) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `menu`
 --
 
-INSERT INTO `menu` (`id`, `category`, `name`, `link`, `app`, `parent_id`, `status`, `short`, `level`, `home`, `title`, `sub_menu`, `sub_name`, `class`, `style`, `position`, `global`) VALUES
+INSERT INTO `menu` (`idmenu`, `category`, `nama_menu`, `link`, `app`, `idparent`, `aktif`, `short`, `id_level`, `home`, `title`, `sub_menu`, `treeview`, `icon`, `style`, `position`, `urutan`) VALUES
 (1, '', 'HOME', '/', '', 0, 0, 0, 3, 0, '', 0, '', '', '', 'Bottom', 6),
 (10, '', 'NEWS', '/news', '', 0, 0, 0, 3, 0, '', 0, '', 'dropdown-toggle', '', 'Bottom', 7),
 (5, '', 'Redaksi', '/page/redaksi', '', 0, 0, 0, 3, 0, '', 1, '', '', '', 'Top', 0),
@@ -322,7 +322,7 @@ CREATE TABLE `menuadmin` (
 INSERT INTO `menuadmin` (`idmenu`, `idparent`, `id_level`, `nama_menu`, `link`, `link_on`, `treeview`, `classes`, `classicon`, `icon`, `aktif`, `level`, `urutan`) VALUES
 (1, 0, '1,2,4', 'MASTER DATA', '#', 'N', 'header', 'bars', 'Y', '', 'Y', '', 10),
 (144, 0, '1,2,3,4', 'Profile', 'akun/profil', 'N', '', NULL, 'Y', 'fa-user-circle', 'Y', NULL, 5),
-(24, 0, '1', 'Menu & Akses', 'main/menuadmin', 'N', '', '', 'N', 'fa-bars', 'Y', 'admin', 15),
+(24, 0, '1', 'Menu & Akses', 'main/menuadmin', 'N', '', '', 'N', 'fa-bars', 'Y', 'admin', 16),
 (33, 141, '1,2,3', 'Pengguna', 'akun/pengguna', 'Y', 'treeview', 'menu5', 'N', 'fa-user', 'Y', 'admin', 8),
 (2, 0, '1,2,3,4', 'Beranda', 'home', 'N', '', 'home4', 'N', '', 'N', '', 0),
 (109, 116, '1', 'Posting', 'berita/post', 'Y', '', 'menu5', 'N', 'book', 'Y', '', 2),
@@ -333,11 +333,12 @@ INSERT INTO `menuadmin` (`idmenu`, `idparent`, `id_level`, `nama_menu`, `link`, 
 (118, 112, '1', 'Sosmed', 'pengaturan/sosmed', 'N', 'treeview', 'bars', 'N', 'fa-link', 'Y', '', 14),
 (119, 141, '1', 'Pesan Masuk', 'akun/pesan-masuk', 'Y', 'treeview', 'bars', 'N', 'fa-envelope', 'Y', '', 7),
 (138, 112, '1', 'Level', 'pengaturan/level', 'N', 'a', '', 'Y', 'fa-list-ol', 'Y', NULL, 13),
-(140, 0, '1', 'Database', 'backupdb', 'N', 'a', 'icon-database', 'Y', 'fa-database', 'Y', NULL, 16),
+(140, 0, '1', 'Database', 'backupdb', 'N', 'a', 'icon-database', 'Y', 'fa-database', 'Y', NULL, 17),
 (141, 0, '1,2,3,4', 'Akun', '#', 'Y', 'treeview', 'icon-user', 'Y', 'fa-user', 'Y', NULL, 6),
 (146, 112, '1', 'Website', 'info/website', 'N', '', NULL, 'Y', '', 'Y', NULL, 12),
-(156, 0, '1', 'Version 2.0', '#', 'N', 'header', NULL, 'Y', '', 'Y', NULL, 17),
-(167, 0, '1', 'Iklan', 'iklan', 'N', '', NULL, 'Y', 'fa-image', 'Y', NULL, 9);
+(156, 0, '1', 'Version 2.0', '#', 'N', 'header', NULL, 'Y', '', 'Y', NULL, 18),
+(167, 0, '1', 'Iklan', 'iklan', 'N', '', NULL, 'Y', 'fa-image', 'Y', NULL, 9),
+(168, 0, '1', 'Menusite', 'menu', 'N', '', NULL, 'Y', 'fa-th-list', 'Y', NULL, 15);
 
 -- --------------------------------------------------------
 
@@ -1079,7 +1080,7 @@ ALTER TABLE `label`
 -- Indexes for table `menu`
 --
 ALTER TABLE `menu`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`idmenu`);
 
 --
 -- Indexes for table `menuadmin`
@@ -1187,13 +1188,13 @@ ALTER TABLE `label`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `idmenu` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `menuadmin`
 --
 ALTER TABLE `menuadmin`
-  MODIFY `idmenu` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
+  MODIFY `idmenu` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
 
 --
 -- AUTO_INCREMENT for table `page`

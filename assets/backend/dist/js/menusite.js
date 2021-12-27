@@ -162,6 +162,7 @@ $(document).ready(function() {
                 $('#eclass').val('');
                 $('#parentc').val('');
                 $('#aktif').val('');
+                $('#posisi').val('Top');
                 $('#submenu').val('N');
                 $('#id').val('');
                 $(".loadingcrud").hide();
@@ -248,6 +249,7 @@ $(document).ready(function() {
                 $("#parentc").val(data.parentc);
                 $("#aktif").val(data.aktif);
                 $("#submenu").val(data.submenu);
+                $("#posisi").val(data.posisi);
                 // $("#main-menu-navigation").load(location.href + " #main-menu-navigation");
                 if ($("#parentc").val() != "") {
                     $('.hide-txt').show('slow');
@@ -275,6 +277,7 @@ $(document).ready(function() {
         $("#showicon").addClass('fa-bars');
         $('#aktif').val('');
         $('#submenu').val('N');
+        $('#posisi').val('Top');
         $('#id').val('');
         $('.hide-txt').hide('slow');
     });

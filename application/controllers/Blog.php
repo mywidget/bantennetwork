@@ -3,39 +3,16 @@
 	
 	class Blog extends CI_Controller {
 		
-		 public function __construct()
+		public function __construct()
         {
             parent::__construct();
 			$this->load->helper('date');
-        }
-		public function index()
-		{
-			$data['title'] = 'Blog | lenteranews.tv';
-            $data['description'] = 'description';
-            $data['keywords'] = 'keywords';
-            $data['url_image'] = 'url_image';
-			
-			$data['json']=[
-            "@context" => "https://schema.org",
-            "@type" =>  "Organization",
-            "name" =>  "Lentera News",
-            "url" =>  "https://www.lenternews.tv",
-            "sameAs" => [
-            "https://www.facebook.com/Lenternews",
-            "https://twitter.com/Lenternews",
-            "https://www.youtube.com/user/Lenternews",
-            "https://www.pinterest.com/Lenternews/"
-            ]
-            ];
-			$query = $this->db->query("SELECT * FROM `posting` WHERE tanggal < NOW() AND publish='Y' limit $limit")->result_array();
-			$data['blog'] = $query;
-            $this->template->load(template().'/themes',template().'/blog',$data);
 		}
-		
 		
 		public function detail()
 		{
-			$seo = $this->uri->segment(2);
+			
+			$seo = $this->uri->segment(1);
 			if($seo){
 				$qry = $this->model_data->detailPost(['judul_seo'=>$seo,'publish'=>'Y']);
 				if($qry->num_rows()){
@@ -46,13 +23,12 @@
 					
 					$thnt = folderthn($query['folder']);
 					$blnt = folderbln($query['folder']);
-					$data['title'] = $query['judul'].' | LENTERANEWS';
+					$data['title'] = $query['judul'].' | '.tag_key('site_title');
 					$data['description'] = tag_key('site_desc');
 					$data['keywords'] = tag_key('site_desc');
 					$data['canonical']=base_url('detail/').$query['judul_seo'];
 					$data['url_image'] = base_url().'assets/post/'.$thnt.'/'.$blnt.'/'.$query['gambar'];
-					// $data['rubrik'] = $rowcat['nama_kategori'];
-					// $data['rubrikseo'] = $rowcat['kategori_seo'];
+					
 					$start = strpos($query['postingan'], '<p>');
 					$end = strpos($query['postingan'], '</p>', $start);
 					$paragraph = substr($query['postingan'], $start, $end-$start+4);
@@ -102,7 +78,7 @@
 					$data['terkait'] = terkait($query['judul'],$query['id_post']);
 					$data['populer'] = populer();
 					$data['terbaru'] = terbaru();
-					$this->template->load(template().'/themes',template().'/blog_detail',$data);
+					$this->template->load(template().'/themes',template().'/detail_berita',$data);
 					}else{
 					$qry = $this->db->query("SELECT * FROM `cat` where kategori_seo='$seo' AND pub='Y'");
 					if($qry->num_rows()){
@@ -110,10 +86,11 @@
 						$where = ['`posting`.`publish`' => 'Y','`posting`.`status`' => '2','kategori_seo'=>$seo];
 						$where2 = ['`posting`.`publish`' => 'Y','kategori_seo'=>$seo];
 						$where3 = ['`posting`.`publish`' => 'Y','`posting`.`status`' => '1','kategori_seo'=>$seo];
-						$data['title'] = $query['nama_kategori'].' | Lenteranews';
-						$data['description'] = 'description';
-						$data['keywords'] = 'keywords';
-						$data['url_image'] = 'url_image';
+						$data['title'] = $query['judul'].' | '.tag_key('site_title');
+						$data['description'] = tag_key('site_desc');
+						$data['keywords'] = tag_key('site_desc');
+						$data['canonical']=base_url('detail/').$query['judul_seo'];
+						$data['url_image'] = base_url().'assets/post/'.$thnt.'/'.$blnt.'/'.$query['gambar'];
 						$data['berita'] =  $this->model_app->view_join_where('posting','cat','id_cat',$where,'tanggal','desc',5);
 						$data['terbaru'] =  $this->model_app->view_join_where('posting','cat','id_cat',$where2,'tanggal','desc',8);
 						$data['sorotan'] = $this->model_app->view_join_where('posting','cat','id_cat',$where3,'tanggal','desc',4);

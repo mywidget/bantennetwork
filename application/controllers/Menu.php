@@ -7,6 +7,7 @@
 		{
 			parent::__construct();
 			$this->perPage = 5;
+			cek_session_login();	
 		}
 		
 		
@@ -23,27 +24,30 @@
 		
 		public function crud(){
 			// cek_session_login();	
-			$type = $this->input->get('type', TRUE);
-			$gdata = $this->input->get('data', TRUE);
-			$id = $this->input->get('id', TRUE);('id');
-			$label = $this->input->get('label', TRUE);
-			$link = $this->input->get('link', TRUE);
-			$eclass = $this->input->get('eclass', TRUE);
+			$type     = $this->input->get('type', TRUE);
+			$gdata    = $this->input->get('data', TRUE);
+			$id       = $this->input->get('id', TRUE);('id');
+			$label    = $this->input->get('label', TRUE);
+			$link     = $this->input->get('link', TRUE);
+			$eclass   = $this->input->get('eclass', TRUE);
 			$treeview = $this->input->get('parentc', TRUE);
-			$aktif = $this->input->get('aktif', TRUE);
-			$submenu = $this->input->get('submenu', TRUE);
+			$aktif    = $this->input->get('aktif', TRUE);
+			$submenu  = $this->input->get('submenu', TRUE);
+			$posisi  = $this->input->get('posisi', TRUE);
+			
 			if($type=='get'){
 				$data = array();
 				$return = $this->db->query("SELECT * FROM menu WHERE idmenu='".$id."'")->row_array();	
 				$data = array(
-				'id' => $return['idmenu'],
-				'label' => $return['nama_menu'],
-				'link' => $return['link'],
-				'eclass' => $return['icon'],
+				'id'      => $return['idmenu'],
+				'label'   => $return['nama_menu'],
+				'link'    => $return['link'],
+				'eclass'  => $return['icon'],
 				'parentc' => $return['treeview'],
-				'aktif' => $return['aktif'],
-				'level' => $return['id_level'],
-				'submenu' => $return['sub_menu']
+				'aktif'   => $return['aktif'],
+				'level'   => $return['id_level'],
+				'submenu' => $return['sub_menu'],
+				'posisi' => $return['position']
 				);	
 				echo json_encode($data);
 				}elseif($type=='simpan'){
@@ -65,15 +69,16 @@
 				
 				$i=0;
 				foreach($readbleArray as $row){
-					$qry = $this->db->query("update menu set idparent = '".$row['parentID']."', urutan='$i' where idmenu = '".$row['id']."' ");
+					$qry = $this->db->query("update menu set parent_id = '".$row['parentID']."', urutan='$i' where idmenu = '".$row['id']."' ");
 					$i++;
 				}
 				
-				}elseif($type=='hapus'){
+			}elseif($type=='hapus')
+			{
 				function recursiveDelete($id) {
 					$ci = & get_instance();
 					$data = array('hapus'=>'hapus');
-					$query = $ci->db->query("select * from menu where idparent = '".$id."' ");
+					$query = $ci->db->query("select * from menu where parent_id = '".$id."' ");
 					if ($query->num_rows >0) {
 						foreach ($query->result_array() as $current){
 							recursiveDelete($current['idmenu']);
@@ -92,7 +97,7 @@
 		}
 		
 		public function save_menu(){
-			// cek_session_login();	
+			// 
 			$type = $this->input->get('type', TRUE);
 			$id = $this->input->get('id', TRUE);('id');
 			$label = $this->input->get('label', TRUE);
@@ -156,4 +161,4 @@
 			echo json_encode($arr);
 		}
 		
-	}	
+	}		

@@ -13,7 +13,7 @@
 	}
 	function error_page()
 	{
-		$arr = ['title' => 'halaman tidak ditemukan | lenternews.tv',
+		$arr = ['title' => 'halaman tidak ditemukan',
 		'keywords' => 'berita terkini, berita banten',
 		'description' => 'berita terkini, berita banten',
 		'canonical' => base_url(),
@@ -21,7 +21,7 @@
 		'json'=>[
 		"@context" => "https://schema.org",
 		"@type" =>  "Organization",
-		"name" =>  "Lentera News",
+		"name" =>  "Banten Network",
 		"url" =>  "https://www.lenternews.tv",
 		"sameAs" => [
 		"https://www.facebook.com/Lenternews",
@@ -33,6 +33,18 @@
 		];
 		return $arr;
 	}
+	function menu_atas(){
+		$ci = & get_instance();
+		$list = $ci->model_aplikasi->CategoryList(1);
+		return $list;
+	}
+	
+	function menu_bawah(){
+		$ci = & get_instance();
+		$list = $ci->model_aplikasi->BottomList(1);
+		return $list;
+	}
+	
 	function iklan(array $val){
 		$ci = & get_instance();
 		$img = "";
@@ -427,12 +439,6 @@
 		return $title['value'];
 	}
 	
-	
-	function favicon(){
-		$ci = & get_instance();
-		$fav = $ci->db->query("SELECT favicon FROM identitas ORDER BY id_identitas DESC LIMIT 1")->row_array();
-		return $fav['favicon'];
-	}
 	
 	function cek_session_admin(){
 		$ci = & get_instance();

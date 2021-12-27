@@ -4,14 +4,14 @@
             <div class="widget-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="state">
-                        <h6>Owner</h6>
-                        <h2 class="load-owner">0</h2>
+                        <h6>Berita</h6>
+                        <h2 class="load-berita">0</h2>
                     </div>
                     <div class="icon">
-                        <i class="ik ik-user"></i>
+                        <i class="ik ik-edit"></i>
                     </div>
                 </div>
-                <small class="text-small mt-10 d-block">Total owner</small>
+                <small class="text-small mt-10 d-block">Total berita</small>
             </div>
             <div class="progress progress-sm">
                 <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
@@ -23,14 +23,14 @@
             <div class="widget-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="state">
-                        <h6>Marketing</h6>
-                        <h2 class="load-marketing">0</h2>
+                        <h6>Rubrik</h6>
+                        <h2 class="load-rubrik">0</h2>
                     </div>
                     <div class="icon">
-                        <i class="ik ik-user"></i>
+                        <i class="ik ik-folder"></i>
                     </div>
                 </div>
-                <small class="text-small mt-10 d-block">Total Marketing</small>
+                <small class="text-small mt-10 d-block">Total Rubrik</small>
             </div>
             <div class="progress progress-sm">
                 <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
@@ -42,14 +42,14 @@
             <div class="widget-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="state">
-                        <h6>Demo</h6>
-                        <h2 class="load-demo">0</h2>
+                        <h6>User</h6>
+                        <h2 class="load-user">0</h2>
                     </div>
                     <div class="icon">
                         <i class="ik ik-user"></i>
                     </div>
                 </div>
-                <small class="text-small mt-10 d-block">Total User Demo</small>
+                <small class="text-small mt-10 d-block">Total User</small>
             </div>
             <div class="progress progress-sm">
                 <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
@@ -79,10 +79,10 @@
 
 <script>
     
-    // loadcount('admin');
-    // loadcount('owner');
-    // loadcount('marketing');
-    // loadcount('demo');
+    loadcount('berita');
+    loadcount('rubrik');
+    loadcount('user');
+    loadcount('admin');
     
     function loadcount(a){
         $.ajax({

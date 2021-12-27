@@ -7,18 +7,15 @@
 		{
 			parent::__construct();
 			$this->perPage = 5;
+			cek_session_login();
 		}
 		
 		public function index()
 		{
-			$data['title'] = 'Beranda | lenteranews.tv';
+			$data['title'] = 'Beranda | '.tag_key('site_title');
 			$data['description'] = 'description';
 			$data['keywords'] = 'keywords';
-			if($this->session->g_level=='admin'){
-				$this->template->load(backend().'/themes',backend().'/content',$data);
-				}else{
-				$this->template->load(backend().'/themes',backend().'/content_home',$data);
-			}
+			$this->template->load(backend().'/themes',backend().'/content',$data);
 		}
 		public function hitung()
 		{
@@ -407,4 +404,4 @@
 			$this->template->load(backend().'/themes',backend().'/database',$data);
 		}
 		
-	}	
+	}		

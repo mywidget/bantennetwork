@@ -7,11 +7,14 @@
         {
             parent::__construct();
 			$this->perPage = 10;
+			$this->title =  pengaturan('site_title');
+            $this->description =  pengaturan('site_desc');
+            $this->keywords =  pengaturan('site_keys');
 		}
         
         public function post()
 		{
-			$data['title']       = 'Data berita | lenteranews.tv';
+			$data['title']       = 'Data berita | '.$this->title;
 			$data['description'] = 'description';
 			$data['keywords']    = 'keywords';
 			$seo = $this->uri->segment(3);
@@ -676,7 +679,7 @@
 		}
 		public function page()
 		{
-			$data['title']       = 'Page | Lenteranews';
+			$data['title']       = 'Page | '.$this->title;
 			$data['description'] = 'description';
 			$data['keywords']    = 'keywords';
 			$seo = $this->uri->segment(3);
@@ -724,4 +727,4 @@
 			->set_content_type('application/json')
 			->set_output(json_encode($arr));
 		}
-	}	
+	}		

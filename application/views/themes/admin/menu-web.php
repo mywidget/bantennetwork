@@ -67,6 +67,15 @@
 							</div>
 						</div>
 						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="posisi">Posisi</label>
+									<select id="posisi" class="custom-select form-control">
+										<option value="Y">Top</option>
+										<option value="N">Bottom</option>
+									</select>					
+								</div>
+							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="aktif">AKTIF</label>
@@ -141,17 +150,17 @@
 								
 								$thisRef = &$ref[$data->idmenu];
 								
-								$thisRef['idparent'] = $data->idparent;
+								$thisRef['idparent'] = $data->parent_id;
 								$thisRef['nama_menu'] = $data->nama_menu;
 								$thisRef['link'] = $data->link;
 								$thisRef['class'] = $data->icon;
 								$thisRef['treeview'] = $data->treeview;
 								$thisRef['idmenu'] = $data->idmenu;
 								
-								if($data->idparent == 0) {
+								if($data->parent_id == 0) {
 									$items[$data->idmenu] = &$thisRef;
 									} else {
-									$ref[$data->idparent]['child'][$data->idmenu] = &$thisRef;
+									$ref[$data->parent_id]['child'][$data->idmenu] = &$thisRef;
 								}
 								
 							}
