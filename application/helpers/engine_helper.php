@@ -1,4 +1,93 @@
 <?php 
+	function blok_widget(array $val){
+		$ci = & get_instance();
+		$qry = $ci->db->query("SELECT * from cat WHERE id_cat=".$val['id']);
+		$html ="";
+		if($qry->num_rows() >0){
+			$row = $qry->row_array();
+			$id_cat = $row['id_cat'];
+			$judul_kategori = $row['nama_kategori'];
+			$html .=  '<div class="td_block_wrap td_block_15  td-pb-full-cell td-pb-border-top td_block_template_1">
+			<h4 class="block-title">
+			<span class="td-pulldown-size">Pemerintahan</span></h4>
+			<div id="tdi_25_68f" class="td_block_inner td-column-2">
+			<div class="td-block-row">';
+			$qryberita = $ci->db->query("SELECT * from posting WHERE id_cat='$id_cat' order by tanggal DESC LIMIT 0,2");
+			if($qryberita->num_rows() >0){
+				foreach ($qryberita->result() as $row)
+				{
+					$penulis = 'Bantennetwork';
+					$judul = $row->judul;
+					$seo = $row->judul_seo;
+					$tanggal = tgl_post($row->tanggal);
+					$dateatom = standard_date('DATE_ATOM', strtotime($row->tanggal));
+					$thnt = folderthn($row->folder);
+					$blnt = folderbln($row->folder);
+					$opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row->gambar;
+					$size = @getimagesize($opathFile);
+					if($size !== false){
+						$gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row->gambar;
+						}else{
+						$gambar = base_url()."assets/no_photo.jpg";
+					}
+					$html .= '<div class="td-block-span6">
+					<div class="td_module_mx1 td_module_wrap td-animation-stack">
+					<div class="td-block14-border"></div>
+					<div class="td-module-thumb"><a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'" ><img src="'.$gambar.'" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="341" height="220"><noscript><img class="entry-thumb" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'"  width="341" height="220" /></noscript></a></div>        
+					
+					<div class="meta-info">
+					<h3 class="entry-title td-module-title"><a href="'.$seo.'" rel="bookmark" title="'.$judul.'">'.$judul.'</a></h3>
+					<div class="td-editor-date">
+					<span class="td-post-author-name"><a href="#">'.$penulis.'</a> <span>-</span> </span><span class="td-post-date"><time class="entry-date updated td-module-date" datetime="'.$tanggal.'" >'.$dateatom.'</time></span>
+					</div>
+					</div>
+					</div>
+					</div> <!-- ./td-block-span6 -->';
+				}
+			}
+			$html .= '</div><!--./row-fluid-->
+			
+			<div class="td-block-row">';
+			$qryberita = $ci->db->query("SELECT * from posting WHERE id_cat='$id_cat' order by tanggal DESC LIMIT 2,4");
+			if($qryberita->num_rows() >0){
+				foreach ($qryberita->result() as $row)
+				{
+					$judul = $row->judul;
+					$seo = $row->judul_seo;
+					$tanggal = tgl_post($row->tanggal);
+					$dateatom = standard_date('DATE_ATOM', strtotime($row->tanggal));
+					$thnt = folderthn($row->folder);
+					$blnt = folderbln($row->folder);
+					$opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row->gambar;
+					$size = @getimagesize($opathFile);
+					if($size !== false){
+						$gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row->gambar;
+						}else{
+						$gambar = base_url()."assets/no_photo.jpg";
+					}
+					$html .='<div class="td-block-span6">
+					<div class="td_module_mx2 td_module_wrap td-animation-stack">
+					<div class="td-module-thumb"><a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'" ><img src="'.$gambar.'"  style="width: 80px; height: 60px; object-fit: cover;" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="80" height="60"><noscript><img class="entry-thumb" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'"  width="80" height="60" /></noscript></a></div>            
+					<div class="item-details">
+					<h3 class="entry-title td-module-title"><a href="'.$seo.'" rel="bookmark" title="'.$judul.'">'.$judul.'</a></h3>
+					<div class="meta-info">
+					<span class="td-post-date"><time class="entry-date updated td-module-date" datetime="'.$dateatom.'" >'.$tanggal.'</time></span>\</div>
+					</div>
+					
+					</div>
+					
+					</div> <!-- ./td-block-span6 -->';
+				}
+			}
+			$html .='</div><!--./row-fluid-->
+			</div>
+			<div class="td-next-prev-wrap"><a href="#" class="td-ajax-prev-page" id="prev-page-tdi_25_68f" data-td_block_id="tdi_25_68f"><i class="td-icon-font td-icon-menu-left"></i></a><a href="#" class="td-ajax-next-page" id="next-page-tdi_25_68f" data-td_block_id="tdi_25_68f"><i class="td-icon-font td-icon-menu-right"></i></a></div>
+			</div> ';
+			
+			return $html;
+			
+		}
+	}
 	function tag_key($val)
 	{
 		$ci = & get_instance();
@@ -216,17 +305,17 @@
 		}
 		return $html;
 	}
-    function editor($id){
+	function editor($id){
 		$ci = & get_instance();
-        $query = $ci->db->query("SELECT * FROM `gtbl_user` where id_user='$id'");
-        if ($query->num_rows()>=1){
-            $tmp = $query->row_array();
-            return $tmp['nama_lengkap'];
-            }else{
-            return 'Administrator';
+		$query = $ci->db->query("SELECT * FROM `gtbl_user` where id_user='$id'");
+		if ($query->num_rows()>=1){
+			$tmp = $query->row_array();
+			return $tmp['nama_lengkap'];
+			}else{
+			return 'Administrator';
 		}
 	}
-    function tagshow($id){
+	function tagshow($id){
 		$ci = & get_instance();
 		$res = $ci->db->query("SELECT tag FROM `posting` WHERE id_post=".$id);
 		$TampungData = array();
@@ -280,25 +369,25 @@
 		
 	}
 	
-    function checkbox($data, $parent = 0, $parent_id = 0, $Nilai='') {
-        static $i = 1;
-        $ieTab = str_repeat("&nbsp;&nbsp;&nbsp;", $i * 2);
-        $tab = $i * 0 ;
-        if (isset($data[$parent])) {
-            $i++;
-            $html ='';
-            foreach ($data[$parent] as $v) {
-                $child = checkbox($data, $v['idmenu'], $parent_id, $Nilai);
-                //Edit Di Item
-                
-                $_arrNilai = explode(',', $Nilai);
-                $_ck = (array_search($v['idmenu'], $_arrNilai) === false)? '' : 'checked';
-                $html .= '<div class="custom-control custom-checkbox">';
-                $html .= ''.$ieTab .'<input type=checkbox name="data[]" id="checkb'.$v['idmenu'].'" class="custom-control-input" value="'.$v['idmenu'].'" '.$_ck.'>&nbsp;<label for="checkb'.$v['idmenu'].'" class="custom-control-label">'.$v['nama_menu'].'</label>';
-                $html .= "</div>";
-                if ($child) { $i--; $html .= $child; }
+	function checkbox($data, $parent = 0, $parent_id = 0, $Nilai='') {
+		static $i = 1;
+		$ieTab = str_repeat("&nbsp;&nbsp;&nbsp;", $i * 2);
+		$tab = $i * 0 ;
+		if (isset($data[$parent])) {
+			$i++;
+			$html ='';
+			foreach ($data[$parent] as $v) {
+				$child = checkbox($data, $v['idmenu'], $parent_id, $Nilai);
+				//Edit Di Item
+				
+				$_arrNilai = explode(',', $Nilai);
+				$_ck = (array_search($v['idmenu'], $_arrNilai) === false)? '' : 'checked';
+				$html .= '<div class="custom-control custom-checkbox">';
+				$html .= ''.$ieTab .'<input type=checkbox name="data[]" id="checkb'.$v['idmenu'].'" class="custom-control-input" value="'.$v['idmenu'].'" '.$_ck.'>&nbsp;<label for="checkb'.$v['idmenu'].'" class="custom-control-label">'.$v['nama_menu'].'</label>';
+				$html .= "</div>";
+				if ($child) { $i--; $html .= $child; }
 			}
-            return $html;
+			return $html;
 		}
 	}
 	function checkbox_rubrik($data, $parent = 0, $parent_id = 0, $Nilai='') {
@@ -466,4 +555,4 @@
 			$arrt = array('limit'=>6,'kolom'=>4,'klass'=>'tiga');
 		}
 		return $arrt;
-	}    																											
+	}    																																	

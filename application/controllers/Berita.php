@@ -154,9 +154,9 @@
 							$gambar = FCPATH.'assets/post/'.$tahun.'/'.$bulan.'/'.$file;
 							if(file_exists($gambar)){
 								@unlink('./assets/post/'.$tahun.'/'.$bulan.'/'.$file);
-								@unlink('./assets/post/'.$tahun.'/'.$bulan.'/316x177_'.$file);
-								@unlink('./assets/post/'.$tahun.'/'.$bulan.'/600x400_'.$file);
-								@unlink('./assets/post/'.$tahun.'/'.$bulan.'/1300x670_'.$file);
+								@unlink('./assets/post/'.$tahun.'/'.$bulan.'/341x200_'.$file);
+								@unlink('./assets/post/'.$tahun.'/'.$bulan.'/681x400_'.$file);
+								@unlink('./assets/post/'.$tahun.'/'.$bulan.'/864x467_'.$file);
 							}
 							$gbr             = $this->upload->data();
 							//Compress Image
@@ -402,27 +402,27 @@
 			'image_library' => 'GD2',
 			'source_image'  => './assets/post/'.$tahun.'/'.$bulan.'/'.$file_name,
 			'maintain_ratio'=> FALSE,
-			'width'         => 1300,
-			'height'        => 670,
-			'new_image'     => './assets/post/'.$tahun.'/'.$bulan.'/1300x670_'.$file_name
+			'width'         => 684,
+			'height'        => 467,
+			'new_image'     => './assets/post/'.$tahun.'/'.$bulan.'/864x467_'.$file_name
 			),
 			// image Medium
 			array(
 			'image_library' => 'GD2',
 			'source_image'  => './assets/post/'.$tahun.'/'.$bulan.'/'.$file_name,
 			'maintain_ratio'=> FALSE,
-			'width'         => 600,
+			'width'         => 681,
 			'height'        => 400,
-			'new_image'     => './assets/post/'.$tahun.'/'.$bulan.'/600x400_'.$file_name
+			'new_image'     => './assets/post/'.$tahun.'/'.$bulan.'/681x400_'.$file_name
 			),
 			// Image Small
 			array(
 			'image_library' => 'GD2',
 			'source_image'  => './assets/post/'.$tahun.'/'.$bulan.'/'.$file_name,
 			'maintain_ratio'=> FALSE,
-			'width'         => 316,
-			'height'        => 177,
-			'new_image'     => './assets/post/'.$tahun.'/'.$bulan.'/316x177_'.$file_name
+			'width'         => 340,
+			'height'        => 220,
+			'new_image'     => './assets/post/'.$tahun.'/'.$bulan.'/341x200_'.$file_name
 			));
 			
 			$this->load->library('image_lib', $config[0]);

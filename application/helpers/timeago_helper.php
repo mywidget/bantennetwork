@@ -330,6 +330,40 @@
 		return $bln;	
 		
 	}
+	function tgl_post($tgl,$Jam=true,$Wib=true){
+		$tanggal 	= strtotime($tgl);
+		$bln_array 	= array (
+		'01'=>'Jan',
+		'02'=>'Feb',
+		'03'=>'Mar',
+		'04'=>'Apr',
+		'05'=>'May',
+		'06'=>'Jun',
+		'07'=>'Jul',
+		'08'=>'Aug',
+		'09'=>'Sep',
+		'10'=>'Oct',
+		'11'=>'Nov',
+		'12'=>'Des'
+		);
+		$hari_arr 	= Array (	'0'=>'Minggu',
+		'1'=>'Senin',
+		'2'=>'Selasa',
+		'3'=>'Rabu',
+		'4'=>'Kamis',
+		'5'=>'Jum`at',
+		'6'=>'Sabtu'
+		);
+		$hari 	= @$hari_arr[date('w',$tanggal)];
+		$tggl 	= date('j',$tanggal);
+		$bln 	= @$bln_array[date('m',$tanggal)];
+		$thn 	= date('Y',$tanggal);
+		$jam 	= $Jam ? date ('H:i',$tanggal) : '';
+		$wib	= $Wib ? 'WIB' :'';
+		return "$hari, $tggl $bln $thn $jam $wib";	
+		
+	}
+	
 	function datetimes($tgl,$Jam=true,$Wib=true){
 		$tanggal 	= strtotime($tgl);
 		$bln_array 	= array (

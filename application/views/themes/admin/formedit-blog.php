@@ -88,7 +88,7 @@
 				<div class="card-header"><h3>Pengaturan</h3></div>
 				<div class="card-body">
 					<div class="text-center"> 
-						<img src="<?=base_url('assets/post/').folderthn($post->tanggal).'/'.folderbln($post->tanggal).'/316x177_'.$post->gambar;?>" id="avatar" class="rounded" height="150">
+						<img src="<?=base_url('assets/post/').folderthn($post->tanggal).'/'.folderbln($post->tanggal).'/341x200_'.$post->gambar;?>" id="avatar" class="rounded" height="150">
 					</div>
 					<div class="form-group row mt-2">
 						<label for="caption" class="col-sm-3 col-form-label">caption</label>

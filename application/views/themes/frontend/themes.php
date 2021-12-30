@@ -11,16 +11,15 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 		<!-- All in One SEO Pro 4.1.5.1 -->
 		<title><?=$title;?></title>
 		<meta name="robots" content="max-image-preview:large" />
-		<meta name="google-site-verification" content="IJeoWdxWDa-3BJ4hXIAoZjsLHtb0xOsp4IOuoMLI-T4" />
 		<link rel="canonical" href="<?=base_url(); ?>" />
 		<meta property="og:locale" content="id_ID" />
 		<meta property="og:site_name" content="BantenNews.co.id -Berita Banten Hari Ini" />
 		<meta property="og:type" content="article" />
 		<meta property="og:title" content="Beranda | BantenNews.co.id -Berita Banten Hari Ini" />
-		<meta property="og:url" content="https://www.bantennews.co.id/" />
+		<meta property="og:url" content="#" />
 		<meta property="article:published_time" content="2021-05-14T02:22:57+00:00" />
 		<meta property="article:modified_time" content="2021-11-28T06:26:26+00:00" />
-		<meta property="article:publisher" content="https://www.facebook.com/bantennews.co.id" />
+		<meta property="article:publisher" content="#" />
 		<meta name="twitter:card" content="summary" />
 		<meta name="twitter:domain" content="www.bantennews.co.id" />
 		<meta name="twitter:title" content="Beranda | BantenNews.co.id -Berita Banten Hari Ini" />
@@ -30,12 +29,8 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 		<script type="text/javascript" >
 			
 		</script>
-		<script async src="https://www.google-analytics.com/analytics.js"></script>
-		<!-- All in One SEO Pro -->
 		
 		<link rel='dns-prefetch' href='//fonts.googleapis.com' />
-		<link rel='dns-prefetch' href='//s.w.org' />
-		<link rel='dns-prefetch' href='//pagead2.googlesyndication.com' />
 		<link rel="alternate" type="application/rss+xml" title="BantenNews.co.id -Berita Banten Hari Ini &raquo; Feed" href="<?=base_url(); ?>feed/" />
 		
 		<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/style.min.css?ver=5.7.2' type='text/css' media='all' />
@@ -72,30 +67,22 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
         <meta name="generator" content="Site Kit by Google 1.45.0" />	
 		<script>
 			window.fbAsyncInit = function() {
-			FB.init({
-			xfbml      : true,
-			version    : 'v3.2'
-			});
-			}; (function(d, s, id){
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id)) {return;}
-			js = d.createElement(s); js.id = id;
-			js.src = "https://connect.facebook.net/en_US/sdk.js";
-			fjs.parentNode.insertBefore(js, fjs);
+				FB.init({
+					xfbml      : true,
+					version    : 'v3.2'
+				});
+				}; (function(d, s, id){
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement(s); js.id = id;
+				js.src = "https://connect.facebook.net/en_US/sdk.js";
+				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'facebook-jssdk'));
 		</script>
 		
 		<!-- Google AdSense snippet added by Site Kit -->
 		<meta name="google-adsense-platform-account" content="">
 		<meta name="google-adsense-platform-domain" content="sitekit.withgoogle.com">
-		<!-- End Google AdSense snippet added by Site Kit -->
-		
-		<!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="https://www.bantennews.co.id/wp-content/plugins/js_composer/assets/css/vc_lte_ie9.min.css" media="screen"><![endif]-->			<style type="text/css">
-			/* If html does not have either class, do not show lazy loaded images. */
-			html:not( .jetpack-lazy-images-js-enabled ):not( .js ) .jetpack-lazy-image {
-			display: none;
-			}
-		</style>
 		
 		
 		
@@ -246,7 +233,78 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 		}		</style>
 		<noscript>
 		<style type="text/css"> .wpb_animate_when_almost_visible { opacity: 1; }</style></noscript>
-		
+		<script>
+			var tdBlocksArray = []; //here we store all the items for the current page
+			
+			//td_block class - each ajax block uses a object of this class for requests
+			function tdBlock() {
+				this.id = '';
+				this.block_type = 1; //block type id (1-234 etc)
+				this.atts = '';
+				this.td_column_number = '';
+				this.td_current_page = 1; //
+				this.post_count = 0; //from wp
+				this.found_posts = 0; //from wp
+				this.max_num_pages = 0; //from wp
+				this.td_filter_value = ''; //current live filter value
+				this.is_ajax_running = false;
+				this.td_user_action = ''; // load more or infinite loader (used by the animation)
+				this.header_color = '';
+				this.ajax_pagination_infinite_stop = ''; //show load more at page x
+			}
+			var tdLocalCache = {};
+			
+			( function () {
+				"use strict";
+				
+				tdLocalCache = {
+					data: {},
+					remove: function (resource_id) {
+						delete tdLocalCache.data[resource_id];
+					},
+					exist: function (resource_id) {
+						return tdLocalCache.data.hasOwnProperty(resource_id) && tdLocalCache.data[resource_id] !== null;
+					},
+					get: function (resource_id) {
+						return tdLocalCache.data[resource_id];
+					},
+					set: function (resource_id, cachedData) {
+						tdLocalCache.remove(resource_id);
+						tdLocalCache.data[resource_id] = cachedData;
+					}
+				};
+			})();
+			var td_viewport_interval_list=[{"limitBottom":767,"sidebarWidth":251},{"limitBottom":1023,"sidebarWidth":339}];
+			var td_animation_stack_effect="type0";
+			var tds_animation_stack=true;
+			var td_animation_stack_specific_selectors=".entry-thumb, img";
+			var td_animation_stack_general_selectors=".td-animation-stack img, .td-animation-stack .entry-thumb, .post img";
+			var tdc_is_installed="yes";
+			var td_ajax_url="https:\/\/www.bantennetwork.go\/news.json?td_theme_name=Newsmag&v=4.9.6";
+			var td_get_template_directory_uri="https:\/\/www.bantennews.co.id\/wp-content\/plugins\/td-composer\/legacy\/common";
+			var tds_snap_menu="smart_snap_always";
+			var tds_logo_on_sticky="show";
+			var tds_header_style="";
+			var td_please_wait="Mohon Tunggu\u2026";
+			var td_email_user_pass_incorrect="Pengguna dan password salah!";
+			var td_email_user_incorrect="Email atau nama pengguna salah!";
+			var td_email_incorrect="Email tidak benar!";
+			var tds_more_articles_on_post_enable="";
+			var tds_more_articles_on_post_time_to_wait="";
+			var tds_more_articles_on_post_pages_distance_from_top=0;
+			var tds_theme_color_site_wide="#4db2ec";
+			var tds_smart_sidebar="enabled";
+			var tdThemeName="Newsmag";
+			var td_magnific_popup_translation_tPrev="Sebelumnya (tombol panah kiri)";
+			var td_magnific_popup_translation_tNext="Berikutnya (tombol panah kanan)";
+			var td_magnific_popup_translation_tCounter="%curr% dari %total%";
+			var td_magnific_popup_translation_ajax_tError="Isi dari %url% tidak dapat dimuat.";
+			var td_magnific_popup_translation_image_tError="Gambar #%curr% tidak dapat dimuat.";
+			var tdBlockNonce="40fa6a48d0";
+			var tdDateNamesI18n={"month_names":["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"],"month_names_short":["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"],"day_names":["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"],"day_names_short":["Ming","Sen","Sel","Rab","Kam","Jum","Sab"]};
+			var td_ad_background_click_link="";
+			var td_ad_background_click_target="";
+		</script>
 	</head>
 	
 	<body class="home page-template-default page page-id-99463 news global-block-template-1 wpb-js-composer js-comp-ver-5.4.7 vc_responsive tdb-template td-animation-stack-type0 td-full-layout" itemscope="itemscope" itemtype="https://schema.org/WebPage">
@@ -549,5 +607,6 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 				</div>
 			</div><!--close td-outer-container-->
 		</div><!--close td-outer-wrap-->
+		<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/tagdiv_theme.min.js?ver=4.9.6' id='td-site-min-js'></script>
 	</body>
 </html>

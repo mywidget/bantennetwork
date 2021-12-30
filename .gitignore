@@ -6,3 +6,4 @@ assets/post/*
 application/config/database.php
 
 .htaccess
+*.bak
