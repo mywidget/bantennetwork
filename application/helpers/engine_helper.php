@@ -4,14 +4,17 @@
 		
 		$qry = $ci->db->query("SELECT * from cat WHERE id_cat=".$val['id']);
 		$html ="";
-		if($val['limit']==1){
-			$limit = 2;
-			$limit_qry = 5;
-			}else{
-			$limit = 3;
-			$limit_qry = 6;
-		}
+		
 		if($qry->num_rows() >0){
+		$_limit = $val['limit'];
+			if($val['limit']==1){
+				$limit = 2;
+				$limit_qry = 5;
+				}else{
+				$limit = 3;
+				$limit_qry = 6;
+			}
+			
 			$row = $qry->row_array();
 			$id_cat = $row['id_cat'];
 			$judul_kategori = $row['nama_kategori'];
@@ -23,7 +26,7 @@
 			$config['base_url']    = base_url('home/ajaxBlog');
 			$config['total_rows']  = $totalRec;
 			$config['per_page']    = $limit_qry;
-			$config['link_func']   = 'searchFilter';
+			$config['link_func']   = 'searchFilter'.$id_cat;
 			
 			// Initialize pagination library 
 			$ci->ajax_paging->initialize($config);
@@ -41,11 +44,6 @@
 			<span class="td-pulldown-size">'.$judul_kategori.'</span></h4>
 			<div id="post_content_'.$id_cat.'" class="td_block_inner td-column-2">
 			<div class="td-block-row">';
-			
-			
-			
-			// $qryberita = $ci->db->query("SELECT * from posting WHERE id_cat='$id_cat' order by tanggal DESC LIMIT $limit_qry");
-			// if($qryberita->num_rows() >0){
 			$num =1;
 			foreach ($qryberita as $row)
 			{
@@ -100,11 +98,30 @@
 			$html .= $ci->ajax_paging->create_links();
 			$html .='</div>
 			<div class="td-next-prev-wrap">
-			<a href="#" class="td-ajax-prev-page" id="prev-page-tdi_25_'.$id_cat.'" data-id="tdi_25_'.$id_cat.'"><i class="td-icon-font td-icon-menu-left"></i></a>
-			<a href="#" class="td-ajax-next-page" id="next-page-tdi_25_'.$id_cat.'" data-id="tdi_25_'.$id_cat.'"><i class="td-icon-font td-icon-menu-right"></i></a>
+			<a href="#" class="td-ajax-prev-page" id="prev-page-tdi_25_'.$id_cat.'" data-id="'.$id_cat.'"><i class="td-icon-font td-icon-menu-left"></i></a>
+			<a href="#" class="td-ajax-next-page" id="next-page-tdi_25_'.$id_cat.'" data-id="'.$id_cat.'"><i class="td-icon-font td-icon-menu-right"></i></a>
 			</div>
 			</div> ';
-			
+			$html .='<script type="text/javascript">
+			var nama = "'.$judul_kategori.'"
+			function searchFilter'.$id_cat.'(page_num){
+			var cat = "'.$id_cat.'"
+			var limit = "'.$_limit.'"
+			page_num = page_num?page_num:0;
+			$.ajax({
+			type: "POST",
+			url: "/home/ajaxblog/"+page_num,
+			data:{page:page_num,cat:cat,nama:nama,limit:limit},
+			beforeSend: function(){
+			$(".loading").show();
+			},
+			success: function(html){
+			$("#post_content_'.$id_cat.'").html(html);
+			$(".loading").fadeOut("slow");
+			}
+			});
+			}
+			</script>';
 			
 			return $html;
 		}
@@ -716,4 +733,4 @@
 			$arrt = array('limit'=>6,'kolom'=>4,'klass'=>'tiga');
 		}
 		return $arrt;
-	}    																																										
+	}    																																											

@@ -1,6 +1,6 @@
 <div class="td_block_wrap td_block_15  td-pb-full-cell td-pb-border-top td_block_template_1">
-	<h4 class="block-title"><span class="td-pulldown-size">'.$judul_kategori.'</span></h4>
-	<div id="post_content_1" class="td_block_inner td-column-2">
+	<h4 class="block-title"><span class="td-pulldown-size"><?=$nama;?></span></h4>
+	<div id="post_content_<?=$cat;?>" class="td_block_inner td-column-2">
 		<div class="td-block-row">
 			
 			<?php
@@ -22,7 +22,7 @@
 						}else{
 						$gambar = base_url()."assets/no_photo.jpg";
 					}
-					if($num < 3){
+					if($num < $limits){
 						
 						$html .= '<div class="td-block-span6">
 						<div class="td_module_mx1 td_module_wrap td-animation-stack">
@@ -55,8 +55,16 @@
 					$num++;
 				}
 				echo $html;
-				echo $this->ajax_paging->create_links();
 			?>
 		</div>
+		<?=$this->ajax_paging->create_links();?>
 	</div>	
 </div>	
+<script>
+	
+	(function($){
+		
+		$(".entry-title").dotdotdot({	height: 70,	fallbackToLetter: true,	watch: true});
+		$(".title-sub").dotdotdot({	height: 50,	fallbackToLetter: true,	watch: true});
+	})(jQuery);
+</script>
