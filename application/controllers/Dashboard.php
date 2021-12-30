@@ -18,29 +18,26 @@
             $where4 = ['posting.tanggal <'=>mdate("%Y-%m-%d %H:%i:%s"),'`posting`.`publish`' => 'Y'];
             $where5 = ['posting.tanggal <'=>mdate("%Y-%m-%d %H:%i:%s"),'`posting`.`publish`' => 'Y','`posting`.`status`' => '2'];
             $tanggal = date('Y-m-d H:i:s');
+            
             $data = [
             'title'=>'Berita Terkini, Berita Hari Ini Banten dan Indonesia - Lenteranews.tv',
             'description' => tag_key('site_desc'),
             'keywords' => tag_key('site_keys'),
             'canonical'=>base_url(),
             'url_image'=>base_url('assets/thumb.jpg'),
-            'json'=>[
-            "@context" => "https://schema.org",
-            "@type" =>  "Organization",
-            "name" =>  "Lentera News",
-            "url" =>  "https://www.lenternews.tv",
-            "sameAs" => [
-            "https://www.facebook.com/Lenternews",
-            "https://twitter.com/Lenternews",
-            "https://www.youtube.com/user/Lenternews",
-            "https://www.pinterest.com/Lenternews/"
-            ]
-            ],
+            'publisher'=>sosmed_single('FB'),
             'headline1'=>$this->model_app->view_join_where('posting','cat','id_cat',$where1,'tanggal','DESC',0,1),
             'headline2'=>$this->model_app->view_join_where('posting','cat','id_cat',$where2,'tanggal','desc',1,5),
             'terkini'=>$this->model_app->view_join_where('posting','cat','id_cat',$where5,'tanggal','desc',0,10),
             ];
-           
+            
+            $data['json'] =[
+            "@context" => "https://schema.org",
+            "@type" =>  "Organization",
+            "name" =>  tag_key('site_name'),
+            "url" =>  tag_key('site_url'),
+            "sameAs" => sosmed()];
+            
             $this->template->load(template().'/themes',template().'/content',$data);
         }
-    }                
+    }                    

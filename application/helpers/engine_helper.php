@@ -1,6 +1,133 @@
 <?php 
 	function blok_widget(array $val){
 		$ci = & get_instance();
+		
+		$qry = $ci->db->query("SELECT * from cat WHERE id_cat=".$val['id']);
+		$html ="";
+		if($val['limit']==1){
+			$limit = 2;
+			$limit_qry = 5;
+			}else{
+			$limit = 3;
+			$limit_qry = 6;
+		}
+		if($qry->num_rows() >0){
+			$row = $qry->row_array();
+			$id_cat = $row['id_cat'];
+			$judul_kategori = $row['nama_kategori'];
+			$html .=  '<div class="td_block_wrap td_block_15  td-pb-full-cell td-pb-border-top td_block_template_1">
+			<h4 class="block-title">
+			<span class="td-pulldown-size">'.$judul_kategori.'</span></h4>
+			<div id="tdi_25_68" class="td_block_inner td-column-2">
+			<div class="td-block-row">';
+			
+			$conditions['returnType'] = 'count';
+			$totalRec = $ci->model_data->getRows("posting",$conditions);
+			// Pagination configuration 
+			$config['target']      = '#tdi_'.$id_cat;
+			$config['base_url']    = base_url('home/ajaxblog');
+			$config['total_rows']  = $totalRec;
+			$config['per_page']    = 6;
+			$config['link_func']   = 'searchFilter'.$id_cat;
+			
+			// Initialize pagination library 
+			$ci->ajax_paging->initialize($config);
+			
+			// Get records 
+			$conditions = array(
+			'limit' => 6
+			);
+			
+			
+			$qryberita =  $ci->model_data->getRows("posting",$conditions);
+			
+			// $qryberita = $ci->db->query("SELECT * from posting WHERE id_cat='$id_cat' order by tanggal DESC LIMIT $limit_qry");
+			// if($qryberita->num_rows() >0){
+			$num =1;
+			foreach ($qryberita as $row)
+			{
+				$penulis = 'Bantennetwork';
+				$judul = $row->judul;
+				$seo = $row->judul_seo;
+				$tanggal = tgl_post($row->tanggal);
+				$dateatom = standard_date('DATE_ATOM', strtotime($row->tanggal));
+				$thnt = folderthn($row->folder);
+				$blnt = folderbln($row->folder);
+				$opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row->gambar;
+				$size = @getimagesize($opathFile);
+				if($size !== false){
+					$gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row->gambar;
+					}else{
+					$gambar = base_url()."assets/no_photo.jpg";
+				}
+				if($num < $limit){
+					
+					$html .= '<div class="td-block-span6">
+					<div class="td_module_mx1 td_module_wrap td-animation-stack">
+					<div class="td-block14-border"></div>
+					<div class="td-module-thumb"><a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'" ><img style="width: 341px; height: 220px; object-fit: cover;" src="'.$gambar.'" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="341" height="220"><noscript><img class="entry-thumb" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'"  width="341" height="220" /></noscript></a></div>        
+					
+					<div class="meta-info">
+					<h3 class="entry-title td-module-title"><a href="'.$seo.'" rel="bookmark" title="'.$judul.'">'.$judul.'</a></h3>
+					<div class="td-editor-date">
+					<span class="td-post-author-name"><a href="#">'.$penulis.'</a> <span>-</span> </span><span class="td-post-date"><time class="entry-date updated td-module-date" datetime="'.$tanggal.'" >'.$dateatom.'</time></span>
+					</div>
+					</div>
+					</div>
+					</div> <!-- ./td-block-span6 -->';
+					}else{
+					
+					$html .='<div class="td-block-span6">
+					<div class="td_module_mx2 td_module_wrap td-animation-stack">
+					<div class="td-module-thumb"><a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'" ><img src="'.$gambar.'"  style="width: 80px; height: 60px; object-fit: cover;" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="80" height="60"><noscript><img class="entry-thumb" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'"  width="80" height="60" /></noscript></a></div>            
+					<div class="item-details">
+					<h3 class="entry-title td-module-title title-sub"><a href="'.$seo.'" rel="bookmark" title="'.$judul.'">'.$judul.'</a></h3>
+					<div class="meta-info">
+					<span class="td-post-date"><time class="entry-date updated td-module-date" datetime="'.$dateatom.'" >'.$tanggal.'</time></span></div>
+					</div>
+					
+					</div>
+					
+					</div> <!-- ./td-block-span6 -->';
+				}
+				$num++;
+			}
+			// }
+			$html .= '</div><!--./row-fluid-->
+			</div>
+			<div class="td-next-prev-wrap">
+			<a href="#" class="td-ajax-prev-page" id="prev-page-tdi_25_'.$id_cat.'" data-id="tdi_25_'.$id_cat.'"><i class="td-icon-font td-icon-menu-left"></i></a>
+			<a href="#" class="td-ajax-next-page" id="next-page-tdi_25_'.$id_cat.'" data-id="tdi_25_'.$id_cat.'"><i class="td-icon-font td-icon-menu-right"></i></a>
+			</div>
+			</div> ';
+			$html .= $ci->ajax_paging->create_links();
+			$html .= '<script>
+			jQuery(document).ready(function($){
+			function searchFilter'.$id_cat.'(page_num){
+			page_num = page_num?page_num:0;
+			var cat = $(this).attr("data-id");
+			$.ajax({
+			type: "POST",
+			url: "/home/ajaxblog/"+page_num,
+			data:{page:page_num,cat:cat},
+			beforeSend: function(){
+			$(".loading").show();
+			},
+			success: function(html){
+			$("#tdi_'.$id_cat.'").html(html);
+			$(".loading").fadeOut("slow");
+			}
+			});
+			}
+			});
+			</script>';
+			return $html;
+			
+		}
+	}
+	
+	function blok_widgetxx(array $val){
+		$ci = & get_instance();
 		$qry = $ci->db->query("SELECT * from cat WHERE id_cat=".$val['id']);
 		$html ="";
 		if($qry->num_rows() >0){
@@ -9,10 +136,10 @@
 			$judul_kategori = $row['nama_kategori'];
 			$html .=  '<div class="td_block_wrap td_block_15  td-pb-full-cell td-pb-border-top td_block_template_1">
 			<h4 class="block-title">
-			<span class="td-pulldown-size">Pemerintahan</span></h4>
+			<span class="td-pulldown-size">'.$judul_kategori.'</span></h4>
 			<div id="tdi_25_68f" class="td_block_inner td-column-2">
 			<div class="td-block-row">';
-			$qryberita = $ci->db->query("SELECT * from posting WHERE id_cat='$id_cat' order by tanggal DESC LIMIT 0,2");
+			$qryberita = $ci->db->query("SELECT * from posting WHERE id_cat='$id_cat' order by tanggal DESC LIMIT 0,".$val['limit']);
 			if($qryberita->num_rows() >0){
 				foreach ($qryberita->result() as $row)
 				{
@@ -33,7 +160,7 @@
 					$html .= '<div class="td-block-span6">
 					<div class="td_module_mx1 td_module_wrap td-animation-stack">
 					<div class="td-block14-border"></div>
-					<div class="td-module-thumb"><a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'" ><img src="'.$gambar.'" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="341" height="220"><noscript><img class="entry-thumb" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'"  width="341" height="220" /></noscript></a></div>        
+					<div class="td-module-thumb"><a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'" ><img style="width: 341px; height: 220px; object-fit: cover;" src="'.$gambar.'" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="341" height="220"><noscript><img class="entry-thumb" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'"  width="341" height="220" /></noscript></a></div>        
 					
 					<div class="meta-info">
 					<h3 class="entry-title td-module-title"><a href="'.$seo.'" rel="bookmark" title="'.$judul.'">'.$judul.'</a></h3>
@@ -69,9 +196,9 @@
 					<div class="td_module_mx2 td_module_wrap td-animation-stack">
 					<div class="td-module-thumb"><a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'" ><img src="'.$gambar.'"  style="width: 80px; height: 60px; object-fit: cover;" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="80" height="60"><noscript><img class="entry-thumb" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'"  width="80" height="60" /></noscript></a></div>            
 					<div class="item-details">
-					<h3 class="entry-title td-module-title"><a href="'.$seo.'" rel="bookmark" title="'.$judul.'">'.$judul.'</a></h3>
+					<h3 class="entry-title td-module-title title-sub"><a href="'.$seo.'" rel="bookmark" title="'.$judul.'">'.$judul.'</a></h3>
 					<div class="meta-info">
-					<span class="td-post-date"><time class="entry-date updated td-module-date" datetime="'.$dateatom.'" >'.$tanggal.'</time></span>\</div>
+					<span class="td-post-date"><time class="entry-date updated td-module-date" datetime="'.$dateatom.'" >'.$tanggal.'</time></span></div>
 					</div>
 					
 					</div>
@@ -81,13 +208,63 @@
 			}
 			$html .='</div><!--./row-fluid-->
 			</div>
-			<div class="td-next-prev-wrap"><a href="#" class="td-ajax-prev-page" id="prev-page-tdi_25_68f" data-td_block_id="tdi_25_68f"><i class="td-icon-font td-icon-menu-left"></i></a><a href="#" class="td-ajax-next-page" id="next-page-tdi_25_68f" data-td_block_id="tdi_25_68f"><i class="td-icon-font td-icon-menu-right"></i></a></div>
+			<div class="td-next-prev-wrap">
+			<a href="#prev" class="td-ajax-prev-page" id="prev-page-tdi_25_'.$id_cat.'" data-td_block_id="tdi_25_'.$id_cat.'"><i class="td-icon-font td-icon-menu-left"></i></a>
+			<a href="#next" class="td-ajax-next-page" id="next-page-tdi_25_'.$id_cat.'" data-td_block_id="tdi_25_'.$id_cat.'"><i class="td-icon-font td-icon-menu-right"></i></a>
+			</div>
 			</div> ';
 			
 			return $html;
 			
 		}
 	}
+	function load_block($posisi)
+	{
+		$ci = & get_instance();
+		$html = '';
+		$data = $ci->model_app->view_where_ordering('widget',['pub'=>0,'posisi'=>$posisi],'urutan','ASC');
+		if($data->num_rows() >0){
+			foreach ($data->result_array() as $row)
+			{
+				$html .= blok_widget(array('id'=>$row['id_cat'],'limit'=>$row['jml']));
+			}
+		}
+		return $html;
+	}
+	
+	function sosmed()
+	{
+		$ci = & get_instance();
+		$html = '';
+		$data = $ci->model_app->view_where_ordering('sosmed',['publish'=>'Y'],'urutan','ASC');
+		if($data->num_rows() >0){
+			foreach ($data->result_array() as $row)
+			{
+				$implode[] = $row['link'];
+			}
+			$html .= json_encode($implode);
+		}
+		return $html;
+	}
+	
+	function sosmed_single($val)
+	{
+		$ci = & get_instance();
+		$html = '';
+		$data = $ci->model_app->view_where('sosmed',['publish'=>'Y','tag'=>$val]);
+		if($data->num_rows() >0){
+			$row = $data->row_array();
+			$html .=$row['link'];
+		}
+		return $html;
+	}
+	
+	function logo()
+	{
+		$html = base_url('uploads/').tag_key('site_logo');
+		return $html;
+	}
+	
 	function tag_key($val)
 	{
 		$ci = & get_instance();
@@ -555,4 +732,4 @@
 			$arrt = array('limit'=>6,'kolom'=>4,'klass'=>'tiga');
 		}
 		return $arrt;
-	}    																																	
+	}    																																									

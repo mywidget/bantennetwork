@@ -18,33 +18,63 @@
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="site_name">Nama Website</label>
-									<input type="text" name="site_name" value="<?=$setting['site_name'];?>" class="form-control" id="site_name" placeholder="Nama Website">
+									<div class="input-group mb-3">
+										<input type="text" name="site_name" value="<?=$setting['site_name'];?>" class="form-control" id="site_name" placeholder="Nama Website">
+										<div class="input-group-append">
+											<button class="btn btn-success" type="button" id="site_name_save" value="site_name_save">Simpan</button>
+										</div>
+									</div>
 								</div>
 								<div class="form-group col-md-6">
 									<label for="site_url">Url</label>
-									<input type="text" name="site_url" value="<?=$setting['site_url'];?>" class="form-control" id="site_url" placeholder="site_url">
+									<div class="input-group mb-3">
+										<input type="text" name="site_url" value="<?=$setting['site_url'];?>" class="form-control" id="site_url" placeholder="Nama Website">
+										<div class="input-group-append">
+											<button class="btn btn-success" type="button" id="site_url_save" value="site_url_save">Simpan</button>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="site_title">Tagline</label>
-									<input type="text" name="site_title" value="<?=$setting['site_title'];?>" class="form-control" id="site_title" placeholder="Tagline Website" required>
+									<div class="input-group mb-3">
+										<input type="text" name="site_title" value="<?=$setting['site_title'];?>" class="form-control" id="site_title" placeholder="Tagline Website" required>
+										<div class="input-group-append">
+											<button class="btn btn-success" type="button"  value="site_title_save">Simpan</button>
+										</div>
+									</div>
 								</div>
 								
 								<div class="form-group col-md-6">
 									<label for="site_keys">Keywords</label>
-									<input type="text" name="site_keys" value="<?=$setting['site_keys'];?>" class="form-control" id="site_keys" placeholder="Keywords website">
+									<div class="input-group mb-3">
+										<input type="text" name="site_keys" value="<?=$setting['site_keys'];?>" class="form-control" id="site_keys" placeholder="Keywords website">
+										<div class="input-group-append">
+											<button class="btn btn-success" type="button"  value="site_keys_save">Simpan</button>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="site_desc">Deskripsi</label>
-									<input type="text" name="site_desc" value="<?=$setting['site_desc'];?>" class="form-control" id="site_desc" placeholder="Deskripsi Website" required>
+									<div class="input-group mb-3">
+										<input type="text" name="site_desc" value="<?=$setting['site_desc'];?>" class="form-control" id="site_desc" placeholder="Deskripsi Website" required>
+										<div class="input-group-append">
+											<button class="btn btn-success" type="button" value="site_desc_save">Simpan</button>
+										</div>
+									</div>
 								</div>
 								
 								<div class="form-group col-md-6">
 									<label for="site_company">Nama Perusahaan</label>
-									<input type="text" name="site_company" value="<?=$setting['site_company'];?>" class="form-control" id="site_company" placeholder="site_company">
+									<div class="input-group mb-3">
+										<input type="text" name="site_company" value="<?=$setting['site_company'];?>" class="form-control" id="site_company" placeholder="site_company">
+										<div class="input-group-append">
+											<button class="btn btn-success" type="button" value="site_company_save">Simpan</button>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="form-row">
@@ -69,7 +99,6 @@
 									</div>
 								</div>
 							</div>
-							<button id="simpan" class="btn btn-success" type="button">Update</button>
 						</form>
 					</div>
 				</div>
@@ -111,90 +140,46 @@
 			$(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
 		});
 		
-		$('#updateLogo').on('click', function () {
-			if($("#profit").val() === ''){
-				showNotif('bottom-right','Update','Profit kosong','error');
-				return;
+		
+		
+		$('button').on('click', function () {
+			var fired_button = $(this).val();
+			if(fired_button=='site_name_save'){
+				var dataString = {type : "site_name",site_val : $("#site_name").val()};
+				}else if(fired_button=='site_url_save'){
+				var dataString = {type : "site_url",site_val : $("#site_url").val()};
+				}else if(fired_button=='site_title_save'){
+				var dataString = {type : "site_title",site_val : $("#site_title").val()};
+				}else if(fired_button=='site_keys_save'){
+				var dataString = {type : "site_keys",site_val : $("#site_keys").val()};
+				}else if(fired_button=='site_desc_save'){
+				var dataString = {type : "site_desc",site_val : $("#site_desc").val()};
+				}else if(fired_button=='site_company_save'){
+				var dataString = {type : "site_company",site_val : $("#site_company").val()};
 			}
-			var dataString = {
-				type : 'uplogo',
-				profit : $("#profit").val(),
-				logo : $("#logo_url").val()
-			};
 			
 			$.ajax({
-				type: "POST",
-				url: base_url+"akun/crud_profil/",
-				data: dataString,
-				cache : false,
-				dataType: "json",
+				url: '<?php echo base_url()?>info/setting_save', /*point to server-side PHP script */
+				dataType: 'json',  
+				data: dataString,                         
+				type: 'POST',
 				beforeSend: function (xhr) {
-					$(".se-pre-con").fadeIn();
 					NProgress.start();
+					$(".se-pre-con").fadeIn();
 				},
-				success: function(data){
-					if(data.status==200){
+				success: function(res){
+					if(res.status==200){
+						$("#"+res.name_id).val(res.name_val);
 						showNotif('bottom-right','Update','Data berhasil di update','success');
 					}
-					$(".se-pre-con").fadeOut('slow');
 					NProgress.done();
-					// console.log(data);
+					$(".se-pre-con").fadeOut('slow');
 					} ,error: function(xhr, status, error) {
 					showNotif('bottom-right','Update',error,'error');
-				},
-			});
-		});
-		$('#simpan').on('click', function () {
-			if($("#img_url").val() === ''){ 
-				var dataString = {
-					type : $("#type").val(),
-					img_url : '',
-					nama : $("#nama_lengkap").val(),
-					email : $("#email").val(),
-					no_hp : $("#no_hp").val(),
-					percetakan : $("#percetakan").val(),
-					nama_web : $("#nama_web").val(),
-					alamat : $("#alamat").val()
-				};
-				}else{
-				var dataString = {
-					type : $("#type").val(),
-					img_url : $("#img_url").val(),
-					nama : $("#nama_lengkap").val(),
-					email : $("#email").val(),
-					no_hp : $("#no_hp").val(),
-					percetakan : $("#percetakan").val(),
-					nama_web : $("#nama_web").val(),
-					alamat : $("#alamat").val()
-				};
-			}
-			$.ajax({
-				type: "POST",
-				url: base_url+"akun/crud_profil/",
-				data: dataString,
-				cache : false,
-				dataType: "json",
-				beforeSend: function (xhr) {
-					NProgress.start();
-					$(".se-pre-con").fadeIn();
-				},
-				success: function(data){
-					if(data.status==200){
-						$('#attr_hp1,#attr_hp2').html(data.no_hp);
-						$('#attr_nama1,#attr_nama2').html(data.nama_lengkap);
-						$('#attr_alamat').html(data.alamat);
-						$('#attr_web').html(data.nama_web);
-						showNotif('bottom-right','Update Profil','Data berhasil di update','success');
-						$("#img_url").val('');
-					}
-					$(".se-pre-con").fadeOut('slow');
 					NProgress.done();
-					// console.log(data);
-					} ,error: function(xhr, status, error) {
-					showNotif('bottom-right','Update Profil',error,'error');
-				},
+					$(".se-pre-con").fadeOut('slow');
+				}
 			});
-			
 		});
 		
 		$('#input_logo').on("change", function () {

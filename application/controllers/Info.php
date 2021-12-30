@@ -31,15 +31,37 @@
             ];
             $this->template->load(backend() . '/themes', backend() . '/website', $data);
         }
+        public function setting_save()
+        {
+           
+            $type = $this->input->post('type');
+            $data = ["value"=>$this->input->post('site_val')];
+            $update = $this->model_app->update('setting', $data, array('name' => $type));
+            if ($update['status'] == 'ok') {
+                $arr = [
+                'status' => 200,
+                'name_id' => $this->input->post('type'),
+                'name_val' => $this->input->post('site_val')
+                ];
+                } else {
+                $arr = ['status' => 404];
+            }
+            echo json_encode($arr, JSON_UNESCAPED_SLASHES);
+        }
         public function crud_profil()
         {
+            print_r($_POST);exit();
             $arr = ['error'];
-            if ($this->input->post('type') == 'owner') {
-                if ($this->input->post('img_url') == '') {
-                    $data = [
-                    'no_hp' => $this->input->post('no_hp'),
-                    'nama_lengkap'   => $this->input->post('nama'),
-                    'alamat'         => $this->input->post('alamat'),
+            if ($this->input->post('type') == 'setting') {
+                if ($this->input->post('img_logo') == '') {
+                    $data = ["site_name"  =>pengaturan('site_name'),
+                    "site_url" =>pengaturan('site_url'),
+                    "site_title" =>pengaturan('site_title'),
+                    "site_keys" =>pengaturan('site_keys'),
+                    "site_desc" =>pengaturan('site_desc'),
+                    "site_company" =>pengaturan('site_company'),
+                    "site_favicon" =>pengaturan('site_favicon'),
+                    "site_logo" =>pengaturan('site_logo')
                     ];
                     } else {
                     $data = [
@@ -62,31 +84,7 @@
                     $arr = ['status' => 404];
                 }
             }
-            if ($this->input->post('type') == 'marketing') {
-                if ($this->input->post('img_url') == '') {
-                    $data = [
-                    'no_hp' => $this->input->post('no_hp'),
-                    'nama_lengkap'   => $this->input->post('nama')
-                    ];
-                    } else {
-                    $data = [
-                    'no_hp' => $this->input->post('no_hp'),
-                    'nama_lengkap'   => $this->input->post('nama'),
-                    'profile_image'  => $this->input->post('img_url')
-                    ];
-                }
-                
-                $update = $this->model_app->update('gtbl_user', $data, array('id_user' => $this->session->g_id));
-                if ($update['status'] == 'ok') {
-                    $arr = [
-                    'status' => 200, 'no_hp' => $_POST['no_hp'],
-                    'nama_lengkap' => $_POST['nama'],
-                    'profile_image' => $_POST['img_url']
-                    ];
-                    } else {
-                    $arr = ['status' => 404];
-                }
-            }
+            
             if ($this->input->post('type') == 'ganti') {
                 $password = password_hash($this->input->post('pass2'), PASSWORD_DEFAULT);
                 $update = $this->model_app->update('gtbl_user', array('password' => $password), array('id_user' => $this->session->g_id));
@@ -121,7 +119,7 @@
             
             $this->load->library('upload', $config);
             $this->upload->initialize($config);
-                $nama_file = "";
+            $nama_file = "";
             if ( ! $this->upload->do_upload('input_logo'))
             {
                 $data = array('error' => $this->upload->display_errors());
@@ -204,4 +202,4 @@
             ->set_content_type('application/json', 'utf-8')
             ->set_output(json_encode($arr)); 
         }
-    }                
+    }                                

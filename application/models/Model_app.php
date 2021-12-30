@@ -101,7 +101,6 @@
             $this->db->where($data);
             $this->db->order_by($order,$ordering);
             return $this->db->get($table);
-            return $query->result_array();
         }
         
         public function view_join_one($table1,$table2,$field,$order,$ordering){

@@ -46,52 +46,7 @@
 			return $result; 
 		} 
 		
-		//model produk
-		function getProduk($params = array()){
-			// print_r($params);
-			
-			$this->db->select('*'); 
-			$this->db->from('jenis_produk'); 
-			$this->db->join('produk', '`jenis_produk`.`id_jenis` = `produk`.`kategori_produk`');
-			
-			if(array_key_exists("where", $params)){ 
-				foreach($params['where'] as $key => $val){ 
-					$this->db->where($key, $val); 
-				} 
-			}
-			if(array_key_exists("search", $params)){ 
-				if(!empty($params['search']['keywords'])){ 
-					$this->db->like('nama_produk', $params['search']['keywords']); 
-				} 
-			}
-			if(!empty($params['search']['sortBy'])){ 
-				$this->db->order_by('`produk`.`nama_produk`', $params['search']['sortBy']); 
-			}
-			if(array_key_exists("returnType",$params) && $params['returnType'] == 'count'){ 
-				$result = $this->db->count_all_results(); 
-				}else{ 
-				if(array_key_exists("id", $params) || (array_key_exists("returnType", $params) && $params['returnType'] == 'single')){ 
-					if(!empty($params['id'])){ 
-						$this->db->where('produk.id_produk', $params['id']); 
-					} 
-					$query = $this->db->get(); 
-					$result = $query->row_array(); 
-					}else{ 
-					$this->db->order_by('produk.id_produk', 'desc'); 
-					if(array_key_exists("start",$params) && array_key_exists("limit",$params)){ 
-						$this->db->limit($params['limit'],$params['start']); 
-						}elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){ 
-						$this->db->limit($params['limit']); 
-					} 
-					
-					$query = $this->db->get(); 
-					$result = ($query->num_rows() > 0)?$query->result_array():FALSE; 
-				} 
-			} 
-			
-			// Return fetched data 
-			return $result; 
-		}
+		
 		function getBlog($params = array()){
 			// print_r($params);
 			$dbprefix = $this->db->dbprefix('cat');
@@ -357,12 +312,12 @@
 				}else{ 
 				if(array_key_exists("id", $params) || (array_key_exists("returnType", $params) && $params['returnType'] == 'single')){ 
 					if(!empty($params['id'])){ 
-						$this->db->where('id', $params['id']); 
+						$this->db->where('id_post', $params['id']); 
 					} 
 					$query = $this->db->get(); 
-					$result = $query->row_array(); 
+					$result = $query->row(); 
 					}else{ 
-					$this->db->order_by('id', 'desc'); 
+					$this->db->order_by('id_post', 'desc'); 
 					if(array_key_exists("start",$params) && array_key_exists("limit",$params)){ 
 						$this->db->limit($params['limit'],$params['start']); 
 						}elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){ 
@@ -370,7 +325,7 @@
 					} 
 					
 					$query = $this->db->get(); 
-					$result = ($query->num_rows() > 0)?$query->result_array():FALSE; 
+					$result = ($query->num_rows() > 0)?$query->result():FALSE; 
 				} 
 			} 
 			
