@@ -67,8 +67,8 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 		<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/td_legacy_main.css?ver=b37a2d185c66e85a9217ef5895023b06' type='text/css' media='all' />
 		<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/jetpack.css?ver=10.3' type='text/css' media='all' />
 		<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/jquery.min.js?ver=3.5.1'></script>
-		
-		<meta property="fb:pages" content="1642190052707521 " />
+		<!--script src="//code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script-->
+		<meta property="fb:pages" content="" />
 		
         <meta name="generator" content="Site Kit by Google 1.45.0" />	
 		<script>

@@ -152,30 +152,48 @@
                                 
                                 <?=load_block(1);?>
                                 <script type="text/javascript">
-                                    (function($){
-                                        
-                                        // var offset=0;
-                                        // var dataid=0;
-                                        // // loadCurrentPage();
-                                        // $("#next-page-tdi_25_1, #prev-page-tdi_25_1").click(function(){
-                                        // var dataid = $(this).attr("data-id");
-                                        // offset = ($(this).attr('id')=='next-page-tdi_25_1') ? offset + 6 : offset - 6;
-                                        // if (offset<0)
-                                        // offset=0;
-                                        // else
-                                        // loadCurrentPage(dataid);
-                                        // });
-                                        // function loadCurrentPage(dataid){
-                                        // $.ajax({
-                                        // url: '/home/next_page',
-                                        // data :{offset:offset,id:dataid},
-                                        // type: 'POST',
-                                        // cache: true,
-                                        // success: function (data) {
-                                        // $('#tdi_25_68').html(data);
-                                        // }
-                                        // });
-                                        // }
+                                    
+                                    function searchFilter(page_num){
+                                        page_num = page_num?page_num:0;
+                                        var cat = $(this).attr("data-id");
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/home/ajaxblog/"+page_num,
+                                            data:{page:page_num,cat:cat},
+                                            beforeSend: function(){
+                                                $(".loading").show();
+                                            },
+                                            success: function(html){
+                                                $("#post_content_1").html(html);
+                                                $(".loading").fadeOut("slow");
+                                            }
+                                        });
+                                    }
+                                
+                                (function($){
+                                
+                                // var offset=0;
+                                // var dataid=0;
+                                // // loadCurrentPage();
+                                // $("#next-page-tdi_25_1, #prev-page-tdi_25_1").click(function(){
+                                // var dataid = $(this).attr("data-id");
+                                // offset = ($(this).attr('id')=='next-page-tdi_25_1') ? offset + 6 : offset - 6;
+                                // if (offset<0)
+                                // offset=0;
+                                // else
+                                // loadCurrentPage(dataid);
+                                // });
+                                // function loadCurrentPage(dataid){
+                                // $.ajax({
+                                // url: '/home/next_page',
+                                // data :{offset:offset,id:dataid},
+                                // type: 'POST',
+                                // cache: true,
+                                // success: function (data) {
+                                // $('#tdi_25_68').html(data);
+                                // }
+                                // });
+                                // }
                                     })(jQuery);
                                     
                                 </script>

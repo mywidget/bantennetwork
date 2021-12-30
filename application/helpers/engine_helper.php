@@ -15,31 +15,34 @@
 			$row = $qry->row_array();
 			$id_cat = $row['id_cat'];
 			$judul_kategori = $row['nama_kategori'];
-			$html .=  '<div class="td_block_wrap td_block_15  td-pb-full-cell td-pb-border-top td_block_template_1">
-			<h4 class="block-title">
-			<span class="td-pulldown-size">'.$judul_kategori.'</span></h4>
-			<div id="tdi_25_68" class="td_block_inner td-column-2">
-			<div class="td-block-row">';
 			
 			$conditions['returnType'] = 'count';
 			$totalRec = $ci->model_data->getRows("posting",$conditions);
 			// Pagination configuration 
-			$config['target']      = '#tdi_'.$id_cat;
-			$config['base_url']    = base_url('home/ajaxblog');
+			$config['target']      = '#post_content_'.$id_cat;
+			$config['base_url']    = base_url('home/ajaxBlog');
 			$config['total_rows']  = $totalRec;
-			$config['per_page']    = 6;
-			$config['link_func']   = 'searchFilter'.$id_cat;
+			$config['per_page']    = $limit_qry;
+			$config['link_func']   = 'searchFilter';
 			
 			// Initialize pagination library 
 			$ci->ajax_paging->initialize($config);
 			
 			// Get records 
 			$conditions = array(
-			'limit' => 6
+			'limit' => $limit_qry
 			);
 			
 			
 			$qryberita =  $ci->model_data->getRows("posting",$conditions);
+			
+			$html .=  '<div class="td_block_wrap td_block_15  td-pb-full-cell td-pb-border-top td_block_template_1">
+			<h4 class="block-title">
+			<span class="td-pulldown-size">'.$judul_kategori.'</span></h4>
+			<div id="post_content_'.$id_cat.'" class="td_block_inner td-column-2">
+			<div class="td-block-row">';
+			
+			
 			
 			// $qryberita = $ci->db->query("SELECT * from posting WHERE id_cat='$id_cat' order by tanggal DESC LIMIT $limit_qry");
 			// if($qryberita->num_rows() >0){
@@ -93,36 +96,17 @@
 				$num++;
 			}
 			// }
-			$html .= '</div><!--./row-fluid-->
-			</div>
+			$html .= '</div><!--./row-fluid-->';
+			$html .= $ci->ajax_paging->create_links();
+			$html .='</div>
 			<div class="td-next-prev-wrap">
 			<a href="#" class="td-ajax-prev-page" id="prev-page-tdi_25_'.$id_cat.'" data-id="tdi_25_'.$id_cat.'"><i class="td-icon-font td-icon-menu-left"></i></a>
 			<a href="#" class="td-ajax-next-page" id="next-page-tdi_25_'.$id_cat.'" data-id="tdi_25_'.$id_cat.'"><i class="td-icon-font td-icon-menu-right"></i></a>
 			</div>
 			</div> ';
-			$html .= $ci->ajax_paging->create_links();
-			$html .= '<script>
-			jQuery(document).ready(function($){
-			function searchFilter'.$id_cat.'(page_num){
-			page_num = page_num?page_num:0;
-			var cat = $(this).attr("data-id");
-			$.ajax({
-			type: "POST",
-			url: "/home/ajaxblog/"+page_num,
-			data:{page:page_num,cat:cat},
-			beforeSend: function(){
-			$(".loading").show();
-			},
-			success: function(html){
-			$("#tdi_'.$id_cat.'").html(html);
-			$(".loading").fadeOut("slow");
-			}
-			});
-			}
-			});
-			</script>';
-			return $html;
 			
+			
+			return $html;
 		}
 	}
 	
@@ -732,4 +716,4 @@
 			$arrt = array('limit'=>6,'kolom'=>4,'klass'=>'tiga');
 		}
 		return $arrt;
-	}    																																									
+	}    																																										

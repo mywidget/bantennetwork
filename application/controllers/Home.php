@@ -6,7 +6,7 @@
         public function __construct()
         {
             parent::__construct();
-			$this->perPage = 10;
+			$this->perPage = 6;
 			$this->title =  pengaturan('site_title');
             $this->description =  pengaturan('site_desc');
             $this->keywords =  pengaturan('site_keys');
@@ -34,6 +34,7 @@
 			}
             
 			$cat = $this->input->post('cat');
+			$link_func = $this->input->post('link_func');
 			
             
             // Get record count 
@@ -41,7 +42,7 @@
             $totalRec = $this->model_data->getRows("posting",$conditions);
             
             // Pagination configuration 
-            $config['target']      = '#posts_content';
+            $config['target']      = '#posts_content_1';
             $config['base_url']    = base_url('berita/ajaxblog');
             $config['total_rows']  = $totalRec;
             $config['per_page']    = $this->perPage;
@@ -61,7 +62,7 @@
 			}
 			
             unset($conditions['returnType']);
-            $data['posts'] = $this->model_data->getRows("posting",$conditions);
+            $data['next_data'] = $this->model_data->getRows("posting",$conditions);
             
             
             // Load the data list view 
