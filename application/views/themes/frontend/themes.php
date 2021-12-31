@@ -68,7 +68,7 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 		<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/jetpack.css?ver=10.3' type='text/css' media='all' />
 		<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/jquery.min.js?ver=3.5.1'></script>
 		<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/jquery-migrate.min.js?ver=3.3.2'></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"></script>
+		<script src="<?=base_url('assets/frontend/'); ?>js/lottie.min.js"></script>
 		<!--script src="//code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script-->
 		<meta property="fb:pages" content="" />
 		
@@ -212,7 +212,7 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 								</div>
 							</div>        </div>
 					</div>
-				</div>
+					</div>
 				<?php echo $contents; ?>
 				<!-- Instagram -->
 				
