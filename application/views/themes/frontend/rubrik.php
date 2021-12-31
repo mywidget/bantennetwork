@@ -110,6 +110,7 @@
 				<div id="show_rubrik">
 					<div class="td-block-row">
 						<?php
+						if(!empty($posts)){
 							foreach($posts as $row){
 								$judul = $row['judul'];
 								$seo = base_url().$row['judul_seo'];
@@ -139,7 +140,7 @@
 									</div>
 								</div>
 							</div><!-- ./td-block-span6 -->
-						<?php } ?>
+						<?php } }?>
 						
 					</div><!--./row-fluid-->
 					
