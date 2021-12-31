@@ -34,187 +34,57 @@
 				
 				if($query->num_rows() > 0)
 				{
-					foreach($query->result_array() AS $row)
+					foreach($query->result_array() AS $row2)
 					{
-						$thnt = folderthn($row['folder']);
-                        $blnt = folderbln($row['folder']);
-                        $opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
-                        $size = @getimagesize($opathFile);
-                        if($size !== false){
-                            $gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
-                            }else{
-                            $gambar = base_url()."assets/no_photo.jpg";
-						}
-						$postID = $row['id_post'];
-						if(!empty($durasi)){
-							$label = '<h6 style="width:50%;text-align:center;background:#ff0000;border-radius:10px;color:#fff;position:relative;z-index:5;top:70px;left:55px">VIDEO</h6>';
-							}else{
-							$label = '<h6 style="width:50%;text-align:center;background:#ff0000;border-radius:10px;color:#fff;position:relative;z-index:5;top:70px;left:5px">'.$row['nama_kategori'].'</h6>';
-						}
-					?>
-					<section class="row">
-						<a class="col-xs-4 col-sm-4 col-md-4 col-lg-4" href="<?=base_url('detail/').$row['judul_seo'];?>"><img alt="Image" src="<?=$gambar;?>"></a>
-						<article class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-							<header>
-								<div class="info">
-									<p class="categori"><?=$row['nama_kategori'];?></p><time datetime="15-01-2018 10:18"><?=dtimes($row['tanggal'],true,false);?></time>
-									</div><a href="<?=base_url('detail/').$row['judul_seo'];?>">
-								<h5><?=$row['judul'];?></h5></a>
-							</header>
-						</article>
-					</section>
-					<?php }
-					if($totalRowCount > $showLimit){ ?>
-					<section class="wrapper-lainnya">
-						<div class="show_more_main" id="show_more_main<?php echo $postID; ?>">
-							<span id="<?php echo $postID; ?>" class="show_more" title="Load more posts">BERITA LAINNYA</span>
-						</div>
-					</section>
-					<?php 
-					}
-				}
-			}
-		}
-		function rubrik_lainnya()
-		{
-			$seo = $this->input->post('seo');
-			$postid = $this->input->post('id');
-			if(!empty($postid)){
-				
-				// Count all records except already displayed
-				$query = $this->db->query("SELECT COUNT(*) as num_rows FROM posting WHERE id_post < ".$postid." ORDER BY id_post DESC");
-				$row = $query->row_array();
-				$totalRowCount = $row['num_rows'];
-				
-				$showLimit = 5;
-				// Get records from the database
-				$query = $this->db->query("SELECT 
-				`posting`.`id_post`,
-				`posting`.`judul`,
-				`posting`.`judul_seo`,
-				`posting`.`tanggal`,
-				`posting`.`folder`,
-				`posting`.`gambar`,
-				`posting`.`youtube`,
-				`posting`.`durasi`,
-				`cat`.`nama_kategori`
-				FROM
-				`cat`
-				INNER JOIN `posting` ON (`cat`.`id_cat` = `posting`.`id_cat`) WHERE cat.kategori_seo='".$seo."' AND posting.id_post < ".$postid." ORDER BY posting.id_post DESC LIMIT ".$showLimit);
-				
-				if($query->num_rows() > 0)
-				{
-					foreach($query->result_array() AS $row)
-					{
-						$thnt = folderthn($row['folder']);
-                        $blnt = folderbln($row['folder']);
-                        $opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
-                        $size = @getimagesize($opathFile);
-                        if($size !== false){
-                            $gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
-                            }else{
-                            $gambar = base_url()."assets/no_photo.jpg";
-						}
-						$postID = $row['id_post'];
-						if(!empty($durasi)){
-							$label = '<h6 style="width:50%;text-align:center;background:#ff0000;border-radius:10px;color:#fff;position:relative;z-index:5;top:70px;left:55px">VIDEO</h6>';
-							}else{
-							$label = '<h6 style="width:50%;text-align:center;background:#ff0000;border-radius:10px;color:#fff;position:relative;z-index:5;top:70px;left:5px">'.$row['nama_kategori'].'</h6>';
-						}
-					?>
-					<section class="row">
-						<a class="col-xs-4 col-sm-4 col-md-4 col-lg-4" href="<?=base_url('detail/').$row['judul_seo'];?>"><img alt="Image" src="<?=$gambar;?>"></a>
-						<article class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-							<header>
-								<div class="info">
-									<p class="categori"><?=$row['nama_kategori'];?></p><time datetime="15-01-2018 10:18"><?=dtimes($row['tanggal'],true,false);?></time>
-									</div><a href="<?=base_url('detail/').$row['judul_seo'];?>">
-								<h5><?=$row['judul'];?></h5></a>
-							</header>
-						</article>
-					</section>
-					<?php }
-					if($totalRowCount > $showLimit){ ?>
-					<section class="wrapper-lainnya">
-						<div class="show_more_main" id="show_more_main<?php echo $postID; ?>">
-							<span id="<?=$postID; ?>" data-seo="<?=$seo;?>" class="show_more_cat" title="Load more posts"> LAINNYA</span>
-						</div>
-					</section>
-					<?php 
-					}
-				}
-			}
-		}
-		function more(){
-			$postid = $this->input->post('id');
-			if(!empty($postid)){
-				
-				// Count all records except already displayed
-				$query = $this->db->query("SELECT COUNT(*) as num_rows FROM posting WHERE id_post < ".$_POST['id']." ORDER BY id_post DESC");
-				$row = $query->row_array();
-				$totalRowCount = $row['num_rows'];
-				
-				$showLimit = 4;
-				
-				// Get records from the database
-				$query = $this->db->query("SELECT 
-				`posting`.`id_post`,
-				`posting`.`judul`,
-				`posting`.`judul_seo`,
-				`posting`.`tanggal`,
-				`posting`.`folder`,
-				`posting`.`gambar`,
-				`posting`.`youtube`,
-				`posting`.`durasi`,
-				`cat`.`nama_kategori`
-				FROM
-				`cat`
-				INNER JOIN `posting` ON (`cat`.`id_cat` = `posting`.`id_cat`) WHERE posting.id_post < ".$_POST['id']." ORDER BY posting.id_post DESC LIMIT $showLimit");
-				
-				if($query->num_rows() > 0){ 
-					foreach($query->result_array() AS $row){
-						$thnt = folderthn($row['folder']);
-						$blnt = folderbln($row['folder']);
-						$opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
+						$postID = $row2['id_post'];
+						$judul = $row2['judul'];
+						$seo = base_url().$row2['judul_seo'];
+						$tanggal = tgl_post($row2['tanggal']);
+						$dateatom = standard_date('DATE_ATOM', strtotime($row2['tanggal']));
+						$thnt = folderthn($row2['folder']);
+						$blnt = folderbln($row2['folder']);
+						$opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row2['gambar'];
 						$size = @getimagesize($opathFile);
 						if($size !== false){
-							$gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
+							$gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row2['gambar'];
 							}else{
 							$gambar = base_url()."assets/no_photo.jpg";
 						}
-						$postID = $row['id_post'];
-						if(!empty($durasi)){
-							$label = '<h6 style="width:50%;text-align:center;background:#ff0000;border-radius:10px;color:#fff;position:relative;z-index:5;top:70px;left:55px">VIDEO</h6>';
-							}else{
-							$label = '<h6 style="width:50%;text-align:center;background:#ff0000;border-radius:10px;color:#fff;position:relative;z-index:5;top:70px;left:5px">'.$row['nama_kategori'].'</h6>';
-						}
+						
 					?>
-					<li>
-						<div class="card card-type-1">
-							<div class="wrapper clearfix">
-								<a class="col terkini" href="/detail/<?=$row['judul_seo'];?>" style="background: #eee">
-									<?=$label;?>
-									<img loading="lazy" src="<?=$gambar;?>" alt="<?=$row['judul'];?>" class="terkini lazy" width="150">
-								</a>
-								<a class="col terkini" href="/detail/<?=$row['judul_seo'];?>">
-									<span class="col terkini"><?=tgl_tiket($row['tanggal'],true,true);?></span>
-									<h2 class="title terkini"><?=$row['judul'];?></h2>
+					<div class="td-block-span6">
+						<div class="td_module_7 td_module_wrap td-animation-stack">
+							<div class="td-module-thumb">
+								<a href="<?=$seo;?>" rel="bookmark" class="td-image-wrap " title="<?=$judul;?>" ><img  style="width: 100px; height: 75px; object-fit: cover;" src="<?=$gambar;?>" title="<?=$judul;?>" data-type="image_tag" data-img-url="<?=$gambar;?>" width="100" height="75">
+									<noscript>
+										<img class="entry-thumb" src="<?=$gambar;?>" alt="" title="<?=$judul;?>" data-type="image_tag" data-img-url="<?=$gambar;?>"  width="100" height="75" />
+									</noscript>
 								</a>
 							</div>
+							<div class="item-details">
+								<h3 class="entry-title td-module-title title-more"><a href="<?=$seo;?>" rel="bookmark" title="<?=$judul;?>"><?=$judul;?></a></h3>
+								<div class="meta-info">
+								<span class="td-post-date"><time class="entry-date updated td-module-date" datetime="<?=$dateatom;?>" ><?=$tanggal;?></time></span></div>
+							</div>
 						</div>
-						<div class="dotted"></div>
-					</li>
+					</div> <!-- ./td-block-span6 -->
 					<?php }
 					if($totalRowCount > $showLimit){ ?>
-					<div class="w-70" style="margin:0 auto">
+					<div class="td-load-more-wrap">
 						<div class="show_more_main" id="show_more_main<?php echo $postID; ?>">
-							<span class="loding" style="display: none;"><span class="loding_txt">LOADING</span></span>
-							<span id="<?php echo $postID; ?>" class="show_more" title="Load more posts">BERITA LAINNYA</span>
+							<a href="#show_more_main" id="<?php echo $postID; ?>" class="td_ajax_load_more td_ajax_load_more_js">Berita Lainnya<i class="td-icon-font td-icon-menu-down"></i>
+							</a>
 						</div>
+						
 					</div>
-					<?php }
+					<script>
+					$(".title-more").dotdotdot({	height: 70,	fallbackToLetter: true,	watch: true});
+					</script>
+					<?php 
+					}
 				}
 			}
 		}
+		
 	}
 ?>
