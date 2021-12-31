@@ -110,6 +110,7 @@
                                     <div class="td_block_inner">
                                         <div class="td-block-row postList">
                                             <?php
+                                            $postID =0;
                                                 foreach($terkini AS $row2)
                                                 { 
                                                     $postID = $row2['id_post'];
