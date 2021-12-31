@@ -112,7 +112,7 @@
 						<?php
 							foreach($posts as $row){
 								$judul = $row['judul'];
-								$seo = $row['judul_seo'];
+								$seo = base_url().$row['judul_seo'];
 								$tanggal = tgl_post($row['tanggal']);
 								$dateatom = standard_date('DATE_ATOM', strtotime($row['tanggal']));
 								$thnt = folderthn($row['folder']);
