@@ -1,5 +1,6 @@
 application/logs/*
 .well-known/*
+assets/backup_db/*
 assets/banner/*
 assets/post/*
 application/config/database.php
