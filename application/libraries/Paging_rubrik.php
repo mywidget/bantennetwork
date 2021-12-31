@@ -5,35 +5,35 @@ class Paging_rubrik{
     var $total_rows      = '';
     var $per_page        = 10;
     var $num_links       =  2;
-    var $cur_page        =  0;
-    var $first_link      = '<i class="ik ik-chevrons-left"></i>';
-    var $next_link       = '<i class="ik ik-chevron-right"></i>';
-    var $prev_link       = '<i class="ik ik-chevron-left"></i>';
-    var $last_link       = '<i class="ik ik-chevrons-right"></i>';
+    var $cur_page        =  1;
+    var $first_link      = '<i class="td-icon-menu-left"></i>';
+    var $next_link       = '<i class="td-icon-menu-right"></i>';
+    var $prev_link       = '<i class="td-icon-menu-left"></i>';
+    var $last_link       = '<i class="td-icon-menu-right"></i>';
     var $uri_segment     = 3;
-    var $full_tag_open   = '<ul class="pagination float-right">';
-    var $full_tag_close  = '</ul>';
-    var $first_tag_open  = '<li class="page-item">';
-    var $first_tag_close = '</li>';
-    var $last_tag_open   = '<li class="page-item">';
-    var $last_tag_close  = '</li>';
-    var $cur_tag_open    = '<li class="page-item active"><a class="page-link" href="#">';
-    var $cur_tag_close   = '</a></li>';
-    var $next_tag_open   = '<li class="page-item next">';
-    var $next_tag_close  = '</li>';
-    var $prev_tag_open   = '<li class="page-item">';
-    var $prev_tag_close  = '</a></li>';
-    var $num_tag_open    = '<li class="page-item">';
-    var $num_tag_close   = '</li>';
+    var $full_tag_open   = '';
+    var $full_tag_close  = '';
+    var $first_tag_open  = '';
+    var $first_tag_close = '';
+    var $last_tag_open   = '';
+    var $last_tag_close  = '';
+    var $cur_tag_open    = '<span class="current">';
+    var $cur_tag_close   = '</span>';
+    var $next_tag_open   = '';
+    var $next_tag_close  = '';
+    var $prev_tag_open   = '';
+    var $prev_tag_close  = '';
+    var $num_tag_open    = '';
+    var $num_tag_close   = '';
     var $target          = '';
-    var $anchor_class    = 'page-link';
+    var $anchor_class    = 'page';
     var $show_count      = true;
     var $link_func       = 'getData';
     var $loading         = '.loading';
-    var $show_tag_open   = '<ul class="pagination float-left">';
-    var $show_tag_close  = '</ul>';
-	var $link_info_l	= '<li class="page-item disabled">';
-	var $link_info_r	= '</li>';
+    var $show_tag_open   = '';
+    var $show_tag_close  = '';
+	var $link_info_l	= '<span class="pages">';
+	var $link_info_r	= '</span>';
 
     /**
      * Constructor
@@ -84,7 +84,7 @@ class Paging_rubrik{
 
         // Is there only one page? Hm... nothing more to do here then.
         if ($num_pages == 1){
-            $info ='<span class="mt-2">Menampilkan : ' . $this->total_rows . '</span>';
+            $info ='Menampilkan : ' . $this->total_rows;
             return $info;
         }
 

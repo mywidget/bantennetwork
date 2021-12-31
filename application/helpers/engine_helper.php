@@ -339,8 +339,16 @@
 	function tag_key($val)
 	{
 		$ci = & get_instance();
-		$data = $ci->model_app->view_where('setting',['name'=>$val])->row();
-		return $data->value;
+		$value='';
+		$query = $ci->model_app->view_where('setting',['name'=>$val]);
+		$row = $query->row();
+		if (isset($row))
+		{
+			$value = $row->value;
+		}else{
+			$value = "";
+		}
+		return $value;
 	}
 	function kalimat($text,$jml){
 		$kalimat = strip_tags($text); // membuat paragraf pada isi berita dan mengabaikan tag html
@@ -351,10 +359,11 @@
 	function error_page()
 	{
 		$arr = ['title' => 'halaman tidak ditemukan',
-		'keywords' => tag_key('keywords'),
-		'description' => tag_key('description'),
+		'keywords' => tag_key('site_keys'),
+		'description' => tag_key('site_desc'),
 		'canonical' => base_url(),
 		'url_image' => '#',
+		'publisher' => tag_key('site_name'),
 		'json'=>[
 		"@context" => "https://schema.org",
 		"@type" =>  "Organization",
@@ -825,4 +834,4 @@
 			$arrt = array('limit'=>6,'kolom'=>4,'klass'=>'tiga');
 		}
 		return $arrt;
-	}    																																																					
+	}    																																																							

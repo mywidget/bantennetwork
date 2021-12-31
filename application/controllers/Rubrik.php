@@ -53,13 +53,13 @@
 				$totalRec = $this->model_data->getProgram($conditions); 
 				
 				// Pagination configuration 
-				$config['target']      = '#dataList'; 
+				$config['target']      = '#show_rubrik'; 
 				$config['base_url']    = base_url('rubrik/rubrikPagination/'); 
 				$config['total_rows']  = $totalRec; 
 				$config['per_page']    = $this->perPage; 
-				
+				$config['link_func']   = 'searchRubrik';
 				// Initialize pagination library 
-				$this->ajax_paging->initialize($config); 
+				$this->paging_rubrik->initialize($config); 
 				
 				// Get records 
 				$conditions = array( 
@@ -80,42 +80,52 @@
 		function rubrikPagination(){ 
 			// Define offset 
 			$page = $this->input->post('page'); 
+			$cat = $this->input->post('cat'); 
 			if(!$page){ 
 				$offset = 0; 
 				}else{ 
 				$offset = $page; 
 			} 
-			
-			// Get record count 
-			$conditions['returnType'] = 'count'; 
-			$conditions['where'] = array(
-			'kategori_seo' =>'program',
-			'posting.tanggal <' => mdate("%Y-%m-%d %H:%i:%s")
-			);
-			$totalRec = $this->model_data->getProgram($conditions); 
-			
-			// Pagination configuration 
-			$config['target']      = '#dataList'; 
-			$config['base_url']    = base_url('program/programPagination/'); 
-			$config['total_rows']  = $totalRec; 
-			$config['per_page']    = $this->perPage; 
-			
-			// Initialize pagination library 
-			$this->ajax_paging->initialize($config); 
-			
-			// Get records 
-			$conditions = array( 
-            'start' => $offset, 
-            'limit' => $this->perPage 
-			); 
-			$conditions['where'] = array(
-			'kategori_seo' => 'program',
-			'posting.tanggal <' => mdate("%Y-%m-%d %H:%i:%s")
-			);
-			$data['posts'] = $this->model_data->getProgram($conditions); 
-			
-			// Load the data list view 
-			$this->load->view('more/ajax-program', $data, false); 
+			$qry = $this->model_app->view_where('cat',['kategori_seo'=>$cat,'pub'=>'Y'])->row();
+			if(!empty($qry)){
+				
+				$id_cat = $qry->id_cat;
+				$data['kategori'] =  $qry->nama_kategori;
+				$data['kategoriseo'] =  $cat;
+				// Get record count 
+				$conditions['returnType'] = 'count'; 
+				$conditions['where'] = array(
+				'kategori_seo' =>$cat,
+				'posting.tanggal <' => mdate("%Y-%m-%d %H:%i:%s")
+				);
+				$totalRec = $this->model_data->getProgram($conditions); 
+				
+				// Pagination configuration 
+				$config['target']      = '#show_rubrik'; 
+				$config['base_url']    = base_url('rubrik/rubrikPagination/'); 
+				$config['total_rows']  = $totalRec; 
+				$config['per_page']    = $this->perPage; 
+				$config['link_func']   = 'searchRubrik';
+				// Initialize pagination library 
+				$this->paging_rubrik->initialize($config); 
+				
+				// Get records 
+				$conditions = array( 
+				'start' => $offset, 
+				'limit' => $this->perPage 
+				); 
+				$conditions['where'] = array(
+				'kategori_seo' => $cat,
+				'posting.tanggal <' => mdate("%Y-%m-%d %H:%i:%s")
+				);
+				$data['posts'] = $this->model_data->getProgram($conditions); 
+				
+				// Load the data list view 
+				$this->load->view('more/ajax-rubrik', $data, false); 
+			}else{
+				$data = error_page();
+				$this->template->load(template().'/themes',template().'/404',$data);
+			}
 		} 
 		
-	}		
+	}			
