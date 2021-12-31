@@ -212,6 +212,7 @@
         $(document).ready(function(){
             
             $('#submit').submit(function(e){
+            $(".se-pre-con").fadeIn();
                 e.preventDefault(); 
                 $.ajax({
                     url: "/iklan/update",
