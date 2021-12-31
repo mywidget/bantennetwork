@@ -23,7 +23,7 @@
 					$blnt = folderbln($query['folder']);
 					$data['title'] = $query['judul'].' | '.tag_key('site_title');
 					$data['description'] = tag_key('site_desc');
-					$data['keywords'] = tag_key('site_desc');
+					$data['keywords'] = tag_key('site_keys');
 					$data['canonical']=base_url().$query['judul_seo'];
 					$data['url_image'] = base_url().'assets/post/'.$thnt.'/'.$blnt.'/'.$query['gambar'];
 					$data['publisher']=sosmed_single('FB');
@@ -73,10 +73,11 @@
 					insert_populer($query['id_post'],$query['id_cat'],date('Y-m-d'));
 					$data['kategori'] = $this->model_app->view('cat')->result_array();
 					$data['nama_kategori'] = strtolower($rowcat['nama_kategori']);
+					$data['kategori_seo'] = strtolower($rowcat['nama_kategori']);
 					$data['item'] = $query;
 					$data['terkait'] = terkait($query['judul'],$query['id_post']);
-					$data['populer'] = populer();
-					$data['terbaru'] = terbaru();
+					// $data['populer'] = populer();
+					// $data['terbaru'] = terbaru();
 					$this->template->load(template().'/themes',template().'/detail_berita',$data);
 					}else{
 					// $qry = $this->db->query("SELECT * FROM `cat` where kategori_seo='$seo' AND pub='Y'");

@@ -25,7 +25,7 @@
 					}
 					if($num < $limit){
 						
-						$html .= '<div class="td-block-span6">
+						$html .= '<div class="td-block-span6"><div id="icon-container'.$cat.'" style="position:absolute;z-index:100;width:100%;height:100%;display:none"></div>
 						<div class="td_module_mx1 td_module_wrap td-animation-stack">
 						<div class="td-block14-border"></div>
 						<div class="td-module-thumb"><a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'" ><img style="width: 341px; height: 220px; object-fit: cover;" src="'.$gambar.'" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="341" height="220"><noscript><img class="entry-thumb" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'"  width="341" height="220" /></noscript></a></div>        
@@ -67,6 +67,7 @@
 		</div>
 	</div>	
 	<script type="text/javascript">
+	(function($){
 		var offset=<?=$offset;?>;
 		$("#next-page-<?=$cat;?>, #prev-page-<?=$cat;?>").click(function(){
 			offset = ($(this).attr("id")=="next-page-<?=$cat;?>") ? offset + 4 : offset - 4;
@@ -85,18 +86,31 @@
 				url: "/home/next_page",
 				data:{offset:offset,cat:cat,nama:nama,limit:limit},
 				cache: true,
+				beforeSend: function (xhr) {
+					$("#post_content_"+cat).addClass("td_block_inner_overflow td_animated_long td_fadeOut_to_1");
+					$("#icon-container"+cat).show();
+				},
 				success: function (data) {
 					if(data=="reload"){
 						location.reload(); 
 						return;
 					}
-					$("#post_content_<?=$cat;?>").html(data);
+					$("#icon-container"+cat).hide();
+					$("#post_content_"+cat).removeClass("td_block_inner_overflow td_animated_long td_fadeOut_to_1");
+					$("#post_content_"+cat).html(data);
 				}
 			});
 		}
 		
-		(function($){
-			
+		
+			var animation = bodymovin.loadAnimation({
+				container: document.getElementById("icon-container<?=$cat;?>"), // required
+				path: "/loading.json", // required
+				renderer: "svg", // required
+				loop: true, // optional
+				autoplay: true, // optional
+				name: "Demo Animation", // optional
+			});
 			$(".entry-title").dotdotdot({	height: 70,	fallbackToLetter: true,	watch: true});
 			$(".title-sub").dotdotdot({	height: 50,	fallbackToLetter: true,	watch: true});
 		})(jQuery);

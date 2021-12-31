@@ -9,8 +9,7 @@
 			<?php } ?>
 		</nav>
 		<section class="list list-type-1">
-			<div id="postTag">				
-			</div>
+			<div id="postTag"></div>
 		</section>
 	</div>
 	<div class="col w-30">
@@ -18,7 +17,7 @@
 		<div class="ads rectangle">
 			<div class="wrapper">		
 				
-			</div>
+				</div>
 		</div>
 		
 		<!-- ads 2 -->

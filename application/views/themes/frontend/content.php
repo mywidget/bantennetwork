@@ -89,7 +89,8 @@
                                                     </div>
                                                 <?php } ?>
                                                 
-                                            </div></div><div class="clearfix"></div>
+                                            </div></div>
+                                            <div class="clearfix"></div>
                                     </div>
                                 </div>
                                 <!-- ./block -->
@@ -102,7 +103,7 @@
                         <div class="vc_column wpb_column vc_column_container tdc-column td-pb-span8">
                             <div class="wpb_wrapper">
                                 <div class="td-fix-index" style="padding:10px">
-                                    <img src="<?=base_url('uploads/banner/'); ?>728x114.png" alt="" />
+                                    <?=iklan(['status'=>'homeatas','id'=>1]);?>
                                 </div>
                                 <div class="td_block_wrap  td-pb-border-top td_block_template_1">
                                     <h2 class="block-title" style="margin-top:10px"><span class="td-pulldown-size">BERITA TERKINI</span></h2>
@@ -149,21 +150,28 @@
                                         </a>
                                     </div>
                                 </div> <!-- ./block -->
-                                
+                                <div class="td-fix-index" style="margin-bottom:5px">
+                                    <?=iklan(['status'=>'homebawah','id'=>2]);?>
+                                </div>
                                 <?=load_block(1);?>
-                                
+                                <div class="td-fix-index" style="margin-bottom:5px">
+                                    <?=iklan(['status'=>'homebawah','id'=>8]);?>
+                                </div>
                             </div>
                         </div>
                         
                         <div class="vc_column wpb_column vc_column_container tdc-column td-pb-span4">
                             <div class="wpb_wrapper">
+                                <?=iklan(['status'=>'home','id'=>3]);?>
                                 <div class="wpb_wrapper td_block_wrap vc_raw_html tdi_30_b15 ">
-                                <?=load_block(2);?>
+                                    <?=load_block(2);?>
                                 </div>
+                                <?=iklan(['status'=>'home','id'=>4]);?>
                             </div>
                         </div>
                     </div>
                 </div>
+               
                 <!--div id="tdi_41_f33" class="tdc-row">
                     <div class="vc_row tdi_42_ab9  wpb_row td-pb-row" >
                     <div class="vc_column tdi_44_abb  wpb_column vc_column_container tdc-column td-pb-span12">

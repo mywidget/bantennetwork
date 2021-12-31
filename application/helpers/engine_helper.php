@@ -24,8 +24,8 @@
 			if(!empty($qryberita)){
 				$html .=  '<div class="td_block_wrap td_block_15  td-pb-full-cell td-pb-border-top td_block_template_1">
 				<h4 class="block-title"><span class="td-pulldown-size">'.$judul_kategori.'</span></h4>
-				<div id="post_content_'.$id_cat.'" class="td_block_inner td-column-2">
-				<div class="td-block-row">';
+				<div id="post_content_'.$id_cat.'" class="td_block_inner td-column-2 ">
+				<div class="td-block-row ">';
 				$counter =0;
 				$num =1;
 				
@@ -47,7 +47,7 @@
 					}
 					if($num < $limit){
 						
-						$html .= '<div class="td-block-span6">
+						$html .= '<div class="td-block-span6 "><div id="icon-container'.$id_cat.'" style="position:absolute;z-index:100;width:679px;height:440px;display:none"></div>
 						<div class="td_module_mx1 td_module_wrap td-animation-stack">
 						<div class="td-block14-border"></div>
 						<div class="td-module-thumb"><a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'" ><img style="width: 341px; height: 220px; object-fit: cover;" src="'.$gambar.'" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="341" height="220"><noscript><img class="entry-thumb" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'"  width="341" height="220" /></noscript></a></div>        
@@ -83,6 +83,7 @@
 				<a href="#prev" class="td-ajax-prev-page" id="prev-page-'.$id_cat.'" data-id="'.$id_cat.'"><i class="td-icon-font td-icon-menu-left"></i></a>
 				<a href="#next" class="td-ajax-next-page" id="next-page-'.$id_cat.'" data-id="'.$id_cat.'"><i class="td-icon-font td-icon-menu-right"></i></a>
 				</div>
+				
 				</div>
 				</div>';
 				$html .='<script type="text/javascript">
@@ -104,25 +105,39 @@
 				type: "POST",
 				url: "/home/next_page",
 				data:{offset:offset,cat:cat,nama:nama,limit:limit,counter:counter},
-				cache: true,
+				cache: false,
+				beforeSend: function (xhr) {
+				$("#post_content_'.$id_cat.'").addClass("td_block_inner_overflow td_animated_long td_fadeOut_to_1");
+				$("#icon-container'.$id_cat.'").show();
+				},
 				success: function (data) {
 				if(data=="reload"){
 				location.reload(); 
 				return;
 				}
+				$("#icon-container'.$id_cat.'").hide();
 				$("#post_content_'.$id_cat.'").html(data);
+				$("#post_content_'.$id_cat.'").removeClass("td_block_inner_overflow td_animated_long td_fadeOut_to_1");
 				}
 				});
 				}
+				var animation = bodymovin.loadAnimation({
+				container: document.getElementById("icon-container'.$id_cat.'"), // required
+				path: "loading.json", // required
+				renderer: "svg", // required
+				loop: true, // optional
+				autoplay: true, // optional
+				name: "Demo Animation", // optional
+				});
 				})(jQuery);
 				</script>';
 				
 			}
-				return $html;
+			return $html;
 		}
 	}
 	
-				
+	
 	function blok_widgetpaging(array $val){
 		$ci = & get_instance();
 		
@@ -174,7 +189,7 @@
 				$html .=  '<div class="td_block_wrap td_block_15  td-pb-full-cell td-pb-border-top td_block_template_1">
 				<h4 class="block-title">
 				<span class="td-pulldown-size">'.$judul_kategori.'</span></h4>
-				<div id="post_content_'.$id_cat.'" class="td_block_inner td-column-2">
+				<div id="post_content_'.$id_cat.'" class="td_block_inner td-column-2 td_block_inner_overflow td_animated_long td_fadeOut_to_1">
 				<div class="td-block-row">';
 				$num =1;
 				
@@ -259,98 +274,6 @@
 		}
 	}
 	
-	function blok_widgetxx(array $val){
-		$ci = & get_instance();
-		$qry = $ci->db->query("SELECT * from cat WHERE id_cat=".$val['id']);
-		$html ="";
-		if($qry->num_rows() >0){
-			$row = $qry->row_array();
-			$id_cat = $row['id_cat'];
-			$judul_kategori = $row['nama_kategori'];
-			$html .=  '<div class="td_block_wrap td_block_15  td-pb-full-cell td-pb-border-top td_block_template_1">
-			<h4 class="block-title">
-			<span class="td-pulldown-size">'.$judul_kategori.'</span></h4>
-			<div id="tdi_25_68f" class="td_block_inner td-column-2">
-			<div class="td-block-row">';
-			$qryberita = $ci->db->query("SELECT * from posting WHERE id_cat='$id_cat' order by tanggal DESC LIMIT 0,".$val['limit']);
-			if($qryberita->num_rows() >0){
-				foreach ($qryberita->result() as $row)
-				{
-					$penulis = 'Bantennetwork';
-					$judul = $row->judul;
-					$seo = $row->judul_seo;
-					$tanggal = tgl_post($row->tanggal);
-					$dateatom = standard_date('DATE_ATOM', strtotime($row->tanggal));
-					$thnt = folderthn($row->folder);
-					$blnt = folderbln($row->folder);
-					$opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row->gambar;
-					$size = @getimagesize($opathFile);
-					if($size !== false){
-						$gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row->gambar;
-						}else{
-						$gambar = base_url()."assets/no_photo.jpg";
-					}
-					$html .= '<div class="td-block-span6">
-					<div class="td_module_mx1 td_module_wrap td-animation-stack">
-					<div class="td-block14-border"></div>
-					<div class="td-module-thumb"><a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'" ><img style="width: 341px; height: 220px; object-fit: cover;" src="'.$gambar.'" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="341" height="220"><noscript><img class="entry-thumb" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'"  width="341" height="220" /></noscript></a></div>        
-					
-					<div class="meta-info">
-					<h3 class="entry-title td-module-title"><a href="'.$seo.'" rel="bookmark" title="'.$judul.'">'.$judul.'</a></h3>
-					<div class="td-editor-date">
-					<span class="td-post-author-name"><a href="#">'.$penulis.'</a> <span>-</span> </span><span class="td-post-date"><time class="entry-date updated td-module-date" datetime="'.$tanggal.'" >'.$dateatom.'</time></span>
-					</div>
-					</div>
-					</div>
-					</div> <!-- ./td-block-span6 -->';
-				}
-			}
-			$html .= '</div><!--./row-fluid-->
-			
-			<div class="td-block-row">';
-			$qryberita = $ci->db->query("SELECT * from posting WHERE id_cat='$id_cat' order by tanggal DESC LIMIT 2,4");
-			if($qryberita->num_rows() >0){
-				foreach ($qryberita->result() as $row)
-				{
-					$judul = $row->judul;
-					$seo = $row->judul_seo;
-					$tanggal = tgl_post($row->tanggal);
-					$dateatom = standard_date('DATE_ATOM', strtotime($row->tanggal));
-					$thnt = folderthn($row->folder);
-					$blnt = folderbln($row->folder);
-					$opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row->gambar;
-					$size = @getimagesize($opathFile);
-					if($size !== false){
-						$gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row->gambar;
-						}else{
-						$gambar = base_url()."assets/no_photo.jpg";
-					}
-					$html .='<div class="td-block-span6">
-					<div class="td_module_mx2 td_module_wrap td-animation-stack">
-					<div class="td-module-thumb"><a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'" ><img src="'.$gambar.'"  style="width: 80px; height: 60px; object-fit: cover;" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="80" height="60"><noscript><img class="entry-thumb" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'"  width="80" height="60" /></noscript></a></div>            
-					<div class="item-details">
-					<h3 class="entry-title td-module-title title-sub"><a href="'.$seo.'" rel="bookmark" title="'.$judul.'">'.$judul.'</a></h3>
-					<div class="meta-info">
-					<span class="td-post-date"><time class="entry-date updated td-module-date" datetime="'.$dateatom.'" >'.$tanggal.'</time></span></div>
-					</div>
-					
-					</div>
-					
-					</div> <!-- ./td-block-span6 -->';
-				}
-			}
-			$html .='</div><!--./row-fluid-->
-			</div>
-			<div class="td-next-prev-wrap">
-			<a href="#prev" class="td-ajax-prev-page" id="prev-page-tdi_25_'.$id_cat.'" data-td_block_id="tdi_25_'.$id_cat.'"><i class="td-icon-font td-icon-menu-left"></i></a>
-			<a href="#next" class="td-ajax-next-page" id="next-page-tdi_25_'.$id_cat.'" data-td_block_id="tdi_25_'.$id_cat.'"><i class="td-icon-font td-icon-menu-right"></i></a>
-			</div>
-			</div> ';
-			
-			return $html;
-			
-		}
-	}
 	function load_block($posisi)
 	{
 		$ci = & get_instance();
@@ -366,6 +289,21 @@
 	}
 	
 	function sosmed()
+	{
+		$ci = & get_instance();
+		$html = '';
+		$data = $ci->model_app->view_where_ordering('sosmed',['publish'=>'Y'],'urutan','ASC');
+		if($data->num_rows() >0){
+			foreach ($data->result_array() as $row)
+			{
+				$implode[] = $row['link'];
+			}
+			$html .= json_encode($implode);
+		}
+		return $html;
+	}
+	
+	function sosmedrow()
 	{
 		$ci = & get_instance();
 		$html = '';
@@ -413,21 +351,16 @@
 	function error_page()
 	{
 		$arr = ['title' => 'halaman tidak ditemukan',
-		'keywords' => 'berita terkini, berita banten',
-		'description' => 'berita terkini, berita banten',
+		'keywords' => tag_key('keywords'),
+		'description' => tag_key('description'),
 		'canonical' => base_url(),
 		'url_image' => '#',
 		'json'=>[
 		"@context" => "https://schema.org",
 		"@type" =>  "Organization",
-		"name" =>  "Banten Network",
-		"url" =>  "https://www.lenternews.tv",
-		"sameAs" => [
-		"https://www.facebook.com/Lenternews",
-		"https://twitter.com/Lenternews",
-		"https://www.youtube.com/user/Lenternews",
-		"https://www.pinterest.com/Lenternews/"
-		]
+		"name" =>  tag_key('site_name'),
+		"url" =>  tag_key('site_url'),
+		"sameAs" => sosmed()
 		]
 		];
 		return $arr;
@@ -453,18 +386,41 @@
 	function iklan(array $val){
 		$ci = & get_instance();
 		$img = "";
-		$table = 'banner';
+		$alt = tag_key('site_name');
 		$qry = $ci->db->query("SELECT * from banner WHERE posisi=".$val['id']);
 		if($qry->num_rows() >0){
 			$row = $qry->row();
-			if($val['status']=='home'){
-				$img .= '<a href="'.$row->link.'" target="_blank" style="width:280px !important;height:100% !important"><img src="/assets/banner/'.$row->gambar.'" width="280" alt="lenteranews.tv"  /></a>';
+			if($val['status']=='header'){
+				$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+				}elseif($val['status']=='home'){
+				$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
+				foreach($data AS $val){
+					$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+				}
+				}elseif($val['status']=='homeatas'){
+				$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
+				foreach($data AS $val){
+					$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+				}
+				}elseif($val['status']=='homebawah'){
+				$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
+				foreach($data AS $val){
+					$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+				}
 				}elseif($val['status']=='cat'){
-				$row = $ci->db->query("SELECT * from banner WHERE posisi=".$val['id'])->row();
-				$img .= '<a href="'.$row->link.'" target="_blank" style="width:300px !important;height:100% !important"><img src="/assets/banner/'.$row->gambar.'" width="300" alt="lenteranews.tv"  /></a>';
+				$row = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->row();
+				$img .= '<a href="'.$row->link.'" target="_blank" style="width:300px !important;height:100% !important"><img src="/assets/banner/'.$row->gambar.'" width="300" alt="'.$alt.'"  /></a>';
 				}elseif($val['status']=='detail'){
-				$row = $ci->db->query("SELECT * from banner WHERE posisi=".$val['id'])->row();
-				$img .= '<a href="'.$row->link.'" target="_blank" style="width:300px !important;height:100% !important"><img src="/assets/banner/'.$row->gambar.'" width="300" alt="lenteranews.tv"  /></a>';
+				$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
+				foreach($data AS $val){
+					$img .= '<aside class="widget_text td_block_template_1 widget widget_custom_html">
+					<div class="textwidget custom-html-widget">
+					<a href="'.$val->link.'"><img class="aligncenter size-full wp-image-51901 jetpack-lazy-image jetpack-lazy-image--handled" src="/assets/banner/'.$val->gambar.'" alt="'.$alt.'" data-lazy-loaded="1" loading="eager" width="558" height="165">
+					<noscript><img class="aligncenter size-full wp-image-51901" src="/assets/banner/'.$val->gambar.'" alt="'.$alt.'" width="558" height="165" />
+					</noscript></a>
+					</div>
+                    </aside>';
+				}
 			}
 		}
 		return $img;
@@ -591,33 +547,56 @@
 		$ci = & get_instance();
 		$judul = clean($judul);
 		$sqlx2 = $ci->db->query("SELECT *, MATCH(judul, postingan) AGAINST('$judul') AS score
-		FROM posting WHERE MATCH(judul, postingan) AGAINST('$judul') AND id_post !='$id' AND publish='Y' ORDER BY score DESC LIMIT 6");
+		FROM posting WHERE MATCH(judul, postingan) AGAINST('$judul') AND id_post !='$id' AND publish='Y' ORDER BY score DESC LIMIT 3");
 		$html ='';
-		foreach($sqlx2->result_array() AS $data){
-			if ($ci->agent->is_mobile())
-			{
-				$html .= '<section class="row">
-				<a href="'.base_url('detail/').$data['judul_seo'].'" class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-				<img src="#" alt="'.$data['judul'].'">
-				</a>
-				<article class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-				<header>
-				<div class="info">
-				<p class="categori">News</p>
-				<time datetime="'.$data['tanggal'].'">
-				'.$data['tanggal'].'
-				</time>
-				</div>
-				<a href="'.base_url('detail/').$data['judul_seo'].'">
-				<h5>'.$data['judul'].'</h5>
-				</a>
-				</header>
-				</article>
-				</section>';
-				}else{
-				$html .= '<h4 class="related__inline__title" data-gtm-vis-recent-on-screen-2485677_383="247302" data-gtm-vis-first-on-screen-2485677_383="247302" data-gtm-vis-total-visible-time-2485677_383="2000" data-gtm-vis-has-fired-2485677_383="1"><a href="'.base_url('detail/').$data['judul_seo'].'">'.$data['judul'].'</a>
-				</h4>';
+		if(!empty($sqlx2)){
+			$html .='<h4 class="td-related-title">
+			<a id="tdi_4_061" class="td-related-left td-cur-simple-item" data-td_filter_value="" data-td_block_id="tdi_3_1f3" href="#">BERITA TERKAIT</a>
+			</h4>
+			<div id="tdi_3_1f3" class="td_block_inner">
+			<div class="td-related-row">';
+			foreach($sqlx2->result_array() AS $data){
+				$judul = $data['judul'];
+				$seo = base_url().$data['judul_seo'];
+				$thnt = folderthn($data['folder']);
+				$blnt = folderbln($data['folder']);
+				$opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$data['gambar'];
+				$size = @getimagesize($opathFile);
+				if($size !== false){
+					$gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$data['gambar'];
+					}else{
+					$gambar = base_url()."assets/no_photo.jpg";
+				}
+				$rowcat = $ci->model_data->getCat(['id_cat'=>$data['id_cat']])->row();
+				if(!empty($rowcat)){
+					
+					$nama_kategori = $rowcat->nama_kategori;
+					$kategori_seo = base_url('rubrik/').$rowcat->kategori_seo;
+					$html .= '<div class="td-related-span4">
+					<div class="td_module_related_posts td-animation-stack td_mod_related_posts">
+					<div class="td-module-image">
+					<div class="td-module-thumb">
+					<a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'">
+					<img class="td-animation-stack-type0-1" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="238" height="178">
+					</a>
+					</div>
+					<a href="'.$kategori_seo.'" class="td-post-category">'.$nama_kategori.'</a>
+					</div>
+					<div class="item-details">
+					<h3 class="entry-title td-module-title"><a href="'.$seo.'" rel="bookmark" title="'.$judul.'">'.$judul.'</a></h3>
+					</div>
+					</div>
+					
+					</div>';
+				}
 			}
+			$html .='</div>';
+			$html .='</div>';
+			// $html .='<div class="td-next-prev-wrap">
+			// <a href="#" class="td-ajax-prev-page ajax-page-disabled" id="prev-page-tdi_3_1f3" data-td_block_id="tdi_3_1f3"><i class="td-icon-font td-icon-menu-left"></i></a>
+			// <a href="#" class="td-ajax-next-page" id="next-page-tdi_3_1f3" data-td_block_id="tdi_3_1f3"><i class="td-icon-font td-icon-menu-right"></i></a>
+			// </div>';
+			
 		}
 		return $html;
 	}
@@ -645,18 +624,15 @@
 		$jumlah_tag = array_count_values($TampungData);
 		ksort($jumlah_tag);
 		if ($jumlah_tag){
+			$tagss = '';
 			$output = array();
-			echo '<h3 class="tag tag--article clearfix">
-			<div class="col w-10 tag__article__teaser col-offset-0">Tag:</div>
-			<div class="col w-70">
-			<ul class="tag__article__wrap">';
+			$tagss .= '<ul class="td-tags td-post-small-box clearfix">';
+			$tagss .= '<li><span>LABEL</span></li>';
 			foreach($jumlah_tag as $key=>$val) {
-				$output[] = '<li class="tag__article__item"><a class="tag__article__link" href="/tag/'.seo_title($key).'">'.strtoupper($key).'</a></li>';
+				$output[] = '<li><a href="/tag/'.seo_title($key).'">'.strtoupper($key).'</a></li>';
 			}
-			echo '</ul>
-			</div>
-			</h3>';
-			$tagss= implode(' ',$output);
+			$tagss .= implode(' ',$output);
+			$tagss .= '</ul>';
 			return $tagss;
 		}
 		
@@ -749,29 +725,7 @@
 			return $html;
 		}
 	}
-	function produk_jenis($data, $parent = 0, $parent_id = 0, $Nilai='') {
-		static $i = 1;
-		$ieTab = str_repeat("&nbsp;&nbsp;&nbsp;", $i * 2);
-		$tab = $i * 0 ;
-		if (isset($data[$parent])) {
-			$i++;
-			$html = "";
-			foreach ($data[$parent] as $v) {
-				$child = produk_jenis($data, $v['id_jenis'], $parent_id, $Nilai);
-				//Edit Di Item
-				
-				$_arrNilai = explode(',', $Nilai);
-				// $_arrNilai = $Nilai;
-				$_ck = (array_search($v['id_jenis'], $_arrNilai) === false)? '' : 'selected';
-				$html .= ''.$ieTab .'<option value="'.$v['id_jenis'].'" '.$_ck.'>&nbsp;'.$Nilai.$v['nama_jenis'].'</option>';
-				
-				if ($child) { 
-					$i--; $html .= $child; 
-				}
-			}
-			return $html;
-		}
-	}
+	
 	function breadcrumb_tag($data, $parent = 0, $parent_id = 0, $Nilai=''){
 		static $i = 1;
 		$ieTab = str_repeat("&nbsp;|&nbsp;", $i * 1);
@@ -871,4 +825,4 @@
 			$arrt = array('limit'=>6,'kolom'=>4,'klass'=>'tiga');
 		}
 		return $arrt;
-		}    																																															
+	}    																																																					

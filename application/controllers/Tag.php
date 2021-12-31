@@ -18,6 +18,7 @@
 			$data['keywords'] = tag_key('site_desc');
 			$data['canonical']=base_url('search/');
 			$data['url_image'] = 'url_image';
+			$data['publisher']=sosmed_single('FB');
 			$data['json']=[
             "@context" => "https://schema.org",
             "@type" =>  "Organization",
@@ -71,7 +72,7 @@
 				$data['populer'] = populer();
 				$data['terbaru'] = terbaru();
 				$data['posts']  = $this->model_data->getTag($conditions);
-				$this->template->load(template().'/themes',template().'/tag',$data);
+				$this->template->load(template().'/themes',template().'/tag_berita',$data);
 				}else{
 				$data = error_page();
 				$this->template->load(template().'/themes',template().'/404',$data);
@@ -124,7 +125,6 @@
 			}
 			
             unset($conditions['returnType']);
-			
 			
             $data['posts'] = $this->model_data->getTag($conditions);
             

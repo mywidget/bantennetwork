@@ -20,16 +20,14 @@
 			
 			$data['posts'] =  $this->model_app->view_ordering("banner","tanggal","DESC");
 			$data['posisi'] = array(
-			0=>'Header',
-			1=>'Kanan-1',
-			2=>'Kanan-2',
-			3=>'Kiri',
-			4=>'Kiri-1',
+			1=>'Home Atas',
+			2=>'Home Tengah',
+			3=>'Kanan Atas',
+			4=>'Kanan Bawah',
 			5=>'Detail',
-			6=>'Kiri-Detail',
-			7=>'Kanan-Detail',
-			8=>'Tengah',
-			9=>'Terbaru'
+			6=>'Terbaru',
+			7=>'Header',
+			7=>'Home Bawah'
 			);
 			$this->template->load(backend().'/themes',backend().'/list-iklan',$data);
 			
@@ -47,7 +45,6 @@
 				'url'=>$row->link,
 				'gambar'=>$row->gambar,
 				'publish'=>$row->publish,
-				'tanggal'=>$row->tanggal,
 				'posisi'=>$row->posisi,
 				'urutan'=>$row->urutan
 				];
@@ -78,7 +75,6 @@
 							
 							$data_post 	= [
 							"judul"		=> $this->input->post('judul',TRUE),
-							"tanggal"	=> $this->input->post('tanggal',TRUE),
 							"posisi"	=> $this->input->post('posisi',TRUE),
 							"link"		=> $this->input->post('url',TRUE),
 							"gambar"	=> $gbr['file_name'],
@@ -113,7 +109,6 @@
 					}else{
 					$data_post 	= [
 					"judul"		=> $this->input->post('judul',TRUE),
-					"tanggal"	=> $this->input->post('tanggal',TRUE),
 					"posisi"	=> $this->input->post('posisi',TRUE),
 					"link"		=> $this->input->post('url',TRUE),
 					"publish"	=> $this->input->post('publish',TRUE)
@@ -154,7 +149,6 @@
 							
 							$data_post 	= [
 							"judul"		=> $this->input->post('judul',TRUE),
-							"tanggal"	=> $this->input->post('tanggal',TRUE),
 							"posisi"	=> $this->input->post('posisi',TRUE),
 							"link"		=> $this->input->post('url',TRUE),
 							"gambar"	=> $gbr['file_name'],
@@ -200,7 +194,6 @@
 					}else{
 					$data_post 	= [
 					"judul"		=> $this->input->post('judul',TRUE),
-					"tanggal"	=> $this->input->post('tanggal',TRUE),
 					"posisi"	=> $this->input->post('posisi',TRUE),
 					"link"		=> $this->input->post('url',TRUE),
 					"publish"	=> $this->input->post('publish',TRUE)

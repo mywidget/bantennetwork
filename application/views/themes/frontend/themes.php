@@ -68,6 +68,7 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 		<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/jetpack.css?ver=10.3' type='text/css' media='all' />
 		<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/jquery.min.js?ver=3.5.1'></script>
 		<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/jquery-migrate.min.js?ver=3.3.2'></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.4/lottie.min.js"></script>
 		<!--script src="//code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script-->
 		<meta property="fb:pages" content="" />
 		
@@ -82,7 +83,7 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 		<link rel="apple-touch-icon" href="<?=base_url('assets/frontend/'); ?>images/logo-180x180.png" />
 		<meta name="msapplication-TileImage" content="<?=base_url('assets/frontend/'); ?>images/logo-270x270.png" />
 	</head>
-	<body class="home page-template-default page page-id-99463 news global-block-template-1 wpb-js-composer js-comp-ver-5.4.7 vc_responsive tdb-template td-animation-stack-type0 td-full-layout" itemscope="itemscope" itemtype="https://schema.org/WebPage">
+	<body class="archive category category-artis category-46 global-block-template-1 td_category_template_1 td_category_top_posts_style_1 wpb-js-composer js-comp-ver-5.4.7 vc_responsive td-full-layout td-js-loaded">
 		
 		<div class="td-scroll-up"><i class="td-icon-menu-up"></i></div>
 		
@@ -131,7 +132,8 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 				</div>
 			</div>
 			
-		</div>    <div class="td-search-background"></div>
+		</div>    
+		<div class="td-search-background"></div>
 		<div class="td-search-wrap-mob">
 			<div class="td-drop-down-search">
 				<form method="get" class="td-search-form" action="#">
@@ -151,49 +153,7 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 		<div id="td-outer-wrap">
 			
 			<div class="td-outer-container">
-				
-				<!--
-					Header style 1
-				-->
-				
-				<div class="td-header-container td-header-wrap td-header-style-1">
-					<!--div class="td-header-row td-header-top-menu">
-						
-						<div class="td-top-bar-container top-bar-style-4">
-						<div class="td-header-sp-top-widget">
-						
-						<span class="td-social-icon-wrap">
-						<a target="_blank" href="https://web.facebook.com/bantennetwork.co.id" title="Facebook">
-						<i class="td-icon-font td-icon-facebook"></i>
-						</a>
-						</span>
-						<span class="td-social-icon-wrap">
-						<a target="_blank" href="https://www.instagram.com/bantennetwork.co.id/" title="Instagram">
-						<i class="td-icon-font td-icon-instagram"></i>
-						</a>
-						</span>
-						<span class="td-social-icon-wrap">
-						<a target="_blank" href="https://t.me/bantennewscoid" title="Telegram">
-						<i class="td-icon-font td-icon-telegram"></i>
-						</a>
-						</span>
-						<span class="td-social-icon-wrap">
-						<a target="_blank" href="https://twitter.com/bantennews_coid" title="Twitter">
-						<i class="td-icon-font td-icon-twitter"></i>
-						</a>
-						</span>    </div>
-						<div class="td-header-sp-top-menu">
-						
-						<div class="td_data_time">
-						<div >
-						
-						Minggu, 28 November 2021 
-						</div>
-						</div>
-						</div>    </div>
-						
-					</div-->
-					
+				<div class="td-header-container td-header-wrap td-header-style-1">					
 					<div class="td-header-row td-header-header">
 						<div class="td-header-sp-logo">
 							<h1 class="td-logo">
@@ -204,8 +164,8 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 							</h1>
 						</div>
 						<div class="td-header-sp-rec">
-							<div class="td-header-ad-wrap  td-ad-m td-ad-tp">	
-								<img src="<?=base_url('uploads/banner/'); ?>728x114.png" alt="" />
+							<div class="td-header-ad-wrap  td-ad-m td-ad-tp">
+								<?=iklan(['status'=>'header','id'=>7]);?>
 							</div>
 						</div>
 					</div>
@@ -307,15 +267,15 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 					</div>
 				</div>
 			</div><!--close td-outer-container-->
+		
 		</div><!--close td-outer-wrap-->
 		<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/dotdotdot.js' id='td-site-min-js'></script>
 		<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/tagdiv_theme.min.js' id='td-site-min-js'></script>
+		
 		<script>
-			
 			(function($){
-			
-			$(".entry-title").dotdotdot({	height: 70,	fallbackToLetter: true,	watch: true});
-			$(".title-sub").dotdotdot({	height: 50,	fallbackToLetter: true,	watch: true});
+				$(".entry-title").dotdotdot({	height: 70,	fallbackToLetter: true,	watch: true});
+				$(".title-sub").dotdotdot({	height: 50,	fallbackToLetter: true,	watch: true});
 			})(jQuery);
 		</script>
 	</body>

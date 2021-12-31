@@ -57,4 +57,6 @@ $route['backupdb']                 = 'Backupdb';
 $route['iklan']                    = 'iklan';
 $route['portal']                   = 'Portal/index';
 $route['logout']                   = 'Logout';
+$route['rubrik/(:any)']	           = 'rubrik/index';
+$route['tag/(:any)']	           = 'Tag/index';
 $route['(:any)']	               = 'Blog/detail/$1';

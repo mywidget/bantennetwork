@@ -163,6 +163,8 @@
 				dataType: 'json',  
 				data: dataString,                         
 				type: 'POST',
+				processData: false,
+				contentType: false,
 				beforeSend: function (xhr) {
 					NProgress.start();
 					$(".se-pre-con").fadeIn();

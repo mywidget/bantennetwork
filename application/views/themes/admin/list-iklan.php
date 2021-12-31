@@ -105,11 +105,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Url</label>
-                                    <input type="text" name="url" id="url" class="form-control" placeholder="url" >
-                                </div>
-                                <div class="form-group">
-                                    <label>Tanggal</label>
-                                    <input type="date" name="tanggal" id="tanggal" class="form-control" />
+                                    <input type="text" name="url" id="url" value="#" class="form-control" placeholder="url" >
                                 </div>
                                 <div class="form-group">
                                     <label>Posisi</label>
@@ -122,12 +118,19 @@
                                         ?>
                                     </select>
                                 </div>
-                                
+                                <div class="form-group">
+                                    <label>Publish</label>
+                                    <select name="publish" id="publish" class="form-control">
+                                        <option value="">-- Pilih ---</option>
+                                        <option value="Y">Aktif</option>
+                                        <option value="N">Tidak</option>
+                                    </select>
+                                </div>
                             </div>
                             
                             <div class="col-md-6">
                                 <div class="text-center"> 
-                                    <img src="#" id="avatar" class="rounded" height="150">
+                                    <img style="width: 360px; height: 180px; object-fit: cover;" src="#" id="avatar" class="rounded" height="180">
                                 </div>
                                 
                                 <div class="text-center"> 
@@ -142,14 +145,7 @@
                                         </div>
                                     </div>
                                 </div> 
-                                <div class="form-group">
-                                    <label>Publish</label>
-                                    <select name="publish" id="publish" class="form-control">
-                                        <option value="">-- Pilih ---</option>
-                                        <option value="Y">Aktif</option>
-                                        <option value="N">Tidak</option>
-                                    </select>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -176,7 +172,11 @@
                     url: "iklan/edit",
                     dataType: 'json',
                     data: {id:id,type:"get"},
+                    beforeSend: function (xhr) {
+                        $(".se-pre-con").fadeIn();
+                    },
                     success: function(res) {
+                        $(".se-pre-con").fadeOut();
                         setModalBanner( res );
                     }
                 });
@@ -202,7 +202,6 @@
             $("#url").val(data.url);
             $("#img_del").val(data.gambar);
             $('#avatar').attr('src', '/assets/banner/'+data.gambar);
-            $("#tanggal").val(data.tanggal);
             $("#publish").val(data.publish);
             $("#posisi").val(data.posisi);
             $("#bannerModal").modal("show");
@@ -214,13 +213,6 @@
             
             $('#submit').submit(function(e){
                 e.preventDefault(); 
-                var tanggal = $("#tanggal").val();
-                console.log(tanggal);
-                if(tanggal == "") {
-                    showNotif('top-center','Input Data','Tanggal masih kosong','warning');
-                    $("#tanggal").focus()
-                    return false;
-                }
                 $.ajax({
                     url: "/iklan/update",
                     type:"post",
@@ -229,6 +221,9 @@
                     contentType:false,
                     cache:false,
                     async:false,
+                    beforeSend: function (xhr) {
+                        $(".se-pre-con").fadeIn();
+                    },
                     success: function(data){
                         if(data.status=200){
                             showNotif('top-center','Input Data',data.msg,'success');
@@ -236,14 +231,18 @@
                             }else{
                             showNotif('top-center','Input Data',data.msg,'warning');
                         }
+                        $(".se-pre-con").fadeOut('slow');
                         $('#bannerModal').modal('hide');
                         clearModalsBanner();
+                        } ,error: function(xhr, status, error) {
+                        showNotif('bottom-right','Update',error,'error');
+                        $(".se-pre-con").fadeOut('slow');
                     }
                 });
             });
         });
         
-       
+        
         //Hapus Data
         function deleteBanner(id,file)
         {
@@ -266,9 +265,8 @@
             $("#removeWarning").hide();
             $("#id").val("").removeAttr( "disabled" );
             $("#judul").val("").removeAttr( "disabled" );
-            $("#url").val("").removeAttr( "disabled" );
+            $("#url").val("#").removeAttr( "disabled" );
             $("#embed").val("").removeAttr( "disabled" );
-            $("#tanggal").val("").removeAttr( "disabled" );
             $("#publish").val("").removeAttr( "disabled" );
             $("#posisi").val("").removeAttr( "disabled" );
             $("#avatar").val("").removeAttr( "disabled" );
@@ -293,4 +291,4 @@
                 document.getElementById("avatar").src = oFREvent.target.result;
             };
         });
-    </script>                                                    
+    </script>                                                                
