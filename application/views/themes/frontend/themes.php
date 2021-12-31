@@ -70,7 +70,7 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 		<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/jquery-migrate.min.js?ver=3.3.2'></script>
 		<script src="<?=base_url('assets/frontend/'); ?>js/lottie.min.js"></script>
 		<script src="<?=base_url('assets/frontend/'); ?>js/jquery.jscroll.min.js"></script>
-		
+		<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/dotdotdot.js' id='td-site-min-js'></script>
 		<meta property="fb:pages" content="" />
 		
         <meta name="generator" content="Site Kit by Google 1.45.0" />	
@@ -270,7 +270,7 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 			</div><!--close td-outer-container-->
 			
 		</div><!--close td-outer-wrap-->
-		<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/dotdotdot.js' id='td-site-min-js'></script>
+		
 		<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/tagdiv_theme.min.js' id='td-site-min-js'></script>
 		
 		<script>
@@ -280,8 +280,7 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 					loadingHtml: '<div class="loader"><img alt="" src="<?=base_url(); ?>/assets/ajax-loader.gif" /></div>',
 					nextSelector: 'a.btn-lmore:last',
 				});
-				$(".entry-title").dotdotdot({	height: 70,	fallbackToLetter: true,	watch: true});
-				$(".title-sub").dotdotdot({	height: 50,	fallbackToLetter: true,	watch: true});
+				
 			})(jQuery);
 		</script>
 	</body>
