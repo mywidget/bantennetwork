@@ -108,10 +108,11 @@
                                 <div class="td_block_wrap  td-pb-border-top td_block_template_1">
                                     <h2 class="block-title" style="margin-top:10px"><span class="td-pulldown-size">BERITA TERKINI</span></h2>
                                     <div class="td_block_inner">
-                                        <div class="td-block-row">
+                                        <div class="td-block-row postList">
                                             <?php
                                                 foreach($terkini AS $row2)
                                                 { 
+                                                    $postID = $row2['id_post'];
                                                     $judul = $row2['judul'];
                                                     $seo = base_url().$row2['judul_seo'];
                                                     $tanggal = tgl_post($row2['tanggal']);
@@ -146,8 +147,11 @@
                                         </div><!--./row-fluid-->
                                     </div>
                                     <div class="td-load-more-wrap">
-                                        <a href="#" class="td_ajax_load_more td_ajax_load_more_js">Berita Lainnya<i class="td-icon-font td-icon-menu-down"></i>
-                                        </a>
+                                        <div class="show_more_main" id="show_more_main<?php echo $postID; ?>">
+                                            <a href="#show_more_main" id="<?php echo $postID; ?>" class="td_ajax_load_more td_ajax_load_more_js">Berita Lainnya<i class="td-icon-font td-icon-menu-down"></i>
+                                            </a>
+                                        </div>
+                                        
                                     </div>
                                 </div> <!-- ./block -->
                                 <div class="td-fix-index" style="margin-bottom:5px">
@@ -171,7 +175,7 @@
                         </div>
                     </div>
                 </div>
-               
+                
                 <!--div id="tdi_41_f33" class="tdc-row">
                     <div class="vc_row tdi_42_ab9  wpb_row td-pb-row" >
                     <div class="vc_column tdi_44_abb  wpb_column vc_column_container tdc-column td-pb-span12">
@@ -183,3 +187,19 @@
         </div>
     </div>
 </div> <!-- /.td-main-content-wrap -->
+<script>
+    $(document).on('click','.td_ajax_load_more',function(){
+        var ID = $(this).attr('id');
+        $('.td_ajax_load_more').hide();
+        $('.loding').show();
+        $.ajax({
+			type:'POST',
+			url:'/ajax/lainnya',
+			data:'id='+ID,
+			success:function(html){
+                $('#show_more_main'+ID).remove();
+                $('.postList').append(html);
+            }
+        });
+    });
+</script>
