@@ -25,6 +25,8 @@
             "site_title" =>pengaturan('site_title'),
             "site_keys" =>pengaturan('site_keys'),
             "site_desc" =>pengaturan('site_desc'),
+            "site_phone" =>pengaturan('site_phone'),
+            "site_mail" =>pengaturan('site_mail'),
             "site_company" =>pengaturan('site_company'),
             "site_favicon" =>pengaturan('site_favicon'),
             "site_logo" =>pengaturan('site_logo')

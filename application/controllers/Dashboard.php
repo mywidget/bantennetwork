@@ -20,7 +20,7 @@
             $tanggal = date('Y-m-d H:i:s');
             
             $data = [
-            'title'=>'Berita Terkini, Berita Hari Ini Banten dan Indonesia - Lenteranews.tv',
+            'title'=>tag_key('site_title'),
             'description' => tag_key('site_desc'),
             'keywords' => tag_key('site_keys'),
             'canonical'=>base_url(),

@@ -40,7 +40,7 @@
 				$data['kategori'] = $this->model_app->view_where('cat',['pub'=>'Y'])->result();
 				$data['posts']    = $this->model_data->getBlog($conditions);
 				
-				$this->template->load(backend().'/themes',backend().'/list-blog',$data);
+				$this->template->load(backend().'/themes',backend().'/list-berita',$data);
 				//add
 				}elseif($seo      =='addpost'){
 				$data['kategori'] = $this->model_app->view('cat')->result();
@@ -48,7 +48,7 @@
 				$data['author']   = $this->model_app->view('gtbl_user')->result();
 				$data['tanggal']  = date('Y-m-d');
 				$data['jam']      = date('H:i');
-				$this->template->load(backend().'/themes',backend().'/form-blog',$data);
+				$this->template->load(backend().'/themes',backend().'/form-berita',$data);
 				//edit
 				}elseif($seo      =='editpost'){
 				$getid            = decrypt_url($this->uri->segment(4));
@@ -56,7 +56,7 @@
 				$data['author']   = $this->model_app->view('gtbl_user')->result();
 				$data['label']    = $this->model_app->view('label')->result();
 				$data['post']     = $this->model_app->view_where('posting',['id_post'=>$getid])->row();
-				$this->template->load(backend().'/themes',backend().'/formedit-blog',$data);
+				$this->template->load(backend().'/themes',backend().'/formedit-berita',$data);
 			}
 		}
 		function ajaxBlog()
@@ -181,7 +181,6 @@
 							'youtube'        => $youtube,
 							'durasi'         => $this->input->post('durasi',TRUE),
 							'dibaca'         => $this->input->post('dibaca',TRUE),
-							'label'          => $this->input->post('label',TRUE)
 							];
 							
 							$update = $this->model_app->update('posting', $data, ['id_post'=>$id]);
@@ -212,7 +211,6 @@
 					'youtube'        => $youtube,
 					'durasi'         => $this->input->post('durasi',TRUE),
 					'dibaca'         => $this->input->post('dibaca',TRUE),
-					'label'          => $this->input->post('label',TRUE)
 					];
 					
 					$update = $this->model_app->update('posting', $data, ['id_post'=>$id]);

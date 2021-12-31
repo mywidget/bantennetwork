@@ -13,7 +13,7 @@
         
 		public function index()
 		{
-			$data['title'] = 'Pencarian | LENTERANEWS';
+			$data['title'] = 'Pencarian | '.tag_key('site_title';
 			$data['description'] = tag_key('site_desc');
 			$data['keywords'] = tag_key('site_desc');
 			$data['canonical']=base_url('search/');
@@ -21,14 +21,9 @@
 			$data['json']=[
             "@context" => "https://schema.org",
             "@type" =>  "Organization",
-            "name" =>  "Lentera News",
+            "name" =>  tag_key('site_name'),
             "url" =>  "https://www.lenternews.tv",
-            "sameAs" => [
-            "https://www.facebook.com/Lenternews",
-            "https://twitter.com/Lenternews",
-            "https://www.youtube.com/user/Lenternews",
-            "https://www.pinterest.com/Lenternews/"
-            ]
+            "sameAs" => sosmed()
             ];
 			
 			$conditions['where'] = array(

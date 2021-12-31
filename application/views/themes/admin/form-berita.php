@@ -62,21 +62,6 @@
 					<div class="form-group mt-2">
 						<textarea class="form-control" id="editor" name="summernote" rows="5"></textarea>
 					</div>
-					<div class="form-group row mt-2">
-						<div class="col-md-2">
-							<label for="chosen-label">Label</label>
-						</div>
-						<div class="col-md-10">
-							<select placeholder="" name="label" class="form-control" id="label">
-								<option value="0">Pilih</option>
-								<?php
-									foreach($label as $row){
-										echo '<option value="'.$row->id.'">'.$row->name.'</option>';
-									}
-								?>
-							</select>
-						</div>
-					</div>
 				</div>
 			</div>
 			
@@ -128,10 +113,7 @@
 						<div class="col-sm-9">
 							<select name="status" id="status" class="custom-select">
 								<option value="0" selected>Terbaru</option>
-								<option value="1" selected>sorotan</option>
 								<option value="2" selected>Headline</option>
-								<option value="3" selected>Editor Choice</option>
-								<option value="4" selected>Populer</option>
 							</select>
 						</div>
 					</div>

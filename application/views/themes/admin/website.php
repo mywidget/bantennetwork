@@ -7,9 +7,7 @@
 				<li class="nav-item">
 					<a class="nav-link active" id="pills-setting-tab" data-toggle="pill" href="#previous-month" role="tab" aria-controls="pills-setting" aria-selected="false">Pengaturan</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="pills-sandi-tab" data-toggle="pill" href="#previous-sandi" role="tab" aria-controls="pills-sandi" aria-selected="false">Ganti Sandi</a>
-				</li>
+				
 			</ul>
 			<div class="tab-content" id="pills-tabContent">
 				<div class="tab-pane fade show active" id="previous-month" role="tabpanel" aria-labelledby="pills-setting-tab">
@@ -79,6 +77,27 @@
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
+									<label for="site_phone">No. Telp</label>
+									<div class="input-group mb-3">
+										<input type="text" name="site_phone" value="<?=$setting['site_phone'];?>" class="form-control" id="site_phone" required>
+										<div class="input-group-append">
+											<button class="btn btn-success" type="button" value="site_desc_save">Simpan</button>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group col-md-6">
+									<label for="site_mail">Email</label>
+									<div class="input-group mb-3">
+										<input type="text" name="site_mail" value="<?=$setting['site_mail'];?>" class="form-control" id="site_mail" placeholder="site_mail">
+										<div class="input-group-append">
+											<button class="btn btn-success" type="button" value="site_company_save">Simpan</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-6">
 									<label>Logo</label>
 									<input type="file" id="input_logo"  name="input_logo" class="file-upload-default"  accept="image/*">
 									<div class="input-group col-xs-12">
@@ -99,20 +118,6 @@
 									</div>
 								</div>
 							</div>
-						</form>
-					</div>
-				</div>
-				<div class="tab-pane fade" id="previous-sandi" role="tabpanel" aria-labelledby="pills-sandi-tab">
-					<div class="card-body">
-						<form class="form-horizontal">
-							<div class="form-group">
-								<label for="password1">Kata Sandi</label>
-								<input type="password" name="password1" class="form-control" id="password1" placeholder="Password Pengguna" required>
-								<label for="password2">Konfirmasi kata sandi</label>
-								<input type="password" name="password2" class="form-control" id="password2" placeholder="Password Pengguna" required>
-							</div>
-							
-							<button id="update" class="btn btn-success" type="button">Ganti Sandi</button>
 						</form>
 					</div>
 				</div>

@@ -13,7 +13,7 @@
 		public function index()
 		{
 			$seo = $this->uri->segment(2);
-			$data['title'] = 'Topik - ' .ucwords(cleanTag($seo)).' | LENTERANEWS';
+			$data['title'] = 'Topik - ' .ucwords(cleanTag($seo)).' | '.tag_key('site_title';
 			$data['description'] = tag_key('site_desc');
 			$data['keywords'] = tag_key('site_desc');
 			$data['canonical']=base_url('search/');
@@ -22,14 +22,9 @@
 			$data['json']=[
             "@context" => "https://schema.org",
             "@type" =>  "Organization",
-            "name" =>  "Lentera News",
-            "url" =>  "https://www.lenternews.tv",
-            "sameAs" => [
-            "https://www.facebook.com/Lenternews",
-            "https://twitter.com/Lenternews",
-            "https://www.youtube.com/user/Lenternews",
-            "https://www.pinterest.com/Lenternews/"
-            ]
+            "name" => tag_key('site_name'),
+            "url" =>  tag_key('site_url'),
+            "sameAs" => sosmed()
             ];
 			
 			

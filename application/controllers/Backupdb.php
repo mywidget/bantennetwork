@@ -13,7 +13,7 @@
 		
         public function index()
 		{
-			$data['title']       = 'Backup DB | lenteranews.tv';
+			$data['title']       = 'Backup DB | '.tag_key('site_name');
 			$data['description'] = 'description';
 			$data['keywords']    = 'keywords';
             $this->template->load(backend().'/themes',backend().'/backup',$data);

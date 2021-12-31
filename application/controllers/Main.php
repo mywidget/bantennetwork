@@ -17,28 +17,15 @@
 			$data['keywords'] = 'keywords';
 			$this->template->load(backend().'/themes',backend().'/content',$data);
 		}
-		public function hitung()
-		{
-			$data['title'] = 'Aplikasi Hitung | lenteranews.tv';
-			$data['description'] = 'description';
-			$data['keywords'] = 'keywords';
-			$data['site_urlapi'] = $this->appconfig['URL_HITUNG'];
-			$this->template->load(backend().'/themes',backend().'/produk',$data);
-		}
+		
 		public function profil()
 		{
-			$data['title'] = 'Profil | lenteranews.tv';
+			$data['title'] = 'Profil | '.tag_key('site_title');
 			$data['description'] = 'description';
 			$data['keywords'] = 'keywords';
 			$this->template->load(backend().'/themes',backend().'/content',$data);
 		}
-		public function pembelian()
-		{
-			$data['title'] = 'Pembelian | lenteranews.tv';
-			$data['description'] = 'description';
-			$data['keywords'] = 'keywords';
-			$this->template->load(backend().'/themes',backend().'/content',$data);
-		}
+		
 		public function menuadmin()
 		{
 			// echo $this->uri->segment(1);
@@ -312,36 +299,6 @@
 			echo json_encode($arr);
 		}
 		
-		public function appid()
-		{
-			$data['title']       = 'APPID | lenteranews.tv';
-			$data['description'] = 'description';
-			$data['keywords']    = 'keywords';
-            
-			// Get record count 
-			$conditions['returnType'] = 'count';
-			$totalRec = $this->model_data->getAppid($conditions);
-			
-			// Pagination configuration 
-			$config['target']      = '#posts_content';
-			$config['base_url']    = base_url('main/ajaxAppid');
-			$config['total_rows']  = $totalRec;
-			$config['per_page']    = $this->perPage;
-			$config['link_func']   = 'searchFilter';
-			
-			// Initialize pagination library 
-			$this->ajax_pagination->initialize($config);
-			
-			// Get records 
-			$conditions = array(
-			'limit' => $this->perPage
-			);
-			
-			$data['fetchw'] = $this->model_data->getAppid($conditions);
-			
-			$this->template->load(backend().'/themes',backend().'/list_appid',$data);
-            
-		}
 		function ajaxAppid()
         {
             // Define offset 
@@ -388,17 +345,9 @@
 		}
 		
 		
-		public function hitungan()
-		{
-			$data['title']       = 'Hasil Hitung | lenteranews.tv';
-			$data['description'] = 'description';
-			$data['keywords']    = 'keywords';
-			$this->template->load(backend().'/themes',backend().'/aplikasi/hitungan',$data);
-		}
-		
 		public function database()
 		{
-			$data['title']       = 'Database | lenteranews.tv';
+			$data['title']       = 'Database | '.tag_key('site_title');
 			$data['description'] = 'description';
 			$data['keywords']    = 'keywords';
 			$this->template->load(backend().'/themes',backend().'/database',$data);

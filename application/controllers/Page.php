@@ -14,7 +14,7 @@
 				if($qry->num_rows()){
 					$query = $qry->row_array();
 					
-					$data['title'] = $query['judul'].' | LENTERANEWS';
+					$data['title'] = $query['judul'].' | '.tag_key('site_title';
 					$data['description'] = tag_key('site_desc');
 					$data['keywords'] = tag_key('site_desc');
 					$data['canonical']=base_url('detail/').$query['judul_seo'];
@@ -48,10 +48,10 @@
 					"dateModified"=>"",
 					"publisher"=>[
 					"@type"=>"Organization",
-					"name"=>"LENTERANEWS.TV",
+					"name"=>tag_key('site_name'),
 					"logo"=>[
 					"@type"=>"ImageObject",
-					"url"=>base_url('assets/banner/logo.png'),
+					"url"=>logo(),
 					"width"=>"710",
 					"height"=>"228"
 					]
@@ -59,8 +59,7 @@
 					];
 					
 					$data['item'] = $query;
-					$data['terbaru'] = terbaru();
-					$data['populer'] = populer();
+					
 					
 					$this->template->load(template().'/themes',template().'/pages_detail',$data);
 					

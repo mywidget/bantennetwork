@@ -60,25 +60,6 @@
 					<div class="form-group mt-2">
 						<textarea class="form-control" id="editor" name="summernote" rows="6"><?=$post->postingan;?></textarea>
 					</div>
-					<div class="form-group row mt-2">
-						<div class="col-md-2">
-							<label for="chosen-label">Label</label>
-						</div>
-						<div class="col-md-10">
-							<select placeholder="" name="label" class="form-control" id="label">
-								<option value="0">Pilih</option>
-								<?php
-									foreach($label as $row){
-										if($row->id==$post->label){
-											echo '<option value="'.$row->id.'" selected>'.$row->name.'</option>';    
-											}else{
-											echo '<option value="'.$row->id.'">'.$row->name.'</option>';    
-										}
-									}
-								?>
-							</select>
-						</div>
-					</div>
 				</div>
 			</div>
 			

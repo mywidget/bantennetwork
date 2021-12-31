@@ -59,7 +59,7 @@
 					"dateModified"=>standard_date('DATE_ATOM', strtotime($query['dateModified'])),
 					"publisher"=>[
 					"@type"=>"Organization",
-					"name"=>"LENTERANEWS.TV",
+					"name"=>tag_key('site_name'),
 					"logo"=>[
 					"@type"=>"ImageObject",
 					"url"=>base_url('assets/banner/logo.png'),
