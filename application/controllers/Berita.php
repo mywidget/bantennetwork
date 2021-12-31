@@ -246,7 +246,6 @@
 						'youtube'        => $youtube,
 						'durasi'         => $this->input->post('durasi',TRUE),
 						'dibaca'         => $this->input->post('dibaca',TRUE),
-						'label'          => $this->input->post('label',TRUE)
 						];
 						
 						// print_r($data);
@@ -279,7 +278,6 @@
 					'youtube'        => $youtube,
 					'durasi'         => $this->input->post('durasi',TRUE),
 					'dibaca'         => $this->input->post('dibaca',TRUE),
-					'label'          => $this->input->post('label',TRUE)
 					];
 					
 					// print_r($data);
