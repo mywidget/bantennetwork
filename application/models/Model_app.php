@@ -103,6 +103,20 @@
             return $this->db->get($table);
         }
         
+        public function view_where_order_limit($table,$data,$order,$ordering,$baris,$dari){
+            $this->db->where($data);
+            $this->db->order_by($order,$ordering);
+            $this->db->limit($dari, $baris);
+            return $this->db->get($table);
+        }
+        
+        public function view_where_limit($table,$data,$order,$ordering,$limit){
+            $this->db->where($data);
+            $this->db->order_by($order,$ordering);
+            $this->db->limit($limit);
+            return $this->db->get($table);
+        }
+        
         public function view_join_one($table1,$table2,$field,$order,$ordering){
             $this->db->select('*');
             $this->db->from($table1);
@@ -129,13 +143,13 @@
         }
         
         // public function view_join_wheres($table1,$table2,$field1,$field2,$where,$order,$ordering,$baris){
-            // $this->db->select('*');
-            // $this->db->from($table1);
-            // $this->db->join($table2, $table1.'.'.$field1.'='.$table2.'.'.$field2);
-            // $this->db->where($where);
-            // $this->db->order_by($order,$ordering);
-            // $this->db->limit($baris);
-            // return $this->db->get()->result();
+        // $this->db->select('*');
+        // $this->db->from($table1);
+        // $this->db->join($table2, $table1.'.'.$field1.'='.$table2.'.'.$field2);
+        // $this->db->where($where);
+        // $this->db->order_by($order,$ordering);
+        // $this->db->limit($baris);
+        // return $this->db->get()->result();
         // }
         public function view_jointwo_where($from,$table1,$table2,$join1,$join2,$where,$order,$ordering,$baris){
             $this->db->select('*');
@@ -180,7 +194,7 @@
 			$query = $this->db->get(); 
 			$result = ($query->num_rows() > 0)?$query->result_array():FALSE; 
 			return $result; 
-		}
+        }
         function kategori_tag($id_cat)
 		{
 			$this->db->select('*'); 
@@ -189,5 +203,13 @@
 			$query = $this->db->get(); 
 			$result = ($query->num_rows() > 0)?$query->result_array():FALSE; 
 			return $result; 
-		}
-    }                
+        }
+        
+        function getCounter($table,$where)
+		{
+			$this->db->select('*');
+            $this->db->from($table);
+             $this->db->where($where);
+            return $this->db->count_all_results();
+        }
+    }                    

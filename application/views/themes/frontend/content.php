@@ -97,7 +97,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="tdi_7_60f" class="tdc-row">
+                <div class="tdc-row">
                     <div class="vc_row td-ss-row wpb_row td-pb-row" >
                         <div class="vc_column wpb_column vc_column_container tdc-column td-pb-span8">
                             <div class="wpb_wrapper">
@@ -151,25 +151,26 @@
                                 </div> <!-- ./block -->
                                 
                                 <?=load_block(1);?>
+                                
                             </div>
                         </div>
                         
                         <div class="vc_column wpb_column vc_column_container tdc-column td-pb-span4">
                             <div class="wpb_wrapper">
                                 <div class="wpb_wrapper td_block_wrap vc_raw_html tdi_30_b15 ">
-                                </div>
                                 <?=load_block(2);?>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="tdi_41_f33" class="tdc-row">
+                <!--div id="tdi_41_f33" class="tdc-row">
                     <div class="vc_row tdi_42_ab9  wpb_row td-pb-row" >
-                        <div class="vc_column tdi_44_abb  wpb_column vc_column_container tdc-column td-pb-span12">
-                            <div class="wpb_wrapper"></div>
-                        </div>
+                    <div class="vc_column tdi_44_abb  wpb_column vc_column_container tdc-column td-pb-span12">
+                    <div class="wpb_wrapper"></div>
                     </div>
-                </div>
+                    </div>
+                </div-->
             </div>
         </div>
     </div>

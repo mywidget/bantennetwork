@@ -12,33 +12,33 @@
     */
     class Ajax_paging{
         
-        var $base_url           = ''; // The page we are linking to
+        var $base_url       = ''; // The page we are linking to
         var $total_rows  	= ''; // Total number of items (database results)
         var $per_page	 	= 10; // Max number of items you want shown per page
         var $num_links		=  1; // Number of "digit" links to show before/after the currently viewed page
         var $cur_page	 	=  0; // The current page being viewed
-        var $first_link   	= '&#171;';
-        var $next_link		= '&#8250;';
-        var $prev_link		= '&#8249;';
-        var $last_link		= '&#187;';
-        var $uri_segment	= 3;
-        var $full_tag_open	= '<div class="paging">';
+        var $first_link   	= '<i class="td-icon-font td-icon-menu-left"></i>';
+        var $next_link		= '<i class="td-icon-font td-icon-menu-right"></i>';
+        var $prev_link		= '<i class="td-icon-font td-icon-menu-left"></i>';
+        var $last_link		= '';
+        var $uri_segment	= 0;
+        var $full_tag_open	= '<div class="td-next-prev-wrap">';
         var $full_tag_close	= '</div>';
         var $first_tag_open	= '';
         var $first_tag_close= '';
         var $last_tag_open	= '';
         var $last_tag_close	= '';
-        var $cur_tag_open	= '<span class="current">';
+        var $cur_tag_open	= '</i><span style="display:none">';
         var $cur_tag_close	= '</span>';
         var $next_tag_open	= '';
         var $next_tag_close	= '';
-        var $prev_tag_open	= '';
-        var $prev_tag_close	= '';
-        var $num_tag_open	= '';
-        var $num_tag_close	= '';
+        var $prev_tag_open	= '<i class="td-icon-font td-icon-menu-left">';
+        var $prev_tag_close	= '<i class="td-icon-font td-icon-menu-left">';
+        var $num_tag_open	= '<span>';
+        var $num_tag_close	= '</span>';
         var $target         = '';
     	var $anchor_class	= '';
-    	var $show_count     = true;
+    	var $show_count     = false;
     	var $link_func      = 'getData';
     	var $loading        = '.loading';
         

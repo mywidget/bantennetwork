@@ -6,19 +6,147 @@
 		$html ="";
 		
 		if($qry->num_rows() >0){
-		$_limit = $val['limit'];
+			$_limit = $val['limit'];
 			if($val['limit']==1){
 				$limit = 2;
 				$limit_qry = 5;
 				}else{
 				$limit = 3;
-				$limit_qry = 6;
+				$limit_qry =6;
 			}
 			
 			$row = $qry->row_array();
 			$id_cat = $row['id_cat'];
 			$judul_kategori = $row['nama_kategori'];
+			// $html .= $ci->model_app->getCounter('posting',['id_cat'=>$id_cat,'publish'=>'Y']);
+			$qryberita =  $ci->model_app->view_where_limit('posting',['id_cat'=>$id_cat,'publish'=>'Y'],'tanggal','DESC',$limit_qry)->result();
+			// $qryberita =  $ci->db->query("SELECT * from posting WHERE id_cat='$id_cat' order by id_post DESC LIMIT $limit_qry")->result();
+			if(!empty($qryberita)){
+				$html .=  '<div class="td_block_wrap td_block_15  td-pb-full-cell td-pb-border-top td_block_template_1">
+				<h4 class="block-title"><span class="td-pulldown-size">'.$judul_kategori.'</span></h4>
+				<div id="post_content_'.$id_cat.'" class="td_block_inner td-column-2">
+				<div class="td-block-row">';
+				$counter =0;
+				$num =1;
+				
+				foreach ($qryberita as $row)
+				{
+					$penulis = 'Bantennetwork';
+					$judul = $row->judul;
+					$seo = $row->judul_seo;
+					$tanggal = tgl_post($row->tanggal);
+					$dateatom = standard_date('DATE_ATOM', strtotime($row->tanggal));
+					$thnt = folderthn($row->folder);
+					$blnt = folderbln($row->folder);
+					$opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row->gambar;
+					$size = @getimagesize($opathFile);
+					if($size !== false){
+						$gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row->gambar;
+						}else{
+						$gambar = base_url()."assets/no_photo.jpg";
+					}
+					if($num < $limit){
+						
+						$html .= '<div class="td-block-span6">
+						<div class="td_module_mx1 td_module_wrap td-animation-stack">
+						<div class="td-block14-border"></div>
+						<div class="td-module-thumb"><a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'" ><img style="width: 341px; height: 220px; object-fit: cover;" src="'.$gambar.'" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="341" height="220"><noscript><img class="entry-thumb" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'"  width="341" height="220" /></noscript></a></div>        
+						
+						<div class="meta-info">
+						<h3 class="entry-title td-module-title"><a href="'.$seo.'" rel="bookmark" title="'.$judul.'">'.$judul.'</a></h3>
+						<div class="td-editor-date">
+						<span class="td-post-author-name"><a href="#">'.$penulis.'</a> <span>-</span> </span><span class="td-post-date"><time class="entry-date updated td-module-date" datetime="'.$tanggal.'" >'.$dateatom.'</time></span>
+						</div>
+						</div>
+						</div>
+						</div> <!-- ./td-block-span6 -->';
+						}else{
+						
+						$html .='<div class="td-block-span6">
+						<div class="td_module_mx2 td_module_wrap td-animation-stack">
+						<div class="td-module-thumb"><a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'" ><img src="'.$gambar.'"  style="width: 80px; height: 60px; object-fit: cover;" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="80" height="60"><noscript><img class="entry-thumb" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'"  width="80" height="60" /></noscript></a></div>            
+						<div class="item-details">
+						<h3 class="entry-title td-module-title title-sub"><a href="'.$seo.'" rel="bookmark" title="'.$judul.'">'.$judul.'</a></h3>
+						<div class="meta-info">
+						<span class="td-post-date"><time class="entry-date updated td-module-date" datetime="'.$dateatom.'" >'.$tanggal.'</time></span>
+						</div>
+						</div>
+						</div>
+						</div> <!-- ./td-block-span6 -->';
+					}
+					$num++;
+					$counter++;
+				}
+				
+				$html .= '</div><!--./row-fluid-->';
+				$html .='<div class="td-next-prev-wrap">
+				<a href="#prev" class="td-ajax-prev-page" id="prev-page-'.$id_cat.'" data-id="'.$id_cat.'"><i class="td-icon-font td-icon-menu-left"></i></a>
+				<a href="#next" class="td-ajax-next-page" id="next-page-'.$id_cat.'" data-id="'.$id_cat.'"><i class="td-icon-font td-icon-menu-right"></i></a>
+				</div>
+				</div>
+				</div>';
+				$html .='<script type="text/javascript">
+				(function($){
+				var offset=0;
+				$("#next-page-'.$id_cat.', #prev-page-'.$id_cat.'").click(function(){
+				offset = ($(this).attr("id")=="next-page-'.$id_cat.'") ? offset + 6 : offset - 6;
+				if (offset<0)
+				offset=0;
+				else
+				loadCurrentPage'.$id_cat.'();
+				});
+				function loadCurrentPage'.$id_cat.'(){
+				var nama = "'.$judul_kategori.'";
+				var cat = "'.$id_cat.'";
+				var limit = "'.$_limit.'";
+				var counter = "'.$counter.'";
+				$.ajax({
+				type: "POST",
+				url: "/home/next_page",
+				data:{offset:offset,cat:cat,nama:nama,limit:limit,counter:counter},
+				cache: true,
+				success: function (data) {
+				if(data=="reload"){
+				location.reload(); 
+				return;
+				}
+				$("#post_content_'.$id_cat.'").html(data);
+				}
+				});
+				}
+				})(jQuery);
+				</script>';
+				
+			}
+				return $html;
+		}
+	}
+	
+				
+	function blok_widgetpaging(array $val){
+		$ci = & get_instance();
+		
+		$qry = $ci->db->query("SELECT * from cat WHERE id_cat=".$val['id']);
+		$html ="";
+		
+		if($qry->num_rows() >0){
+			$_limit = $val['limit'];
+			if($val['limit']==1){
+				$limit = 2;
+				$limit_qry = 5;
+				}else{
+				$limit = 3;
+				$limit_qry = 4;
+			}
 			
+			$row = $qry->row_array();
+			$id_cat = $row['id_cat'];
+			$judul_kategori = $row['nama_kategori'];
+			if (!empty($cat)) {
+				$conditions['where'] = array(
+				'posting.id_cat' => $cat
+				);
+			}
 			$conditions['returnType'] = 'count';
 			$totalRec = $ci->model_data->getRows("posting",$conditions);
 			// Pagination configuration 
@@ -35,95 +163,99 @@
 			$conditions = array(
 			'limit' => $limit_qry
 			);
-			
+			if (!empty($id_cat)) {
+				$conditions['where'] = array(
+				'posting.id_cat' => $id_cat
+				);
+			}
 			
 			$qryberita =  $ci->model_data->getRows("posting",$conditions);
-			
-			$html .=  '<div class="td_block_wrap td_block_15  td-pb-full-cell td-pb-border-top td_block_template_1">
-			<h4 class="block-title">
-			<span class="td-pulldown-size">'.$judul_kategori.'</span></h4>
-			<div id="post_content_'.$id_cat.'" class="td_block_inner td-column-2">
-			<div class="td-block-row">';
-			$num =1;
-			foreach ($qryberita as $row)
-			{
-				$penulis = 'Bantennetwork';
-				$judul = $row->judul;
-				$seo = $row->judul_seo;
-				$tanggal = tgl_post($row->tanggal);
-				$dateatom = standard_date('DATE_ATOM', strtotime($row->tanggal));
-				$thnt = folderthn($row->folder);
-				$blnt = folderbln($row->folder);
-				$opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row->gambar;
-				$size = @getimagesize($opathFile);
-				if($size !== false){
-					$gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row->gambar;
-					}else{
-					$gambar = base_url()."assets/no_photo.jpg";
+			if(!empty($qryberita)){
+				$html .=  '<div class="td_block_wrap td_block_15  td-pb-full-cell td-pb-border-top td_block_template_1">
+				<h4 class="block-title">
+				<span class="td-pulldown-size">'.$judul_kategori.'</span></h4>
+				<div id="post_content_'.$id_cat.'" class="td_block_inner td-column-2">
+				<div class="td-block-row">';
+				$num =1;
+				
+				foreach ($qryberita as $row)
+				{
+					$penulis = 'Bantennetwork';
+					$judul = $row->judul;
+					$seo = $row->judul_seo;
+					$tanggal = tgl_post($row->tanggal);
+					$dateatom = standard_date('DATE_ATOM', strtotime($row->tanggal));
+					$thnt = folderthn($row->folder);
+					$blnt = folderbln($row->folder);
+					$opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row->gambar;
+					$size = @getimagesize($opathFile);
+					if($size !== false){
+						$gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row->gambar;
+						}else{
+						$gambar = base_url()."assets/no_photo.jpg";
+					}
+					if($num < $limit){
+						
+						$html .= '<div class="td-block-span6">
+						<div class="td_module_mx1 td_module_wrap td-animation-stack">
+						<div class="td-block14-border"></div>
+						<div class="td-module-thumb"><a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'" ><img style="width: 341px; height: 220px; object-fit: cover;" src="'.$gambar.'" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="341" height="220"><noscript><img class="entry-thumb" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'"  width="341" height="220" /></noscript></a></div>        
+						
+						<div class="meta-info">
+						<h3 class="entry-title td-module-title"><a href="'.$seo.'" rel="bookmark" title="'.$judul.'">'.$judul.'</a></h3>
+						<div class="td-editor-date">
+						<span class="td-post-author-name"><a href="#">'.$penulis.'</a> <span>-</span> </span><span class="td-post-date"><time class="entry-date updated td-module-date" datetime="'.$tanggal.'" >'.$dateatom.'</time></span>
+						</div>
+						</div>
+						</div>
+						</div> <!-- ./td-block-span6 -->';
+						}else{
+						
+						$html .='<div class="td-block-span6">
+						<div class="td_module_mx2 td_module_wrap td-animation-stack">
+						<div class="td-module-thumb"><a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'" ><img src="'.$gambar.'"  style="width: 80px; height: 60px; object-fit: cover;" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="80" height="60"><noscript><img class="entry-thumb" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'"  width="80" height="60" /></noscript></a></div>            
+						<div class="item-details">
+						<h3 class="entry-title td-module-title title-sub"><a href="'.$seo.'" rel="bookmark" title="'.$judul.'">'.$judul.'</a></h3>
+						<div class="meta-info">
+						<span class="td-post-date"><time class="entry-date updated td-module-date" datetime="'.$dateatom.'" >'.$tanggal.'</time></span></div>
+						</div>
+						
+						</div>
+						
+						</div> <!-- ./td-block-span6 -->';
+					}
+					$num++;
 				}
-				if($num < $limit){
-					
-					$html .= '<div class="td-block-span6">
-					<div class="td_module_mx1 td_module_wrap td-animation-stack">
-					<div class="td-block14-border"></div>
-					<div class="td-module-thumb"><a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'" ><img style="width: 341px; height: 220px; object-fit: cover;" src="'.$gambar.'" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="341" height="220"><noscript><img class="entry-thumb" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'"  width="341" height="220" /></noscript></a></div>        
-					
-					<div class="meta-info">
-					<h3 class="entry-title td-module-title"><a href="'.$seo.'" rel="bookmark" title="'.$judul.'">'.$judul.'</a></h3>
-					<div class="td-editor-date">
-					<span class="td-post-author-name"><a href="#">'.$penulis.'</a> <span>-</span> </span><span class="td-post-date"><time class="entry-date updated td-module-date" datetime="'.$tanggal.'" >'.$dateatom.'</time></span>
-					</div>
-					</div>
-					</div>
-					</div> <!-- ./td-block-span6 -->';
-					}else{
-					
-					$html .='<div class="td-block-span6">
-					<div class="td_module_mx2 td_module_wrap td-animation-stack">
-					<div class="td-module-thumb"><a href="'.$seo.'" rel="bookmark" class="td-image-wrap " title="'.$judul.'" ><img src="'.$gambar.'"  style="width: 80px; height: 60px; object-fit: cover;" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'" width="80" height="60"><noscript><img class="entry-thumb" src="'.$gambar.'" alt="" title="'.$judul.'" data-type="image_tag" data-img-url="'.$gambar.'"  width="80" height="60" /></noscript></a></div>            
-					<div class="item-details">
-					<h3 class="entry-title td-module-title title-sub"><a href="'.$seo.'" rel="bookmark" title="'.$judul.'">'.$judul.'</a></h3>
-					<div class="meta-info">
-					<span class="td-post-date"><time class="entry-date updated td-module-date" datetime="'.$dateatom.'" >'.$tanggal.'</time></span></div>
-					</div>
-					
-					</div>
-					
-					</div> <!-- ./td-block-span6 -->';
+				// }
+				$html .= '</div><!--./row-fluid-->';
+				
+				
+				$html .= $ci->ajax_paging->create_links();
+				$html .='</div>
+				</div>';
+				$html .='<script type="text/javascript">
+				function searchFilter'.$id_cat.'(page_num){
+				var nama = "'.$judul_kategori.'"
+				var cat = "'.$id_cat.'"
+				var limit = "'.$_limit.'"
+				page_num = page_num?page_num:0;
+				$.ajax({
+				type: "POST",
+				url: "/home/nextPage/"+page_num,
+				data:{page:page_num,cat:cat,nama:nama,limit:limit},
+				beforeSend: function(){
+				$(".loading").show();
+				},
+				success: function(html){
+				$("#post_content_'.$id_cat.'").html(html);
+				$(".loading").fadeOut("slow");
 				}
-				$num++;
+				});
+				}
+				</script>';
+				
+				return $html;
 			}
-			// }
-			$html .= '</div><!--./row-fluid-->';
-			$html .= $ci->ajax_paging->create_links();
-			$html .='</div>
-			<div class="td-next-prev-wrap">
-			<a href="#" class="td-ajax-prev-page" id="prev-page-tdi_25_'.$id_cat.'" data-id="'.$id_cat.'"><i class="td-icon-font td-icon-menu-left"></i></a>
-			<a href="#" class="td-ajax-next-page" id="next-page-tdi_25_'.$id_cat.'" data-id="'.$id_cat.'"><i class="td-icon-font td-icon-menu-right"></i></a>
-			</div>
-			</div> ';
-			$html .='<script type="text/javascript">
-			var nama = "'.$judul_kategori.'"
-			function searchFilter'.$id_cat.'(page_num){
-			var cat = "'.$id_cat.'"
-			var limit = "'.$_limit.'"
-			page_num = page_num?page_num:0;
-			$.ajax({
-			type: "POST",
-			url: "/home/ajaxblog/"+page_num,
-			data:{page:page_num,cat:cat,nama:nama,limit:limit},
-			beforeSend: function(){
-			$(".loading").show();
-			},
-			success: function(html){
-			$("#post_content_'.$id_cat.'").html(html);
-			$(".loading").fadeOut("slow");
-			}
-			});
-			}
-			</script>';
-			
-			return $html;
 		}
 	}
 	
@@ -303,6 +435,12 @@
 	function menu_atas(){
 		$ci = & get_instance();
 		$list = $ci->model_aplikasi->CategoryList(1);
+		return $list;
+	}
+	
+	function menu_mobile(){
+		$ci = & get_instance();
+		$list = $ci->model_aplikasi->MenuMobile(1);
 		return $list;
 	}
 	
@@ -733,4 +871,4 @@
 			$arrt = array('limit'=>6,'kolom'=>4,'klass'=>'tiga');
 		}
 		return $arrt;
-	}    																																											
+		}    																																															

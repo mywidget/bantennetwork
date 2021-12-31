@@ -11,19 +11,22 @@
     foreach($kategori as $rowz){
         $dataTz[$rowz['id_parent']][] = $rowz;
     }
-    
+    $seo = base_url().$item['judul_seo'];
+    $judul = $item['judul'];
+    $caption = $item['caption'];
+    $isi = $item['postingan'];
 ?>
 <div class="td-container td-post-template-default">
     <div class="td-container-border">
         <div class="td-pb-row">
             <div class="td-pb-span8 td-main-content" role="main">
                 <div class="td-ss-main-content"><div class="clearfix"></div>
-                    <article id="post-120415" class="post-120415 post type-post status-publish format-standard has-post-thumbnail hentry category-bisnis tag-boking-hotel tag-harga-hotel-di-anyer tag-hotel-di-kabupaten-serang tag-hotel-murah tag-kepala-satpol-pp-kabupaten-serang-ajat-sudrajat tag-pantai-anyer tag-protokol-kesehatan tag-satpol-pp-kabupaten-serang tag-tahun-baru" itemscope="" itemtype="https://schema.org/Article" 47="">
+                    <article id="post-120415" class="post type-post" itemscope="" itemtype="https://schema.org/Article">
                         <div class="td-post-header td-pb-padding-side">
-                            <div class="entry-crumbs"><span><a title="" class="entry-crumb" href="https://www.bantennews.co.id/">Beranda</a></span> <i class="td-icon-right td-bread-sep"></i> <span><a title="Lihat semua kiriman dalam Bisnis" class="entry-crumb" href="https://www.bantennews.co.id/category/bisnis/">Bisnis</a></span> <i class="td-icon-right td-bread-sep td-bred-no-url-last"></i> <span class="td-bred-no-url-last">Pemkab Serang Pastikan Pelayanan Hotel Laksanakan Prokes</span></div>
-                            <!-- category --><ul class="td-category"><li class="entry-category"><a href="https://www.bantennews.co.id/category/bisnis/">Bisnis</a></li></ul>
+                            <div class="entry-crumbs"><span><a title="" class="entry-crumb" href="<?=base_url();?>">Beranda</a></span> <i class="td-icon-right td-bread-sep"></i> <span><a title="Lihat semua kiriman dalam <?=$nama_kategori;?>" class="entry-crumb" href="<?=$seo;?>"><?=ucwords($nama_kategori);?></a></span> <i class="td-icon-right td-bread-sep td-bred-no-url-last"></i> <span class="td-bred-no-url-last"><?=$judul;?></span></div>
+                            <!-- category --><ul class="td-category"><li class="entry-category"><a href="<?=$seo;?>">Bisnis</a></li></ul>
                             <header>
-                                <h1 class="entry-title">Pemkab Serang Pastikan Pelayanan Hotel Laksanakan Prokes</h1>
+                                <h1 class="entry-title"><?=$judul;?></h1>
                                 <div class="meta-info">
                                 <!-- author --><div class="td-post-author-name"><div class="td-author-by">Oleh</div> <a href="https://www.bantennews.co.id/author/redaksi-2/">Bantennews</a><div class="td-author-line"> - </div> </div>                    <!-- date --><span class="td-post-date"><time class="entry-date updated td-module-date" datetime="2021-12-27T16:12:03+07:00">Senin 27 Des 2021 16:12 WIB</time></span>                    <!-- modified date -->                    <!-- views -->                    <!-- comments -->                </div>
                             </header>
@@ -57,18 +60,10 @@
                                 </a></div></div></div>
                                 <div class="td-post-content td-pb-padding-side">
                                     
-                                    <!-- image --><div class="td-post-featured-image"><figure><a href="https://www.bantennews.co.id/wp-content/uploads/2021/12/WhatsApp-Image-2021-12-27-at-14.08.19.jpeg" data-caption="Pemerintah Kabupaten (Pemkab) Serang melalui Satuan Polisi Pamong Praja (Satpol PP) melakukan monitoring pelayanan hotel di sekitar Kecamatan Anyer dan Cinangka. " class="td-modal-image"><img class="entry-thumb td-animation-stack-type0-2" src="https://www.bantennews.co.id/wp-content/uploads/2021/12/WhatsApp-Image-2021-12-27-at-14.08.19-640x428.jpeg" srcset="https://www.bantennews.co.id/wp-content/uploads/2021/12/WhatsApp-Image-2021-12-27-at-14.08.19-640x428.jpeg 640w, https://www.bantennews.co.id/wp-content/uploads/2021/12/WhatsApp-Image-2021-12-27-at-14.08.19-300x200.jpeg 300w, https://www.bantennews.co.id/wp-content/uploads/2021/12/WhatsApp-Image-2021-12-27-at-14.08.19-768x513.jpeg 768w, https://www.bantennews.co.id/wp-content/uploads/2021/12/WhatsApp-Image-2021-12-27-at-14.08.19-250x167.jpeg 250w, https://www.bantennews.co.id/wp-content/uploads/2021/12/WhatsApp-Image-2021-12-27-at-14.08.19-629x420.jpeg 629w, https://www.bantennews.co.id/wp-content/uploads/2021/12/WhatsApp-Image-2021-12-27-at-14.08.19-537x360.jpeg 537w, https://www.bantennews.co.id/wp-content/uploads/2021/12/WhatsApp-Image-2021-12-27-at-14.08.19-681x455.jpeg 681w, https://www.bantennews.co.id/wp-content/uploads/2021/12/WhatsApp-Image-2021-12-27-at-14.08.19.jpeg 1024w" sizes="(max-width: 640px) 100vw, 640px" alt="" title="WhatsApp Image 2021-12-27 at 14.08.19" width="640" height="428"></a><figcaption class="wp-caption-text">Pemerintah Kabupaten (Pemkab) Serang melalui Satuan Polisi Pamong Praja (Satpol PP) melakukan monitoring pelayanan hotel di sekitar Kecamatan Anyer dan Cinangka. </figcaption></figure></div>
+                                    <!-- image --><div class="td-post-featured-image"><figure><a href="<?=$gambar;?>" data-caption="<?=$caption;?>" class="td-modal-image"><img class="entry-thumb td-animation-stack-type0-2" src="<?=$gambar;?>" width="640" height="428"></a><figcaption class="wp-caption-text"><?=$caption;?></figcaption></figure></div>
                                     <!-- content -->
-                                    <div itemprop="articleBody" class="dable-content-wrapper"><p><strong>SERANG</strong> –&nbsp;Pemerintah Kabupaten (Pemkab) Serang melalui Satuan Polisi Pamong Praja (Satpol PP) melakukan monitoring pelayanan hotel di sekitar Kecamatan Anyer dan Cinangka. Hal tersebut untuk memastikan manajemen hotel melaksanakan protokol kesehatan (prokes) untuk pencegahan penyebaran Covid-19.</p>
-                                        <p>Kepala Satpol PP Kabupaten Serang Ajat Sudrajat mengatakan, monitoring dilakukan sebagai bagian dari pelaksanaan Intruksi Bupati (Inbup) Serang Nomor 17 Tahun 2021 tentang Pencegahan dan Penanggulangan Covid-19 pada Natal dan Tahun Baru. “Termasuk kami monitoring, pengecekan penerapan aplikasi Peduli Lindungi di hotel-hotel sepanjang Anyer-Cinangka,” kata Ajat melalui keterangan tertulis, Senin (27/12/2021).</p><div class="td-a-rec td-a-rec-id-content_inline  tdi_2_823 td_block_template_1">
-                                        </div>
-                                        
-                                        <p>Dalam proses monitoring, Satpol PP didampingi oleh aparatur TNI dari Kodim 0623/Cilegon dan kepolisian dari Polres Cilegon sebagai yang berwenang secara kewilayahan. Kemudian bersama pula Camat Cinangka dan Camat Anyer. “Kami sebagai bagian dari Satuan Tugas Penanganan Covid-19, mengoptimalisasi kerja sama untuk menanggulangi penyebaran Covid-19 selama libur Natal dan Tahun Baru,” ujar Ajat.</p>
-                                        <p>Ajat menegaskan, seluruh hotel di wilayah Anyer dan Cinangka, wajib menyediakan barcode Peduli Lindungi bagi setiap tamu yang datang. “Tentu wajib juga menyediakan sarana protokol kesehatan. Kami cek seluruh hotel, dan wajib menjalankan Intruksi Bupati,” ujarnya.</p>
-                                        <p>Menurutnya, seluruh hotel sudah mengetahui adanya Inbup Serang Nomor 17 Tahun 2021 melalui sosialisasi yang dilakukan oleh Perhimpunan Hotel dan Restoran Indonesia (PHRI) Kabupaten Serang. “Jadi tidak alasan untuk tidak melaksanakan. Semua wajib menjaga ketentraman, kenyaman, dan pencegahan penyebaran Covid-19,” ujar Ajat.</p>
-                                        
-                                        <p>Berdasarkan monitoring yang dilakukan, Ajat mengungkapkan, mayoritas hotel sudah menjalankan prokes dan menyediakan barcode aplikasi Peduli Lindungi. “Aplikasi ini sudah digunakan oleh sekira 75 persen hotel wilayah Anyer dan Cinangka,” ujar Ajat.</p>
-                                        <p>Bagi yang belum menggunakan aplikasi Peduli Lindungi, Pemkab Serang memberikan panduan serta mendaftarkan akunnya. Siap mendampingi Diskominfosatik dan Disporapar Kabupaten Serang. “Bagi yang belum, kami akan cek kembali dan tindaklanjuti sampai semua hotel menggunakan aplikasi Peduli Lindungi. Ini sudah menjadi perintah Bupati Serang yang harus dijalankan,” ujarnya. <strong>(Red)</strong></p>
+                                    <div itemprop="articleBody" class="dable-content-wrapper">
+                                    <?=$isi;?>
                                     </div>
                                 </div>
                                 

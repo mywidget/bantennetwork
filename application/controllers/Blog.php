@@ -17,18 +17,16 @@
 				$qry = $this->model_data->detailPost(['judul_seo'=>$seo,'publish'=>'Y']);
 				if($qry->num_rows()){
 					$query = $qry->row_array();
-					
-					$qrycat = $this->model_data->getCat(['kategori_seo'=>$seo]);
-					$rowcat = $qrycat->row_array();
-					
+					$rowcat = $this->model_data->getCat(['id_cat'=>$query['id_cat']])->row_array();
+					// print_r($rowcat);
 					$thnt = folderthn($query['folder']);
 					$blnt = folderbln($query['folder']);
 					$data['title'] = $query['judul'].' | '.tag_key('site_title');
 					$data['description'] = tag_key('site_desc');
 					$data['keywords'] = tag_key('site_desc');
-					$data['canonical']=base_url('detail/').$query['judul_seo'];
+					$data['canonical']=base_url().$query['judul_seo'];
 					$data['url_image'] = base_url().'assets/post/'.$thnt.'/'.$blnt.'/'.$query['gambar'];
-					
+					$data['publisher']=sosmed_single('FB');
 					$start = strpos($query['postingan'], '<p>');
 					$end = strpos($query['postingan'], '</p>', $start);
 					$paragraph = substr($query['postingan'], $start, $end-$start+4);
@@ -74,45 +72,46 @@
 					insert_baca($dibaca,$query['id_post']);
 					insert_populer($query['id_post'],$query['id_cat'],date('Y-m-d'));
 					$data['kategori'] = $this->model_app->view('cat')->result_array();
+					$data['nama_kategori'] = strtolower($rowcat['nama_kategori']);
 					$data['item'] = $query;
 					$data['terkait'] = terkait($query['judul'],$query['id_post']);
 					$data['populer'] = populer();
 					$data['terbaru'] = terbaru();
 					$this->template->load(template().'/themes',template().'/detail_berita',$data);
 					}else{
-					$qry = $this->db->query("SELECT * FROM `cat` where kategori_seo='$seo' AND pub='Y'");
-					if($qry->num_rows()){
-						$query = $qry->row_array();
-						$where = ['`posting`.`publish`' => 'Y','`posting`.`status`' => '2','kategori_seo'=>$seo];
-						$where2 = ['`posting`.`publish`' => 'Y','kategori_seo'=>$seo];
-						$where3 = ['`posting`.`publish`' => 'Y','`posting`.`status`' => '1','kategori_seo'=>$seo];
-						$data['title'] = $query['judul'].' | '.tag_key('site_title');
-						$data['description'] = tag_key('site_desc');
-						$data['keywords'] = tag_key('site_desc');
-						$data['canonical']=base_url('detail/').$query['judul_seo'];
-						$data['url_image'] = base_url().'assets/post/'.$thnt.'/'.$blnt.'/'.$query['gambar'];
-						$data['berita'] =  $this->model_app->view_join_where('posting','cat','id_cat',$where,'tanggal','desc',5);
-						$data['terbaru'] =  $this->model_app->view_join_where('posting','cat','id_cat',$where2,'tanggal','desc',8);
-						$data['sorotan'] = $this->model_app->view_join_where('posting','cat','id_cat',$where3,'tanggal','desc',4);
-						$data['populer'] = $this->model_app->view_jointwo_where('posting','populer','cat','`posting`.`id_post` = `populer`.`id_post`','`posting`.`id_cat` = `cat`.`id_cat`','`populer`.`id_cat` = '.$query['id_cat'],'populer.tanggalklik','desc',3);
-						$data['program'] =  $this->model_app->view_join_where('posting','cat','id_cat',['youtube is NOT NULL'=>NULL,'kategori_seo'=>'program'],'tanggal','desc',5);
-						$data['kategori'] =  $query['nama_kategori'];
-						$data['json']=[
-						"@context" => "https://schema.org",
-						"@type" =>  "Organization",
-						"name" =>  "LENTERANEWS.TV",
-						"url" =>  base_url($seo),
-						"sameAs" => [
-						"https://www.facebook.com/Lenternews",
-						"https://twitter.com/Lenternews",
-						"https://www.youtube.com/user/Lenternews"
-						]
-						];
-						$this->template->load(template().'/themes',template().'/rubrik',$data);
-						}else{
-						$data = error_page();
-						$this->template->load(template().'/themes',template().'/404',$data);
-					}
+					// $qry = $this->db->query("SELECT * FROM `cat` where kategori_seo='$seo' AND pub='Y'");
+					// if($qry->num_rows()){
+						// $query = $qry->row_array();
+						// $where = ['`posting`.`publish`' => 'Y','`posting`.`status`' => '2','kategori_seo'=>$seo];
+						// $where2 = ['`posting`.`publish`' => 'Y','kategori_seo'=>$seo];
+						// $where3 = ['`posting`.`publish`' => 'Y','`posting`.`status`' => '1','kategori_seo'=>$seo];
+						// $data['title'] = $query['judul'].' | '.tag_key('site_title');
+						// $data['description'] = tag_key('site_desc');
+						// $data['keywords'] = tag_key('site_desc');
+						// $data['canonical']=base_url('detail/').$query['judul_seo'];
+						// $data['url_image'] = base_url().'assets/post/'.$thnt.'/'.$blnt.'/'.$query['gambar'];
+						// $data['berita'] =  $this->model_app->view_join_where('posting','cat','id_cat',$where,'tanggal','desc',5);
+						// $data['terbaru'] =  $this->model_app->view_join_where('posting','cat','id_cat',$where2,'tanggal','desc',8);
+						// $data['sorotan'] = $this->model_app->view_join_where('posting','cat','id_cat',$where3,'tanggal','desc',4);
+						// $data['populer'] = $this->model_app->view_jointwo_where('posting','populer','cat','`posting`.`id_post` = `populer`.`id_post`','`posting`.`id_cat` = `cat`.`id_cat`','`populer`.`id_cat` = '.$query['id_cat'],'populer.tanggalklik','desc',3);
+						// $data['program'] =  $this->model_app->view_join_where('posting','cat','id_cat',['youtube is NOT NULL'=>NULL,'kategori_seo'=>'program'],'tanggal','desc',5);
+						// $data['kategori'] =  $query['nama_kategori'];
+						// $data['json']=[
+						// "@context" => "https://schema.org",
+						// "@type" =>  "Organization",
+						// "name" =>  "LENTERANEWS.TV",
+						// "url" =>  base_url($seo),
+						// "sameAs" => [
+						// "https://www.facebook.com/Lenternews",
+						// "https://twitter.com/Lenternews",
+						// "https://www.youtube.com/user/Lenternews"
+						// ]
+						// ];
+						// $this->template->load(template().'/themes',template().'/rubrik',$data);
+						// }else{
+						// $data = error_page();
+						// $this->template->load(template().'/themes',template().'/404',$data);
+					// }
 				}
 				}else{
 				$data = error_page();

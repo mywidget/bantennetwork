@@ -1,12 +1,13 @@
-<div class="td_block_wrap td_block_15  td-pb-full-cell td-pb-border-top td_block_template_1">
-	<h4 class="block-title"><span class="td-pulldown-size"><?=$nama;?></span></h4>
+<?php if(!empty($next_data)){ ?>
 	<div id="post_content_<?=$cat;?>" class="td_block_inner td-column-2">
 		<div class="td-block-row">
 			
 			<?php
+				$counter = 0;
 				$num = 1;
 				$html = '';
-				foreach ($next_data as $row)
+				
+				foreach ($next_data->result() as $row)
 				{
 					$penulis = 'Bantennetwork';
 					$judul = $row->judul;
@@ -22,7 +23,7 @@
 						}else{
 						$gambar = base_url()."assets/no_photo.jpg";
 					}
-					if($num < $limits){
+					if($num < $limit){
 						
 						$html .= '<div class="td-block-span6">
 						<div class="td_module_mx1 td_module_wrap td-animation-stack">
@@ -52,21 +53,52 @@
 						
 						</div> <!-- ./td-block-span6 -->';
 					}
+					$counter++;
 					$num++;
 				}
 				echo $html;
+				
 			?>
 		</div>
 		
-			<?=$this->ajax_paging->create_links();?>
-		
+		<div class="td-next-prev-wrap">
+			<a href="#prev" class="td-ajax-prev-page" id="prev-page-<?=$cat;?>" data-id="<?=$cat;?>"><i class="td-icon-font td-icon-menu-left"></i></a>
+			<a href="#next" class="td-ajax-next-page" id="next-page-<?=$cat;?>" data-id="<?=$cat;?>"><i class="td-icon-font td-icon-menu-right"></i></a>
+		</div>
 	</div>	
-</div>	
-<script>
-	
-	(function($){
+	<script type="text/javascript">
+		var offset=<?=$offset;?>;
+		$("#next-page-<?=$cat;?>, #prev-page-<?=$cat;?>").click(function(){
+			offset = ($(this).attr("id")=="next-page-<?=$cat;?>") ? offset + 4 : offset - 4;
+			if (offset<0)
+			offset=0;
+			else
+			loadCurrentPage<?=$cat;?>();
+		});
+		function loadCurrentPage<?=$cat;?>(){
+			var nama = "<?=$nama;?>"
+			var cat = "<?=$cat;?>";
+			var limit = "<?=$limits;?>";
+			var counter = "<?=$counter;?>";
+			$.ajax({
+				type: "POST",
+				url: "/home/next_page",
+				data:{offset:offset,cat:cat,nama:nama,limit:limit},
+				cache: true,
+				success: function (data) {
+					if(data=="reload"){
+						location.reload(); 
+						return;
+					}
+					$("#post_content_<?=$cat;?>").html(data);
+				}
+			});
+		}
 		
-		$(".entry-title").dotdotdot({	height: 70,	fallbackToLetter: true,	watch: true});
-		$(".title-sub").dotdotdot({	height: 50,	fallbackToLetter: true,	watch: true});
+		(function($){
+			
+			$(".entry-title").dotdotdot({	height: 70,	fallbackToLetter: true,	watch: true});
+			$(".title-sub").dotdotdot({	height: 50,	fallbackToLetter: true,	watch: true});
 		})(jQuery);
 	</script>	
+<?php } ?>

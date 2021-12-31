@@ -78,7 +78,11 @@
 			}
 			$cat = $this->input->post('cat');
 			
-            
+            if (!empty($cat)) {
+				$conditions['where'] = array(
+				'posting.id_cat' => $cat
+				);
+			}
             // Get record count 
             $conditions['returnType'] = 'count';
             $totalRec = $this->model_data->getBlog($conditions);
