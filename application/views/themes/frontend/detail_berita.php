@@ -1,10 +1,10 @@
 <?php
     $thnt = folderthn($item['folder']);
     $blnt = folderbln($item['folder']);
-    $opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/1300x670_'.$item['gambar'];
+    $opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/864x467_'.$item['gambar'];
     $size = @getimagesize($opathFile);
     if($size !== false){
-        $gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/1300x670_'.$item['gambar'];
+        $gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/864x467_'.$item['gambar'];
         }else{
         $gambar = base_url()."assets/no_photo.jpg";
     }
