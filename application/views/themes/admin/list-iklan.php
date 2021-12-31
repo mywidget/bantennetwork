@@ -273,6 +273,7 @@
             $("#img_url").val("").removeAttr( "disabled" );
             $("#input_img").val("").removeAttr( "disabled" );
             $("#img_del").val("").removeAttr( "disabled" );
+            $('#avatar').attr('src', '');
             $("#type").val("");
         }
         $('.file-upload-browse').on('click', function() {
