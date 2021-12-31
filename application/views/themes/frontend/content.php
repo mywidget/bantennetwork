@@ -203,6 +203,9 @@
             }
         });
     });
-    $(".entry-title").dotdotdot({	height: 70,	fallbackToLetter: true,	watch: true});
-    $(".title-sub").dotdotdot({	height: 50,	fallbackToLetter: true,	watch: true});
+    (function($){
+        $(".entry-title").dotdotdot({	height: 70,	fallbackToLetter: true,	watch: true});
+        $(".title-sub").dotdotdot({	height: 50,	fallbackToLetter: true,	watch: true});
+    })(jQuery);
+    
 </script>
