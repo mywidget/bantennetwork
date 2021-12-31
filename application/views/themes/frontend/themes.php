@@ -225,22 +225,22 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 							<div class="td-footer-info" style="margin-bottom:10px!important;">
 								<div class="footer-social-wrap">
 									<span class="td-social-icon-wrap">
-										<a target="_blank" href="https://web.facebook.com/bantennetwork.co.id" title="Facebook">
+										<a target="_blank" href="#" title="Facebook">
 											<i class="td-icon-font td-icon-facebook"></i>
 										</a>
 									</span>
 									<span class="td-social-icon-wrap">
-										<a target="_blank" href="https://www.instagram.com/bantennetwork.co.id/" title="Instagram">
+										<a target="_blank" href="#" title="Instagram">
 											<i class="td-icon-font td-icon-instagram"></i>
 										</a>
 									</span>
 									<span class="td-social-icon-wrap">
-										<a target="_blank" href="https://t.me/bantennewscoid" title="Telegram">
+										<a target="_blank" href="#" title="Telegram">
 											<i class="td-icon-font td-icon-telegram"></i>
 										</a>
 									</span>
 									<span class="td-social-icon-wrap">
-										<a target="_blank" href="https://twitter.com/bantennews_coid" title="Twitter">
+										<a target="_blank" href="#" title="Twitter">
 											<i class="td-icon-font td-icon-twitter"></i>
 										</a>
 									</span></div>
