@@ -220,8 +220,6 @@
                     data:new FormData(this),
                     processData:false,
                     contentType:false,
-                    cache:false,
-                    async:false,
                     beforeSend: function (xhr) {
                         $(".se-pre-con").fadeIn();
                     },
