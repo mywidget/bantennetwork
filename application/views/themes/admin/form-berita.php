@@ -92,7 +92,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="chosen-tags">Pilih tag</label>
+						<label for="chosen-tags">Tambah tag</label>
 						<select placeholder="Pilih tag" name="tag[]" class="selectize-control" id="chosen-tags" multiple>
 						</select>
 					</div>
