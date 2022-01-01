@@ -27,7 +27,7 @@
 			5=>'Detail',
 			6=>'Terbaru',
 			7=>'Header',
-			7=>'Home Bawah'
+			8=>'Home Bawah'
 			);
 			$this->template->load(backend().'/themes',backend().'/list-iklan',$data);
 			
@@ -46,6 +46,7 @@
 				'gambar'=>$row->gambar,
 				'publish'=>$row->publish,
 				'posisi'=>$row->posisi,
+				'show_on'=>$row->show_on,
 				'urutan'=>$row->urutan
 				];
 				}else{
@@ -77,6 +78,7 @@
 							"judul"		=> $this->input->post('judul',TRUE),
 							"posisi"	=> $this->input->post('posisi',TRUE),
 							"link"		=> $this->input->post('url',TRUE),
+							"show_on"		=> $this->input->post('show_on',TRUE),
 							"gambar"	=> $gbr['file_name'],
 							"publish"	=> $this->input->post('publish',TRUE)
 							];
@@ -111,6 +113,8 @@
 					"judul"		=> $this->input->post('judul',TRUE),
 					"posisi"	=> $this->input->post('posisi',TRUE),
 					"link"		=> $this->input->post('url',TRUE),
+					"show_on"	=> $this->input->post('show_on',TRUE),
+					"urutan"	=> $this->input->post('urutan',TRUE),
 					"publish"	=> $this->input->post('publish',TRUE)
 					];
 					
@@ -151,6 +155,8 @@
 							"judul"		=> $this->input->post('judul',TRUE),
 							"posisi"	=> $this->input->post('posisi',TRUE),
 							"link"		=> $this->input->post('url',TRUE),
+							"show_on"	=> $this->input->post('show_on',TRUE),
+							"urutan"	=> $this->input->post('urutan',TRUE),
 							"gambar"	=> $gbr['file_name'],
 							"publish"	=> $this->input->post('publish',TRUE)
 							];
@@ -196,6 +202,8 @@
 					"judul"		=> $this->input->post('judul',TRUE),
 					"posisi"	=> $this->input->post('posisi',TRUE),
 					"link"		=> $this->input->post('url',TRUE),
+					"show_on"	=> $this->input->post('show_on',TRUE),
+					"urutan"	=> $this->input->post('urutan',TRUE),
 					"publish"	=> $this->input->post('publish',TRUE)
 					];
 					
