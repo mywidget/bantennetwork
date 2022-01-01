@@ -162,6 +162,8 @@
 				dataString = {type : "site_desc",site_val : $("#site_desc").val()};
 				}else if(fired_button=='site_company_save'){
 				dataString = {type : "site_company",site_val : $("#site_company").val()};
+				}else if(fired_button=='site_mail_save'){
+				dataString = {type : "site_mail",site_val : $("#site_mail").val()};
 			}
 			
 			$.ajax({
