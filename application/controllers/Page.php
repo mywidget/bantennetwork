@@ -14,12 +14,12 @@
 				if($qry->num_rows()){
 					$query = $qry->row_array();
 					
-					$data['title'] = $query['judul'].' | '.tag_key('site_title';
+					$data['title'] = $query['judul'].' | '.tag_key('site_title');
 					$data['description'] = tag_key('site_desc');
 					$data['keywords'] = tag_key('site_desc');
 					$data['canonical']=base_url('detail/').$query['judul_seo'];
 					$data['url_image'] = base_url().'assets/page/'.$query['photo'];
-					
+					$data['publisher'] =sosmed_single('FB');
 					$data['json']=[
 					"@context"=>"http://schema.org",
 					"@type"=>"NewsArticle",

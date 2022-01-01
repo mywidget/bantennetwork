@@ -142,7 +142,7 @@
 			//print_r($parent);
 			$mainlist = '<ul id="menu-td-demo-footer-menu" class="td-subfooter-menu">';
 			foreach($parent as $pr){
-				$mainlist .= $this->CategoryTree2($list,$pr->idmenu,$pr->nama_menu,$append = 0);
+				$mainlist .= $this->BottomTree($list,$pr->idmenu,$pr->nama_menu,$pr->link,$append = 0);
 				
 			}
 			$list .= "</li></ul>";

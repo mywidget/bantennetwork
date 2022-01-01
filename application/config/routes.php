@@ -61,4 +61,5 @@ $route['portal']                   = 'Portal/index';
 $route['logout']                   = 'Logout';
 $route['rubrik/(:any)']	           = 'rubrik/index';
 $route['tag/(:any)']	           = 'Tag/index';
+$route['page/(:any)']	           = 'page/index';
 $route['(:any)']	               = 'Blog/detail/$1';
