@@ -22,7 +22,7 @@ function member()
 	clearModalmember();
 	// console.log('new');
 	$("#Modalmember").modal("show");
-	$("#myModalLabel").html("Add data user");
+	$("#myModalLabel").html("Tambah data");
 	$("#type").val("new"); 
 	$("#btn-bahan").html("Simpan");
 	

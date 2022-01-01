@@ -4,8 +4,8 @@
             <div class="page-header-title">
                 <i class="ik ik-edit bg-blue"></i>
                 <div class="d-inline">
-                    <h5>Member</h5>
-                    <span>Kelola data member</span>
+                    <h5>Pengguna</h5>
+                    <span>Kelola data Pengguna</span>
                 </div>
             </div>
         </div>
@@ -15,7 +15,7 @@
                     <li class="breadcrumb-item">
                         <a href="/"><i class="ik ik-home"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Data member</li>
+                    <li class="breadcrumb-item active" aria-current="page">Data Pengguna</li>
                 </ol>
             </nav>
         </div>
@@ -26,7 +26,7 @@
     <div class="col-md-12">
         
         <div class="card">
-            <?=card_header(['title'=>'Kelola Member','nama_app'=>'member','type'=>'modal','url'=>'','info'=>'info','toltip'=>'Tambah member']);?>
+            <?=card_header(['title'=>'Kelola Pengguna','nama_app'=>'member','type'=>'modal','url'=>'','info'=>'info','toltip'=>'Tambah Pengguna']);?>
             <div class="card-body">
                 <div class="row mb-10">
                     <div class="col-md-2">
