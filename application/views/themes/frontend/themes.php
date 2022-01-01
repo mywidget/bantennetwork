@@ -95,27 +95,7 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 				<div class="td-menu-socials-wrap">
 					<!-- socials -->
 					<div class="td-menu-socials">
-						
-						<span class="td-social-icon-wrap">
-							<a target="_blank" href="https://web.facebook.com/" title="Facebook">
-								<i class="td-icon-font td-icon-facebook"></i>
-							</a>
-						</span>
-						<span class="td-social-icon-wrap">
-							<a target="_blank" href="https://www.instagram.com/" title="Instagram">
-								<i class="td-icon-font td-icon-instagram"></i>
-							</a>
-						</span>
-						<span class="td-social-icon-wrap">
-							<a target="_blank" href="#" title="Telegram">
-								<i class="td-icon-font td-icon-telegram"></i>
-							</a>
-						</span>
-						<span class="td-social-icon-wrap">
-							<a target="_blank" href="#" title="Twitter">
-								<i class="td-icon-font td-icon-twitter"></i>
-							</a>
-						</span>
+						<?=list_sosmed();?>
 					</div>
 					<!-- close button -->
 					<div class="td-mobile-close">
@@ -225,26 +205,8 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 						<div class="td-pb-span12 td-footer-full">
 							<div class="td-footer-info" style="margin-bottom:10px!important;">
 								<div class="footer-social-wrap">
-									<span class="td-social-icon-wrap">
-										<a target="_blank" href="#" title="Facebook">
-											<i class="td-icon-font td-icon-facebook"></i>
-										</a>
-									</span>
-									<span class="td-social-icon-wrap">
-										<a target="_blank" href="#" title="Instagram">
-											<i class="td-icon-font td-icon-instagram"></i>
-										</a>
-									</span>
-									<span class="td-social-icon-wrap">
-										<a target="_blank" href="#" title="Telegram">
-											<i class="td-icon-font td-icon-telegram"></i>
-										</a>
-									</span>
-									<span class="td-social-icon-wrap">
-										<a target="_blank" href="#" title="Twitter">
-											<i class="td-icon-font td-icon-twitter"></i>
-										</a>
-									</span></div>
+									<?=list_sosmed();?>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -275,12 +237,12 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 		
 		<script>
 			(function($){
-				$('.list_content').jscroll({
-					autoTrigger: true,
-					loadingHtml: '<div class="loader"><img alt="" src="<?=base_url(); ?>/assets/ajax-loader.gif" /></div>',
-					nextSelector: 'a.btn-lmore:last',
-				});
-				
+			$('.list_content').jscroll({
+			autoTrigger: true,
+			loadingHtml: '<div class="loader"><img alt="" src="<?=base_url(); ?>/assets/ajax-loader.gif" /></div>',
+			nextSelector: 'a.btn-lmore:last',
+			});
+			
 			})(jQuery);
 		</script>
 	</body>
