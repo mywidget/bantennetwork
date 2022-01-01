@@ -27,12 +27,14 @@
 		{
 			$postid	= decrypt_url($this->input->post('id',TRUE));
 			$qry 	=  $this->model_app->view_where('sosmed',['id'=>$postid]);
+			
 			if($qry->num_rows() > 0){
 				$row = $qry->row();
 				$arr = [
 				'id'=>encrypt_url($row->id),
 				'judul'=>$row->judul,
 				'url'=>$row->link,
+				'icon'=>$row->idkey,
 				'publish'=>$row->publish,
 				'tag'=>$row->tag,
 				'urutan'=>$row->urutan
@@ -40,6 +42,7 @@
 				}else{
 				$arr = [''];
 			}
+			
 			$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($arr));
@@ -48,13 +51,15 @@
 		{
 			
 			$type 	= $this->input->post('type',TRUE);
+			$icon 	= strtolower($this->input->post('judul',TRUE));
 			
 			if($type=='new'){
 				$data_post 	= [
-				"judul"		=> $this->input->post('judul',TRUE),
+				"judul"	=> $this->input->post('judul',TRUE),
 				"tag"	=> $this->input->post('tag',TRUE),
-				"link"		=> $this->input->post('url',TRUE),
-				"urutan"		=> $this->input->post('urutan',TRUE),
+				"link"	=> $this->input->post('url',TRUE),
+				"idkey"	=> $icon,
+				"urutan"	=> $this->input->post('urutan',TRUE),
 				"publish"	=> $this->input->post('publish',TRUE)
 				];
 				
@@ -84,7 +89,8 @@
 					"judul"		=> $this->input->post('judul',TRUE),
 					"tag"	=> $this->input->post('tag',TRUE),
 					"link"		=> $this->input->post('url',TRUE),
-					"urutan"		=> $this->input->post('urutan',TRUE),
+					"idkey"		=> $icon,
+					"urutan"	=> $this->input->post('urutan',TRUE),
 					"publish"	=> $this->input->post('publish',TRUE)
 					];
 					
