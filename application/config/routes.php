@@ -55,6 +55,7 @@ $route['main']                	   = 'Main';
 $route['menu']                	   = 'Menu';
 $route['backupdb']                 = 'Backupdb';
 $route['iklan']                    = 'iklan';
+$route['sosmed']                   = 'sosmed';
 $route['portal']                   = 'Portal/index';
 $route['logout']                   = 'Logout';
 $route['rubrik/(:any)']	           = 'rubrik/index';
