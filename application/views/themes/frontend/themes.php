@@ -14,6 +14,7 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 		<meta name="description" content="<?=$description;?>" />
 		<meta name="keywords" content="<?=$keywords;?>" />
 		<link rel="canonical" href="<?=$canonical;?>" />
+		<meta content="#023071" name="theme-color">
 		<meta property="og:locale" content="id_ID" />
 		<meta property="og:site_name" content="<?=tag_key('site_name');?>" />
 		<meta property="og:type" content="article" />
