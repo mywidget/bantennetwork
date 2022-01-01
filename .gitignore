@@ -10,3 +10,4 @@ application/config/database.php
 uploads/addbb6cfb75c7a8c9807c6009cb65888.png
 backup_db/backup-on_2021-12-31_23-47-44.sql
 *.bak
+index.php
