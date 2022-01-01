@@ -12,7 +12,7 @@
             $this->description =  pengaturan('site_desc');
             $this->keywords =  pengaturan('site_keys');
 		}
-		public function index()
+		public function sosmed()
 		{
 			$data['title']       = 'Sosmed | '.$this->title;
 			$data['description'] = 'description';
@@ -23,7 +23,7 @@
 			
 		}
 		
-		public function edit()
+		public function edit_sosmed()
 		{
 			$postid	= decrypt_url($this->input->post('id',TRUE));
 			$qry 	=  $this->model_app->view_where('sosmed',['id'=>$postid]);
@@ -47,7 +47,7 @@
 			->set_content_type('application/json')
 			->set_output(json_encode($arr));
 		}
-		public function update()
+		public function update_sosmed()
 		{
 			
 			$type 	= $this->input->post('type',TRUE);
@@ -119,7 +119,7 @@
 			->set_output(json_encode($arr));
 		}
 		
-		public function delete()
+		public function delete_sosmed()
 		{
 			
 			$id = decrypt_url($this->input->post('id',TRUE));
