@@ -172,7 +172,7 @@
 				Maaf, belum ada berita pada rubrik <?=$kategori;?>.
 			</div>
 			<div class="td-404-sub-sub-title">
-				Anda dapat pergi ke <a href="/">BERANDA</a>
+				<a href="/">BERANDA</a>
 			</div>
 		</div>
 	<?php } ?>
