@@ -139,6 +139,7 @@
                             </div>
                            
                             <div class="col-md-6">
+                            <label>Preview</label>
                                 <div class="text-center"> 
                                     <img style="width: 360px; height: 180px; object-fit: cover;" src="#" id="avatar" class="rounded" height="180">
                                 </div>
@@ -155,7 +156,10 @@
                                         </div>
                                     </div>
                                 </div> 
-                                
+                                 <div class="form-group">
+                                    <label>Urutan</label>
+                                    <input type="number" min="0" name="urutan" id="urutan"  class="form-control">
+                                </div>
                             </div>
                         </div>
                     </div>
