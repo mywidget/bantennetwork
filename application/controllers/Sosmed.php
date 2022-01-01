@@ -46,8 +46,7 @@
 		}
 		public function update()
 		{
-			// print_r($_POST);exit();
-			// echo $_FILES['input_img']['name'];
+			
 			$type 	= $this->input->post('type',TRUE);
 			
 			if($type=='new'){
@@ -89,10 +88,9 @@
 					"publish"	=> $this->input->post('publish',TRUE)
 					];
 					
-					$update = $this->model_app->update('banner',$data_post, ['id_banner'=>$postid]);
+					$update = $this->model_app->update('sosmed',$data_post, ['id'=>$postid]);
 					if($update['status']=='ok')
 					{
-						$this->_create_thumbs_banner($gbr['file_name']);
 						$arr = [
 						'status'=>200,
 						'title' =>'Update data',
