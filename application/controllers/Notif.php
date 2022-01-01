@@ -6,6 +6,7 @@
         public function __construct()
         {
             parent::__construct();
+             cek_session_login();
             $this->iduser = $this->session->g_id; 
         }
         
