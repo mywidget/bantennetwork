@@ -80,7 +80,6 @@
                             </div>
                         </div>
                         <div class="td-post-content td-pb-padding-side">
-                            
                             <!-- image -->
                             <div class="td-post-featured-image">
                                 <figure>
@@ -159,35 +158,24 @@
                 <div class="clearfix"></div></div>
             </div>
             <div class="td-pb-span4 td-main-sidebar" role="complementary">
-                <div class="td-ss-main-sidebar" style="width: 339px; position: static; top: auto; bottom: auto;"><div class="clearfix"></div>
+                <div class="td-ss-main-sidebar" style="width: 339px; position: static; top: auto; bottom: auto;">
+                    <div class="clearfix"></div>
                     
                     <?=iklan(['status'=>'detail','id'=>5]);?>
                     
-                    <!--div class="td-g-rec td-g-rec-id-sidebar tdi_7_129 td_block_template_1">
-                        <script type="text/javascript">
-                            var td_screen_width = document.body.clientWidth;
-                            
-                            if ( td_screen_width >= 1024 ) {
-                                /* large monitors */
-                                document.write('<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-" data-ad-slot=""></ins>');
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                            }
-                            
-                            if ( td_screen_width >= 768  && td_screen_width < 1024 ) {
-                                /* portrait tablets */
-                                document.write('<span class="td-adspot-title">- Advertisement -</span><ins class="adsbygoogle" style="display:inline-block;width:200px;height:200px" data-ad-client="ca-pub-" data-ad-slot=""></ins>');
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                            }
-                            
-                            if ( td_screen_width < 768 ) {
-                                /* Phones */
-                                document.write('<span class="td-adspot-title">- Advertisement -</span><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-" data-ad-slot=""></ins>');
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                            }
-                        </script>
-                        <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-" data-ad-slot=""></ins>
+                    <!-- POPULER-->
+                    <div class="vc_wp_rss wpb_content_element">
+                        <div class="td_block_template_1 widget widget_rss">
+                            <h4 class="block-title">
+                                <span><a class="rsswidget" href="#">
+                                    <img class="rss-widget-icon jetpack-lazy-image" style="border:0" src="#" alt="RSS" data-lazy-src="#" srcset="#" width="14" height="14"><noscript><img class="rss-widget-icon" style="border:0" width="14" height="14" src="" alt="RSS" />
+                                    </noscript></a>
+                                    <a class="rsswidget" href="#">POPULER</a>
+                                </span>
+                            </h4>
+                            <?=$populer;?>
+                        </div>
                     </div>
-                    
                     <!-- end A --> 
                 <div class="clearfix"></div></div>
             </div>
