@@ -449,17 +449,53 @@
 				}elseif($val['status']=='home'){
 				$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
 				foreach($data AS $val){
-					$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+					if($row->show_on == 0){
+						$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+						}elseif($row->show_on == 1){
+						if ($ci->agent->is_mobile())
+						{
+							$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+						}
+						}elseif($row->show_on == 2){
+						if (!$ci->agent->is_mobile())
+						{
+							$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+						}
 					}
-					}elseif($val['status']=='homeatas'){
+				}
+				}elseif($val['status']=='homeatas'){
 				$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
 				foreach($data AS $val){
-					$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+					if($row->show_on == 0){
+						$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+						}elseif($row->show_on == 1){
+						if ($ci->agent->is_mobile())
+						{
+							$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+						}
+						}elseif($row->show_on == 2){
+						if (!$ci->agent->is_mobile())
+						{
+							$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+						}
+					}
 				}
 				}elseif($val['status']=='homebawah'){
 				$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
 				foreach($data AS $val){
-					$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+					if($row->show_on == 0){
+						$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+						}elseif($row->show_on == 1){
+						if ($ci->agent->is_mobile())
+						{
+							$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+						}
+						}elseif($row->show_on == 2){
+						if (!$ci->agent->is_mobile())
+						{
+							$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+						}
+					}
 				}
 				}elseif($val['status']=='cat'){
 				$row = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->row();
@@ -467,13 +503,19 @@
 				}elseif($val['status']=='detail'){
 				$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
 				foreach($data AS $val){
-					$img .= '<aside class="widget_text td_block_template_1 widget widget_custom_html">
-					<div class="textwidget custom-html-widget">
-					<a href="'.$val->link.'"><img class="aligncenter size-full wp-image-51901 jetpack-lazy-image jetpack-lazy-image--handled" src="/assets/banner/'.$val->gambar.'" alt="'.$alt.'" data-lazy-loaded="1" loading="eager" width="558" height="165">
-					<noscript><img class="aligncenter size-full wp-image-51901" src="/assets/banner/'.$val->gambar.'" alt="'.$alt.'" width="558" height="165" />
-					</noscript></a>
-					</div>
-                    </aside>';
+					if($row->show_on == 0){
+						$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+						}elseif($row->show_on == 1){
+						if ($ci->agent->is_mobile())
+						{
+							$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+						}
+						}elseif($row->show_on == 2){
+						if (!$ci->agent->is_mobile())
+						{
+							$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+						}
+					}
 				}
 			}
 		}
@@ -874,4 +916,4 @@
 			}else{
 			return false;
 		}
-	}						
+	}								
