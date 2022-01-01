@@ -37,7 +37,9 @@
         {
            
             $type = $this->input->post('type');
+            $type = $this->input->post('type');
             $data = ["value"=>$this->input->post('site_val')];
+          
             $update = $this->model_app->update('setting', $data, array('name' => $type));
             if ($update['status'] == 'ok') {
                 $arr = [
