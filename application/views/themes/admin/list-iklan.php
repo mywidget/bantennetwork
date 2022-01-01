@@ -50,7 +50,7 @@
                                         ?>
                                         <tr>  
                                             <td><?=$no++;?></td>  
-                                            <td><a href="javascript:showBanner('<?=$kode;?>');" data-href="<?=base_url();?>berita/page/editpost<?=$kode;?>" class="openPopup"><?=$aRow['judul'];?></a></td>
+                                            <td><a href="javascript:showBanner('<?=$kode;?>');"  class="openPopup"><?=$aRow['judul'];?></a></td>
                                             <td><?=tgl_tiket($aRow['tanggal']); ?></td>
                                             <td align="center"><?=$aRow['publish']; ?></td>
                                             <td align='right'>
