@@ -68,7 +68,7 @@
                                             <td align="center"><?=$aktif; ?></td>
                                             <td align='right'>
                                                 <a href="javascript:showBanner('<?=$kode;?>');" class="text-green hint--left" aria-label="Edit data"><i class='ik ik-edit'></i> Edit</a> | 
-                                                <a href="javascript:deleteBanner('<?=$kode;?>','<?=$aRow['gambar'];?>');" class="text-red hint--left" aria-label="Hapus"><i class='ik ik-trash'> Hapus</i></a>
+                                                <a href="javascript:deleteBanner('<?=$kode;?>');" class="text-red hint--left" aria-label="Hapus"><i class='ik ik-trash'> Hapus</i></a>
                                             </td>
                                         </tr> 
                                     <?php }  ?>
@@ -250,14 +250,14 @@
         
         
         //Hapus Data
-        function deleteBanner(id,file)
+        function deleteBanner(id)
         {
             clearModalsBanner();
             $.ajax({
                 type: "POST",
                 url: "/setting/delete_widget",
                 dataType: 'json',
-                data: {id:id,file:file},
+                data: {id:id},
                 success: function(data) {
                     showNotif('bottom-right','Hapus Data',data.msg,'success');
                     $("#table-banner").load(location.href + " #table-banner");
