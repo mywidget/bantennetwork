@@ -13,7 +13,7 @@
 		public function index()
 		{
 			$seo = $this->uri->segment(2);
-			$data['title'] = 'Topik - ' .ucwords(cleanTag($seo)).' | '.tag_key('site_title';
+			$data['title'] = 'Topik - ' .ucwords(cleanTag($seo)).' | '.tag_key('site_title');
 			$data['description'] = tag_key('site_desc');
 			$data['keywords'] = tag_key('site_desc');
 			$data['canonical']=base_url('search/');
@@ -48,7 +48,7 @@
 				$config['link_func']   = 'searchAll';
 				
 				// Initialize pagination library 
-				$this->ajax_pagemobile->initialize($config);
+				$this->paging_rubrik->initialize($config);
 				
 				// Get records 
 				$conditions = array(
@@ -107,7 +107,7 @@
             $config['link_func']   = 'searchAll';
             
             // Initialize pagination library 
-            $this->ajax_paging->initialize($config);
+            $this->paging_rubrik->initialize($config);
             
             // Get records 
             $conditions['start'] = $offset;
@@ -164,7 +164,7 @@
             $config['link_func']   = 'searchAll';
             
             // Initialize pagination library 
-            $this->ajax_pagemobile->initialize($config);
+            $this->paging_rubrik->initialize($config);
             
             // Get records 
             $conditions['start'] = $offset;
