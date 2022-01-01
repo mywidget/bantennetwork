@@ -1,6 +1,18 @@
 <?php 
 	class Model_aplikasi extends CI_model{
-		
+	
+		public function data_arrray(array $val)
+		{
+			$sql = $this->db->query("SELECT * FROM cat WHERE  id_user='".$val['iduser']."'");
+			if($sql->num_rows() > 0){
+				$rows=$sql->row_array();
+				$dataJson = $rows['data_json'];
+				$array_data = json_decode($dataJson);
+				}else{
+				$array_data = 0;
+			}
+			return $array_data;
+		}
 		function hasChild($parent_id)
 		{
 			$sql = $this->db->query("SELECT COUNT(*) as count FROM menu WHERE parent_id = '" . $parent_id . "' AND aktif='Y' AND  position='Bottom' order by urutan")->row();
