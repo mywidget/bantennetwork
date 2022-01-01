@@ -198,7 +198,10 @@
                 e.preventDefault(); 
                 $.ajax({
                     url: "/sosmed/update",
-                    type:"post",
+                    type:"POST",
+                    data:new FormData(this),
+                    processData:false,
+                    contentType:false,
                     beforeSend: function (xhr) {
                         $(".se-pre-con").fadeIn();
                     },
