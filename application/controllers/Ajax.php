@@ -16,7 +16,7 @@
 				$row = $query->row_array();
 				$totalRowCount = $row['num_rows'];
 				
-				$showLimit = 5;
+				$showLimit = 6;
 				// Get records from the database
 				$query = $this->db->query("SELECT 
 				`posting`.`id_post`,
@@ -37,7 +37,7 @@
 					foreach($query->result_array() AS $row2)
 					{
 						$postID = $row2['id_post'];
-						$judul = $row2['judul'];
+						$judul = kalimat($row2['judul'],65);
 						$seo = base_url().$row2['judul_seo'];
 						$tanggal = tgl_post($row2['tanggal']);
 						$dateatom = standard_date('DATE_ATOM', strtotime($row2['tanggal']));
