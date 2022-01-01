@@ -551,6 +551,7 @@
 		$sqlp = $ci->db->query("SELECT 
 		`posting`.`judul`,
 		`posting`.`judul_seo`,
+		`posting`.`tanggal`,
 		`posting`.`dibaca`
 		FROM
 		`posting`
@@ -559,28 +560,14 @@
 		$no =1;
 		foreach($sqlp->result_array() AS $row){
 			$judul = $row['judul'];
+			$tanggal = tgl_post($row['tanggal']);
 			$judul_seo = base_url('detail/').$row['judul_seo'];
-			if ($ci->agent->is_mobile())
-			{
-				$html .= '<li>
-				<a href="'.$judul_seo.'">
-				<p>'.$judul.'</p></a>
-				</li>';
-				}else{
-				$html .=' <li>
-				<div class="card card-type-1" style="border-bottom:2px solid #fff;color:#fff;">
-				<div class="wrapper clearfix">
-				<a class="col" href="'.$judul_seo.'" style="background: #fff; width: 40px; height: 40px;">
-				'.$no.'</a>
-				<a class="col" href="'.$judul_seo.'">
-				<h2 class="title-putih">'.$judul.'</h2>
-				<span class="col radius-10 hitam" style="padding:5px;margin-left:10px;margin-bottom:5px">'.$row['dibaca'].'</span>
-				</a>
-				</div>
-				</div>
-				</li>';
+				$html .=' <li><a class="rsswidget" href="'.$judul_seo.'">'.$judul_seo.'</a> <span class="rss-date">'.$tanggal.'</span> 
+				<cite>Irwandi</cite>
+                </li>';
+				
 				$no++;
-			}
+			
 		}
 		return $html;
 	}
