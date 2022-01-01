@@ -311,10 +311,10 @@
 			foreach ($data->result_array() as $row)
 			{
 				$html .= '<span class="td-social-icon-wrap">
-							<a target="_blank" href="'.$row['link'].'" title="'.$row['judul'].'">
-								<i class="td-icon-font td-icon-'.$row['idkey'].'"></i>
-							</a>
-						</span>';
+				<a target="_blank" href="'.$row['link'].'" title="'.$row['judul'].'">
+				<i class="td-icon-font td-icon-'.$row['idkey'].'"></i>
+				</a>
+				</span>';
 			}
 		}
 		return $html;
@@ -377,7 +377,7 @@
 		if (isset($row))
 		{
 			$value = $row->value;
-		}else{
+			}else{
 			$value = "";
 		}
 		return $value;
@@ -432,13 +432,26 @@
 		if($qry->num_rows() >0){
 			$row = $qry->row();
 			if($val['status']=='header'){
-				$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+				if($row->show_on == 0){
+					$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+					}elseif($row->show_on == 1){
+					if ($ci->agent->is_mobile())
+					{
+						$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+					}
+					}elseif($row->show_on == 2){
+					if (!$ci->agent->is_mobile())
+					{
+						$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+					}
+				}
+				
 				}elseif($val['status']=='home'){
 				$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
 				foreach($data AS $val){
 					$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
-				}
-				}elseif($val['status']=='homeatas'){
+					}
+					}elseif($val['status']=='homeatas'){
 				$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
 				foreach($data AS $val){
 					$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
@@ -562,11 +575,11 @@
 			$judul = $row['judul'];
 			$tanggal = tgl_post($row['tanggal']);
 			$judul_seo = base_url().$row['judul_seo'];
-				$html .=' <li><a class="rsswidget" href="'.$judul_seo.'">'.$judul.'</a> <span class="rss-date">'.$tanggal.'</span> 
-				<cite>Irwandi</cite>
-                </li>';
-				
-				$no++;
+			$html .=' <li><a class="rsswidget" href="'.$judul_seo.'">'.$judul.'</a> <span class="rss-date">'.$tanggal.'</span> 
+			<cite>Irwandi</cite>
+			</li>';
+			
+			$no++;
 			
 		}
 		return $html;
@@ -861,4 +874,4 @@
 			}else{
 			return false;
 		}
-	}
+	}						
