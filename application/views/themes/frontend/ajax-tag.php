@@ -48,11 +48,14 @@
 		</div>
 	</div> <!-- ./td-block-span6 -->
 	<?php } ?>
-	<script>
-		(function($){
-			$(".entry-title").dotdotdot({	height: 70,	fallbackToLetter: true,	watch: true});
-		})(jQuery);
-	</script>
-	<p><?php echo $this->ajax_paging->create_links(); ?></p>
-	
+	<div class="clearfix"></div>
+	<div class="page-nav td-pb-padding-side">
+		<?php echo $this->paging_rubrik->create_links(); ?>
+	</div>
+	<div class="clearfix"></div>
 <?php }else{ echo "Data tidak ditemukan";} ?>
+<script>
+	(function($){
+		$(".entry-title").dotdotdot({	height: 70,	fallbackToLetter: true,	watch: true});
+	})(jQuery);
+</script>
