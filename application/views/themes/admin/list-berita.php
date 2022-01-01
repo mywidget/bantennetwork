@@ -4,8 +4,8 @@
             <div class="page-header-title">
                 <i class="ik ik-edit bg-blue"></i>
                 <div class="d-inline">
-                    <h5>Blog</h5>
-                    <span>Kelola data blog</span>
+                    <h5>Berita</h5>
+                    <span>Kelola data Berita</span>
 					</div>
             </div>
         </div>
@@ -15,7 +15,7 @@
                     <li class="breadcrumb-item">
                         <a href="/"><i class="ik ik-home"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Data blog</li>
+                    <li class="breadcrumb-item active" aria-current="page">Data Berita</li>
                 </ol>
             </nav>
         </div>
@@ -26,7 +26,7 @@
     <div class="col-md-12">
         
         <div class="card">
-            <?=card_header(['title'=>'Kelola Blog','nama_app'=>'addpost','info'=>'info','toltip'=>'Tambah data']);?>
+            <?=card_header(['title'=>'Kelola Berita','nama_app'=>'addpost','info'=>'info','toltip'=>'Tambah data']);?>
             <div class="card-body">
                 <div class="row mb-10">
                     <div class="col-md-2">

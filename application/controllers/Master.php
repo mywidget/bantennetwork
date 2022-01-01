@@ -15,7 +15,14 @@
 			$data['title']      = 'Pengguna | '.tag_key('site_name');
             $data['description'] = 'description';
             $data['keywords']    = 'keywords';
-            
+            $cekUser = cekUser($this->iduser);
+            $data['lv'] = $cekUser['lv'];
+            $data['id_level'] = $cekUser['idlv'];
+            $data['idmenu'] = $cekUser['idmenu'];
+            // Get record count 
+            $conditions['where'] = array(
+            'parent' => $this->iduser
+            );
             $conditions['returnType'] = 'count';
             $totalRec = $this->model_data->getPengguna($conditions);
             
@@ -33,7 +40,14 @@
             $conditions = array(
             'limit' => $this->perPage
             );
-            
+            $cekUser = cekUser($this->iduser);
+            $data['lv'] = $cekUser['lv'];
+            $data['id_level'] = $cekUser['idlv'];
+            $data['idmenu'] = $cekUser['idmenu'];
+            // Get record count 
+            $conditions['where'] = array(
+            'parent' => $this->iduser
+            );
             $data['posts'] = $this->model_data->getPengguna($conditions);
             
             $this->template->load(backend() . '/themes', backend() . '/member', $data);
@@ -55,9 +69,9 @@
             if (!empty($sortBy)) {
                 $conditions['search']['sortBy'] = $sortBy;
 			}
-            // $conditions['where'] = array(
-            // 'parent' => $this->iduser
-            // );
+            $conditions['where'] = array(
+            'parent' => $this->iduser
+            );
             // Get record count 
             $conditions['returnType'] = 'count';
             $totalRec = $this->model_data->getPengguna($conditions);
@@ -76,9 +90,9 @@
             $conditions['start'] = $offset;
             $conditions['limit'] = $this->perPage;
             
-            // $conditions['where'] = array(
-            // 'parent' => $this->iduser
-            // );
+            $conditions['where'] = array(
+            'parent' => $this->iduser
+            );
 			// $sWhere = "WHERE level='owner' AND parent='$iduser' OR level='marketing' AND parent='$iduser'";
             unset($conditions['returnType']);
             $data['posts'] = $this->model_data->getPengguna($conditions);
@@ -125,6 +139,7 @@
 						"tgl_daftar"	=> $this->input->post('daftar',TRUE),
 						"aktif"	        => $this->input->post('aktif',TRUE),
 						"level"	    	=> $row['level'],
+						"parent"	    => $this->iduser,
 						"idlevel"	    => '2,3,4,5,6',
 						"id_level"	    => $this->input->post('id_level',TRUE),
 						"idmenu"	    => $data
@@ -141,6 +156,7 @@
 						"aktif"	        => $this->input->post('aktif',TRUE),
 						"level"	    	=> $row['level'],
 						"idlevel"	    => '2,3,4,5,6',
+						"parent"	    => $this->iduser,
 						"id_level"	    => $this->input->post('id_level',TRUE),
 						"idmenu"	    => $data
 						];

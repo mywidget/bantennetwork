@@ -6,11 +6,12 @@
         public function __construct()
         {
             parent::__construct();
-			 cek_session_login();
+			cek_session_login();
 			$this->perPage = 10;
 			$this->title =  pengaturan('site_title');
             $this->description =  pengaturan('site_desc');
             $this->keywords =  pengaturan('site_keys');
+			$this->iduser = $this->session->g_id; 
 		}
         
         public function post()
@@ -20,6 +21,9 @@
 			$data['keywords']    = 'keywords';
 			$seo = $this->uri->segment(3);
 			if(empty($seo)){
+				$conditions['where'] = array(
+				'id_publisher' => $this->iduser
+				);
 				// echo $this->uri->segment(3);
 				$conditions['returnType'] = 'count';
 				$totalRec = $this->model_data->getBlog($conditions);
@@ -37,7 +41,9 @@
 				$conditions = array(
 				'limit' => $this->perPage
 				);
-				
+				$conditions['where'] = array(
+				'id_publisher' => $this->iduser
+				);
 				$data['kategori'] = $this->model_app->view_where('cat',['pub'=>'Y'])->result();
 				$data['posts']    = $this->model_data->getBlog($conditions);
 				
@@ -84,6 +90,9 @@
 				'posting.id_cat' => $cat
 				);
 			}
+			$conditions['where'] = array(
+				'id_publisher' => $this->iduser
+				);
             // Get record count 
             $conditions['returnType'] = 'count';
             $totalRec = $this->model_data->getBlog($conditions);
@@ -107,7 +116,9 @@
 				'posting.id_cat' => $cat
 				);
 			}
-			
+			$conditions['where'] = array(
+				'id_publisher' => $this->iduser
+				);
             unset($conditions['returnType']);
             $data['posts'] = $this->model_data->getBlog($conditions);
             
@@ -728,4 +739,4 @@
 			->set_content_type('application/json')
 			->set_output(json_encode($arr));
 		}
-	}		
+	}			

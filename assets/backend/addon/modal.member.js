@@ -82,10 +82,10 @@ function submitMember()
 			}
 			$("#myModal").modal('hide');
 			searchFilter();
-		} ,error: function(xhr, status, error) {
-                        showNotif('bottom-right','Update',error,'error');
-                        $(".se-pre-con").fadeOut('slow');
-                    }
+			} ,error: function(xhr, status, error) {
+			showNotif('bottom-right','Update',error,'error');
+			$(".se-pre-con").fadeOut('slow');
+		}
 	});
 }
 
@@ -141,12 +141,12 @@ function simpanMember()
 				}else{
 				showNotif('bottom-right',data.title,data.msg,'error');
 			}
-			$("#myModal").modal('hide');
+			$("#Modalmember").modal('hide');
 			searchFilter();
-		} ,error: function(xhr, status, error) {
-                        showNotif('bottom-right','Update',error,'error');
-                        $(".se-pre-con").fadeOut('slow');
-                    }
+			} ,error: function(xhr, status, error) {
+			showNotif('bottom-right','Update',error,'error');
+			$(".se-pre-con").fadeOut('slow');
+		}
 	});
 }
 

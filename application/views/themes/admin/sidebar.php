@@ -1,9 +1,9 @@
 <div class="sidebar-header">
 	<a class="header-brand" href="index.html">
 		<div class="logo-img">
-			<!--img src="<?=base_url('assets/backend/');?>img/ico/favicon-32.png" class="header-brand-img" alt="Lenteranews"--> 
+			<img src="<?=base_url('uploads/').tag_key('site_favicon');?>" width="32" class="header-brand-img" alt="">
 		</div>
-		<span class="text">Lenteranews</span>
+		<span class="text">Adminpanel</span>
 	</a>
 	<button type="button" class="nav-toggle"><i data-toggle="expanded" class="ik ik-toggle-right toggle-icon"></i></button>
 	<button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>

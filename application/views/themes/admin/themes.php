@@ -174,7 +174,7 @@
 				</div>
 				<footer class="footer no-print">
 					<div class="w-100 clearfix">
-						<span class="text-center text-sm-left d-md-inline-block">Copyright © 2021 lenteranews v2.0. All Rights Reserved. Page rendered in <strong>{elapsed_time}</strong> seconds. </span>
+						<span class="text-center text-sm-left d-md-inline-block">Copyright © 2022 <?=tag_key('site_name');?> v2.0. All Rights Reserved. Page rendered in <strong>{elapsed_time}</strong> seconds. </span>
 						<span class="float-none float-sm-right mt-1 mt-sm-0 text-center"></span>
 					</div>
 				</footer>

@@ -40,7 +40,7 @@
             }
             if($key=='berita')
             {
-                $search = $this->model_app->hitung('posting',array('publish'=>'Y'));
+                $search = $this->model_app->hitung('posting',array('id_publisher'=>$this->iduser,'publish'=>'Y'));
                 if($search > 0){
                     $data = ['status'=>200,'count'=>$search];
                     }else{
