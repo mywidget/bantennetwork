@@ -65,9 +65,7 @@
 					$this->db->like('judul', $params['search']['keywords']); 
 				} 
 			}
-			if(!empty($params['search']['sortBy'])){ 
-				$this->db->order_by('`posting`.`judul`', $params['search']['sortBy']); 
-			}
+			
 			if(array_key_exists("returnType",$params) && $params['returnType'] == 'count'){ 
 				$result = $this->db->count_all_results(); 
 				}else{ 
