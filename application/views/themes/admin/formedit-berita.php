@@ -100,7 +100,7 @@
 					<div class="form-group row">
 						<label for="cat" class="col-sm-3 col-form-label">Kategori</label>
 						<div class="col-sm-9">
-							<select id="cat" name="cat[]" class="form-control select2" multiple="multiple">
+							<select id="cat" name="cat[]" class="form-control select2">
 								<?php
 									foreach($kategori as $rowz){
 										$dataTz[$rowz['id_parent']][] = $rowz;
