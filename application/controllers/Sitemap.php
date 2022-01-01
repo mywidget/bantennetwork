@@ -18,8 +18,10 @@ class Sitemap extends CI_Controller {
 
     {
 
-        $query = $this->db->get("posting");
-        $data['items'] = $query->result();
+       $post = $this->model_app->create();
+        $data = [
+            'post'   => $post,
+        ];
         $this->load->view('sitemap', $data);
 
     }

@@ -3,7 +3,11 @@
         public function view($table){
             return $this->db->get($table);
         }
-        
+        function create() {
+            $this->db->select('judul_seo,dateModified');
+            $this->db->where('publish','Y');
+            return $this->db->order_by('dateModified', 'desc')->get('posting')->result_array();
+        }
         public function hitung($table,$where){
             $this->db->from($table);
             $this->db->where($where);
@@ -209,7 +213,7 @@
 		{
 			$this->db->select('*');
             $this->db->from($table);
-             $this->db->where($where);
+            $this->db->where($where);
             return $this->db->count_all_results();
         }
-    }                    
+    }                        
