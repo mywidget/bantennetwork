@@ -7,8 +7,8 @@
 				<div class="page-header-title">
 					<i class="ik ik-edit bg-blue"></i>
 					<div class="d-inline">
-						<h5>Data kategori</h5>
-						<span>Pengaturan Kategori</span>
+						<h5>Data Rubrik</h5>
+						<span>Pengaturan Rubrik</span>
 					</div>
 				</div>
 			</div>
@@ -18,7 +18,7 @@
 						<li class="breadcrumb-item">
 							<a href="./"><i class="ik ik-home"></i></a>
 						</li>
-						<li class="breadcrumb-item active" aria-current="page">Kategori</li>
+						<li class="breadcrumb-item active" aria-current="page">Rubrik</li>
 					</ol>
 				</nav>
 			</div>
@@ -29,7 +29,7 @@
 			<!-- Form Basic -->
 			<div class="card mb-4">
 				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-					<h6 class="m-0 font-weight-bold text-warning">Tambah Kategori</h6>
+					<h6 class="m-0 font-weight-bold text-warning">Tambah Rubrik</h6>
 				</div>
 				<div class="card-body pt-0">
 					<form id="submit-form">
@@ -37,12 +37,12 @@
 						<!-- form start -->
 						<div class="box-body ">
 							<div class="form-group tax-wraps">
-								<label for="label">Nama Menu</label>
+								<label for="label">Nama Rubrik</label>
 								<input id="type" type="hidden" value="simpan">
 								<input class="form-control form-control-sm" id="label" placeholder="Nama menu" type="text" >
 							</div>
 							<div class="form-group">
-								<label for="link">URL Menu</label>
+								<label for="link">URL</label>
 								<input class="form-control form-control-sm" id="link" placeholder="URL Menu" type="text"  >
 							</div>
 							<div class="hide-txt">
@@ -75,7 +75,7 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="submenu">SUB MENU</label>
+									<label for="submenu">SUB</label>
 									<select id="submenu" class="custom-select form-control">
 										<option value="Y">Ya</option>
 										<option value="N" selected>Tidak</option>
@@ -100,7 +100,7 @@
 		<!-- General Element -->
 		<div class="card mb-4">
 			<div class="card-header py-0 d-flex flex-row align-items-center justify-content-between">
-				<h6 class="m-0 font-weight-bold text-warning">Kategori Menu</h6>
+				<h6 class="m-0 font-weight-bold text-warning">List Rubrik</h6>
 				<span id="nestable-menu" class="float-right">
 					<button type="button" class="btn btn-success btn-sm" onclick="callFunction(this)" id="kolapse"> Expand</button>
 				</span>
