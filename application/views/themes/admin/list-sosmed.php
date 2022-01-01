@@ -4,8 +4,8 @@
             <div class="page-header-title">
                 <i class="ik ik-edit bg-blue"></i>
                 <div class="d-inline">
-                    <h5>Sosmed</h5>
-                    <span>Kelola data sosmed</span>
+                    <h5>setting</h5>
+                    <span>Kelola data setting</span>
                 </div>
             </div>
         </div>
@@ -15,7 +15,7 @@
                     <li class="breadcrumb-item">
                         <a href="/"><i class="ik ik-home"></i></a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Data sosmed</li>
+                    <li class="breadcrumb-item active" aria-current="page">Data setting</li>
                 </ol>
             </nav>
         </div>
@@ -26,7 +26,7 @@
     <div class="col-md-12">
         
         <div class="card">
-            <?=card_header(['title'=>'Kelola Sosmed','nama_app'=>'showBanner','info'=>'info','toltip'=>'Tambah data']);?>
+            <?=card_header(['title'=>'Kelola setting','nama_app'=>'showBanner','info'=>'info','toltip'=>'Tambah data']);?>
             <div class="card-body">
                 <div id="posts_content">
                     <?php if(!empty($posts)){ ?>
@@ -35,7 +35,7 @@
                                 <thead>  
                                     <tr>
                                         <th style="width:2%;">No.</th>
-                                        <th style="width:10%;">Judul</th>
+                                        <th>Judul</th>
                                         <th>Url</th>
                                         <th style="width:2%;text-align:center">Tag</th>
                                         <th style="width:2%;text-align:center">Urutan</th>
@@ -69,10 +69,12 @@
                                     <?php }  ?>
                                 </tbody>  
                                 <tfoot>
-                                    <tr>
+                                     <tr>
                                         <th style="width:2%;">No.</th>
                                         <th>Judul</th>
-                                        <th style="width:15%;text-align:left">Tanggal</th>
+                                        <th>Url</th>
+                                        <th style="width:2%;text-align:center">Tag</th>
+                                        <th style="width:2%;text-align:center">Urutan</th>
                                         <th style="width:2%;text-align:center">Status</th>
                                         <th style="width:12%;text-align:right">Aksi</th>
                                     </tr>
@@ -152,7 +154,7 @@
             {
                 $.ajax({
                     type: "POST",
-                    url: "sosmed/edit",
+                    url: "/setting/edit_sosmed",
                     dataType: 'json',
                     data: {id:id,type:"get"},
                     beforeSend: function (xhr) {
@@ -197,7 +199,7 @@
             $(".se-pre-con").fadeIn();
                 e.preventDefault(); 
                 $.ajax({
-                    url: "/sosmed/update",
+                    url: "/setting/update_sosmed",
                     type:"POST",
                     data:new FormData(this),
                     processData:false,
@@ -230,7 +232,7 @@
             clearModalsBanner();
             $.ajax({
                 type: "POST",
-                url: "/sosmed/delete",
+                url: "/setting/delete_sosmed",
                 dataType: 'json',
                 data: {id:id,file:file},
                 success: function(data) {
