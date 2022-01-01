@@ -74,57 +74,57 @@
                                             <td><?=$aRow['level']; ?></td>
                                             <td align="center"><?=$aRow['aktif']; ?></td>  
                                             <td align='right'>
-                                            <a href="javascript:void(0);" data-href="<?=base_url();?>master/edit_member/<?=$kode;?>" class="openPopup"><i class='ik ik-edit'></i> Edit</a></a> | <a href="javascript:deletemember('<?=$kode;?>');" class="text-red hint--left" aria-label="Hapus"><i class='ik ik-trash'> Hapus</i></a>
-                                            </td>
-                                        </tr> 
-                                    <?php }  ?>
-                                </tbody>  
-                                <tfoot>
-                                    <tr>
-                                        <th style="width:2%;">No.</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>No. HP</th>
-                                        <th style="width:5%;">Level</th>
-                                        <th style="width:2%;text-align:center">Status</th>
-                                        <th style="width:12%;text-align:right">Aksi</th>
-                                    </tr>
-                                </tfoot>
-                            </table>  
-                        </div>
-                        <?php echo $this->ajax_pagination->create_links(); ?>
-                        <?php }else{ ?>
-                        <table class='table table-bordered'>
-                            <tr>
-                                <td>Belum ada data</td>
-                            </tr>
-                        </table>
-                    <?php } ?>
-                </div>
-            </div><!-- /.card-body -->
-        </div><!-- /.card -->
-    </div>
+                                            <a href="javascript:void(0);" data-href="<?=base_url();?>master/edit_member/<?=$kode;?>" class="openPopup"><i class='ik ik-edit'></i> Edit</a></a> | <a href="javascript:deletepost('<?=$kode;?>');" class="text-red hint--left" aria-label="Hapus"><i class='ik ik-trash'> Hapus</i></a>
+                                        </td>
+                                    </tr> 
+                                <?php }  ?>
+                            </tbody>  
+                            <tfoot>
+                                <tr>
+                                    <th style="width:2%;">No.</th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>No. HP</th>
+                                    <th style="width:5%;">Level</th>
+                                    <th style="width:2%;text-align:center">Status</th>
+                                    <th style="width:12%;text-align:right">Aksi</th>
+                                </tr>
+                            </tfoot>
+                        </table>  
+                    </div>
+                    <?php echo $this->ajax_pagination->create_links(); ?>
+                    <?php }else{ ?>
+                    <table class='table table-bordered'>
+                        <tr>
+                            <td>Belum ada data</td>
+                        </tr>
+                    </table>
+                <?php } ?>
+            </div>
+        </div><!-- /.card-body -->
+    </div><!-- /.card -->
+</div>
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
-    
+        
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Edit Data</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <div class="modal-body">
-
+            <div class="modal-body modal-body1">
+                
             </div>
             <div class="modal-footer">
 				<button type="button" onClick="submitMember()" id="btn-bahan" class="btn btn-success">Submit</button>
 				<button type="button" class="btn bg-red" data-dismiss="modal">Close</button>
             </div>
         </div>
-      
+        
     </div>
 </div>
 
@@ -139,8 +139,9 @@
 				<div class="alert alert-danger" role="alert" id="removeWarning">
 					Anda yakin ingin menghapus data ini
                 </div>
-				<form id="formbahan">
+				<form id="formAdd">
 					<input type="hidden" class="form-control" id="id" name="id">
+					<input type="hidden" class="form-control" id="type" name="type">
 					
 					<div class="row">
                         <div class="col-md-6">
@@ -167,7 +168,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="alamat">Alamat</label>
-                                    <input type="text" name="alamat" value="Serang Banten" class="form-control" id="alamat" placeholder="Alamat">
+                                    <input type="text" name="alamat" value="Serang" class="form-control" id="alamat" placeholder="Alamat">
                                 </div>
                                 
                                 
@@ -186,7 +187,7 @@
                                         if($this->session->g_level=="admin") {
                                             $resultz = $this->db->query("SELECT * FROM menuadmin where aktif='Y' order by urutan");
                                         }
-                                       
+                                        
                                         foreach($resultz->result_array() AS $rowz) {
                                             $dataTz[$rowz['idparent']][] = $rowz;
                                         }
@@ -196,7 +197,13 @@
                                 <div class="form-group">
                                     <label>Level Akses</label>
                                     <select name="id_level" class="form-control custom-select">
-                                    <option value="1" selected="">Administrator</option><option value="2">Owner</option><option value="3">Marketing</option><option value="4">Demo</option> </select>
+                                        <?php
+                                            $tampil=$this->db->query("SELECT * FROM hak_akses");
+                                            foreach($tampil->result_array() AS $we){
+                                                echo "<option value=$we[id_level] selected>$we[nama]</option>"; 
+                                            }
+                                        ?>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Aktif</label>
@@ -206,16 +213,16 @@
                                             Tidak
                                             <input type="radio" class="minimal" name="aktif" id="optionsRadios2" value="Y">
                                             Ya
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> 
-                    </div>
+                                            </label>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div> 
+                                        </div>
                 </form>
             </div>
 			<div class="modal-footer">
-				<button type="button" onClick="submitMember()" id="btn-bahan" class="btn btn-success">Submit</button>
+				<button type="button" onClick="simpanMember()" id="btn-bahan" class="btn btn-success">Submit</button>
 				<button type="button" class="btn bg-red" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -223,12 +230,15 @@
 </div>
 <script src="<?=base_url('assets/backend/');?>addon/modal.member.js"></script>
 <script>
-$(document).ready(function(){
+    $(document).ready(function(){
     $('.openPopup').on('click',function(){
         var dataURL = $(this).attr('data-href');
-        $('.modal-body').load(dataURL,function(){
+        $('.modal-body1').load(dataURL,function(){
             $('#myModal').modal({show:true});
         });
     }); 
 });   
+$(".modal").on("hidden.bs.modal", function(){
+    $(".modal-body1").html("");
+});
 </script>

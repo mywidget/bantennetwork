@@ -16,52 +16,18 @@ function searchFilter(page_num){
 	});
 }
 //Tampilkan Modal 
-function member(id)
-{
-	clearModalmember();
-	// Untuk Eksekusi Data Yang Ingin di Edit atau Di Hapus 
-	if(id){
-		// console.log('edit');
-		$("#btn-pengguna").html("Update");
-		$.ajax({
-			type: "POST",
-			url: base_url+"crud_data/load_data",
-			dataType: 'json',
-			data: {id:id,type:"get"},
-			beforeSend: function () {
-				$('.se-pre-con').fadeIn();
-			},
-			success: function(res) {
-				setModalmember( res );
-				$('.se-pre-con').fadeOut("slow");
-			}
-		});
-		}else{
-		clearModalmember();
-		// console.log('new');
-		$("#Modalmember").modal("show");
-		$("#myModalLabel").html("Add data user");
-		$("#type").val("new"); 
-		$("#btn-bahan").html("Simpan");
-	}
-}
-function setModalmember( data )
+function member()
 {
 	
-	$("#myModalLabel").html("Edit Data");
-	$("#id").val(data.id);
-	$("#type").val("edit");
-	$("#mail").val(data.mail).attr("disabled","true");;
-	$("#title").val(data.title);
-	$("#daftar").val(data.tgldaftar);
-	$("#phone").val(data.phone);
-	$("#percetakan").val(data.percetakan);
-	$("#nama_web").val(data.website);
-	$("#alamat").val(data.address);
-	$("#profit").val(data.profit);
-	$("#data").val(data.data);
+	clearModalmember();
+	// console.log('new');
 	$("#Modalmember").modal("show");
+	$("#myModalLabel").html("Add data user");
+	$("#type").val("new"); 
+	$("#btn-bahan").html("Simpan");
+	
 }
+
 function submitMember()
 {
 	// console.log('submit');
@@ -95,7 +61,7 @@ function submitMember()
 		$("#alamat").focus();
 		return;
 	}
-
+	
 	var formData = $("#formmember").serialize();
 	$.ajax({
 		type: "POST",
@@ -116,43 +82,148 @@ function submitMember()
 			}
 			$("#myModal").modal('hide');
 			searchFilter();
-		}
+		} ,error: function(xhr, status, error) {
+                        showNotif('bottom-right','Update',error,'error');
+                        $(".se-pre-con").fadeOut('slow');
+                    }
+	});
+}
+
+function simpanMember()
+{
+	// console.log('submit');
+	if($("#mail").val()==''){
+		$("#mail").addClass('form-control-warning');
+		showNotif('top-center','Input Data','Harus diisi','warning');
+		$("#mail").focus();
+		return;
+	}
+	if($("#title").val()==''){
+		$("#title").addClass('form-control-warning');
+		showNotif('top-center','Input Data','Harus diisi','warning');
+		$("#title").focus();
+		return;
+	}
+	if($("#daftar").val()==''){
+		$("#daftar").addClass('form-control-warning');
+		showNotif('top-center','Input Data','Harus diisi','warning');
+		$("#daftar").focus();
+		return;
+	}
+	if($("#phone").val()==''){
+		$("#phone").addClass('form-control-warning');
+		showNotif('top-center','Input Data','Harus diisi','warning');
+		$("#phone").focus();
+		return;
+	}
+	if($("#alamat").val()==''){
+		$("#alamat").addClass('form-control-warning');
+		showNotif('top-center','Input Data','Harus diisi','warning');
+		$("#alamat").focus();
+		return;
+	}
+	
+	var formData = $("#formAdd").serialize();
+	$.ajax({
+		type: "POST",
+		url: base_url+"master/simpan_pengguna",
+		dataType: 'json',
+		data: formData,
+		beforeSend: function () {
+			NProgress.start();
+			$(".se-pre-con").fadeIn();　
+		},
+		success: function(data) {
+			$(".se-pre-con").fadeOut('slow');　
+			NProgress.done();
+			if(data.status==200){
+				showNotif('bottom-right',data.title,data.msg,'success');
+				}else{
+				showNotif('bottom-right',data.title,data.msg,'error');
+			}
+			$("#myModal").modal('hide');
+			searchFilter();
+		} ,error: function(xhr, status, error) {
+                        showNotif('bottom-right','Update',error,'error');
+                        $(".se-pre-con").fadeOut('slow');
+                    }
 	});
 }
 
 //Hapus Data
-function deletemember(id)
+function deletepost(id,file)
 {
-	clearModalmember();
-	// var search = $('#search').val();
-	
-	$.ajax({
-		type: "POST",
-		url: base_url+"akun/crud",
-		dataType: 'json',
-		data: {view:view,id:id,index:idindex,type:"get",cari:search,csfrData},
-		beforeSend: function () {
-			NProgress.start();
+	// console.log(a);
+	const swalWithBootstrapButtons = Swal.mixin({
+		customClass: {
+			confirmButton: 'btn btn-success',
+			cancelButton: 'btn btn-danger'
 		},
-		success: function(data) {
-			NProgress.done();
-			// $(".hidex").hide();
-			$("#removeWarning").show();
-			$("#btn-bahan").html("Hapus");
-			$("#myModalLabel").html("Hapus Data");
-			$("#id").val(data.id);
-			$("#type").val("hapus");
-			$("#mail").val(data.mail).removeAttr("disabled" );
-			$("#title").val(data.title).removeAttr( "disabled" );
-			$("#daftar").val(data.tgldaftar).removeAttr( "disabled" );
-			$("#phone").val(data.phone).removeAttr( "disabled" );
-			$("#alamat").val(data.address).removeAttr( "disabled" );
-			$("#data").val(data.data).removeAttr( "disabled" );
-			$("#Modalmember").modal("show");
+		buttonsStyling: false
+	})
+	
+	swalWithBootstrapButtons.fire({
+		title: 'Are you sure?',
+		text: "You won't be able to revert this!",
+		icon: 'warning',
+		showCancelButton: true,
+		confirmButtonText: 'Yes, delete it!',
+		cancelButtonText: 'No, cancel!',
+		reverseButtons: true
+		}).then((result) => {
+		if (result.isConfirmed) {
+			$.ajax({
+				type: "POST",
+				url: "/master/deletepost/",
+				data: {'id' : id,'file':file},
+				cache : false,
+				dataType:'json',
+				beforeSend: function (xhr) {
+					// $("#load").show();
+				},
+				success: function(data){
+					if(data.status=='ok'){
+						swalWithBootstrapButtons.fire(
+                            'Deleted!',
+                            'Data berhasil dihapus.',
+                            'success'
+						)
+						}else if(data.status=='error_delete'){
+						swalWithBootstrapButtons.fire(
+                            'Deleted!',
+                            'Akun tidak boleh dihapus.',
+                            'error'
+						)
+						}else{
+						swalWithBootstrapButtons.fire(
+                            'Deleted!',
+                            'Data gagal dihapus.',
+                            'error'
+						)
+					}
+					searchFilter();
+					} ,error: function(xhr, status, error) {
+					swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Your imaginary file is safe :)',
+                        'error'
+					)
+				},
+			});
+			
+            } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+            ) {
+			swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Data gagal dihapus',
+                'error'
+			)
 		}
-	});
+	})
+	// window.location.href='/artikel/deletepost/'+a;
 }
-
 function clearModalmember()
 {
 	console.log('clear');

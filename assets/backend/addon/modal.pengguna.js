@@ -25,7 +25,7 @@ function pengguna(id)
 		$("#btn-pengguna").html("Update");
 		$.ajax({
 			type: "POST",
-			url: base_url+"crud_data/load_data",
+			url: base_url+"akun/load_data",
 			dataType: 'json',
 			data: {id:id,type:"get"},
 			beforeSend: function () {
@@ -54,10 +54,6 @@ function setModalpengguna( data )
 	$("#title").val(data.title);
 	$("#daftar").val(data.tgldaftar);
 	$("#phone").val(data.phone);
-	$("#percetakan").val(data.percetakan);
-	$("#nama_web").val(data.website);
-	$("#alamat").val(data.address);
-	$("#profit").val(data.profit);
 	$("#data").val(data.data);
 	$("#Modalpengguna").modal("show");
 }
@@ -88,34 +84,11 @@ function submitPengguna()
 		$("#phone").focus();
 		return;
 	}
-	if($("#percetakan").val()==''){
-		$("#percetakan").addClass('form-control-warning');
-		showNotif('top-center','Input Data','Harus diisi','warning');
-		$("#percetakan").focus();
-		return;
-	}
-	if($("#nama_web").val()==''){
-		$("#nama_web").addClass('form-control-warning');
-		showNotif('top-center','Input Data','Harus diisi','warning');
-		$("#nama_web").focus();
-		return;
-	}
-	if($("#alamat").val()==''){
-		$("#alamat").addClass('form-control-warning');
-		showNotif('top-center','Input Data','Harus diisi','warning');
-		$("#alamat").focus();
-		return;
-	}
-	if($("#profit").val()==''){
-		$("#profit").addClass('form-control-warning');
-		showNotif('top-center','Input Data','Harus diisi','warning');
-		$("#profit").focus();
-		return;
-	}
+	
 	var formData = $("#formpengguna").serialize();
 	$.ajax({
 		type: "POST",
-		url: base_url+"crud_data/simpan_pengguna",
+		url: base_url+"akun/simpan_pengguna",
 		dataType: 'json',
 		data: formData,
 		beforeSend: function () {
@@ -163,10 +136,6 @@ function deletebahan(id)
 			$("#title").val(data.title).removeAttr( "disabled" );
 			$("#daftar").val(data.tgldaftar).removeAttr( "disabled" );
 			$("#phone").val(data.phone).removeAttr( "disabled" );
-			$("#percetakan").val(data.percetakan).removeAttr( "disabled" );
-			$("#nama_web").val(data.website).removeAttr( "disabled" );
-			$("#alamat").val(data.address).removeAttr( "disabled" );
-			$("#profit").val(data.profit).removeAttr( "disabled" );
 			$("#data").val(data.data).removeAttr( "disabled" );
 			$("#Modalpengguna").modal("show");
 		}
@@ -182,10 +151,6 @@ function clearModalpengguna()
 	$("#title").val("").removeAttr( "disabled" );
 	$("#daftar").val("").removeAttr( "disabled" );
 	$("#phone").val("").removeAttr( "disabled" );
-	$("#percetakan").val("").removeAttr( "disabled" );
-	$("#nama_web").val("").removeAttr( "disabled" );
-	$("#alamat").val("").removeAttr( "disabled" );
-	$("#profit").val("").removeAttr( "disabled" );
 	$("#data").val("").removeAttr( "disabled" );
 	$("#type").val("");
 }

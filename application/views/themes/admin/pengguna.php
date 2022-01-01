@@ -119,6 +119,7 @@
                 </div>
 				<form id="formpengguna">
 					<input type="hidden" class="form-control" id="id" name="id">
+					<input type="hidden" class="form-control" id="type" name="type">
 					
 					<div class="row">
                         <div class="col-md-6">
@@ -143,28 +144,10 @@
                                     <label for="phone">No. Handphone</label>
                                     <input type="text" name="phone" value="" class="form-control" id="phone" placeholder="No. Handphone">
                                 </div>
-                                <div class="form-group">
-                                    <label for="percetakan">Nama Percetakan</label>
-                                    <input type="text" name="percetakan" class="form-control" id="percetakan" placeholder="Percetakan">
-                                </div>
-                                <div class="form-group">
-                                    <label for="percetakan">Alamat Website</label>
-                                    <input type="text" name="nama_web"  class="form-control" id="nama_web" placeholder="https://">
-                                </div>
-                                <div class="form-group">
-                                    <label for="alamat">Alamat Percetakan</label>
-                                    <input type="text" name="alamat" value="Serang Banten" class="form-control" id="alamat" placeholder="Alamat Percetakan">
-                                </div>
-                                
-                                
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="card-block">
-                                <div class="form-group">
-                                    <label for="profit">Profit</label>
-                                    <input type="text" name="profit" value="0" class="form-control" id="profit" placeholder="profit">
-                                </div>
                                 <div class="over-user">
                                     <div class="form-group">
                                         <label for="profit">Menu Akses</label>

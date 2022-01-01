@@ -178,6 +178,9 @@
                     success: function(res) {
                         $(".se-pre-con").fadeOut();
                         setModalBanner( res );
+                    } ,error: function(xhr, status, error) {
+                        showNotif('bottom-right','Update',error,'error');
+                        $(".se-pre-con").fadeOut('slow');
                     }
                 });
             }

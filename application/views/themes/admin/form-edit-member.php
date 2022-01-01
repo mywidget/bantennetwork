@@ -1,5 +1,6 @@
 <form id="formmember">
 	<input type="hidden" value="<?=encrypt_url($arr->id_user);?>" class="form-control" id="id" name="id">
+	<input type="hidden" value="edit" class="form-control" id="type" name="type">
 	
 	<div class="row">
 		<div class="col-md-6">
@@ -53,17 +54,18 @@
 						echo checkcard($dataTz,0,$rowz['idparent'],$arr->idmenu);
 					?>
 				</div>
+				<?=$arr->level;?>
 				<div class="form-group">
 					<label>Level Akses</label>
 					<select name='id_level' class="form-control custom-select">
 						<?php
 							if($arr->level=="admin") {
-								$tampil=$this->db->query("SELECT * FROM hak_akses where level='$arr->level'");
+								$tampil=$this->db->query("SELECT * FROM hak_akses");
 								foreach($tampil->result_array() AS $we){
 									echo "<option value=$we[id_level] selected>$we[nama]</option>"; 
 								}
 								}else{
-								$tampil = $this->db->query("select * FROM hak_akses where id_level IN ($arr->id_level)");
+								$tampil = $this->db->query("select * FROM hak_akses where id_level IN ($arr->idlevel)");
 								if ($arr->id_level==0){
 									echo "<option value=0 selected>Pilih Level Akses</option>"; 
 								}

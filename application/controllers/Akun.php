@@ -101,7 +101,33 @@
             }
             echo json_encode($arr, JSON_UNESCAPED_SLASHES);
         }
-       
+        public function crud()
+        {
+            $seo = $this->uri->segment(3);
+            $type = $this->input->post('type',TRUE);
+            $view = $this->input->post('view',TRUE);
+            $tabel = $this->tabel.$view;
+            // echo $tabel;
+            //get
+            if($type=='get')
+            {
+                $getid = decrypt_url($this->input->post('id',TRUE));
+                $index = decrypt_url($this->input->post('index',TRUE));
+                $modul = $view.$this->mod;
+                // print_r($modul);
+                $token = $this->security->get_csrf_hash();
+                $where = array('tabel'=>$tabel,'getid'=>$getid,'index'=>$index,'iduser'=>$this->iduser,'token'=>$token);
+                $data = $this->model_aplikasi->$modul($where);
+                echo json_encode($data);
+            }
+           
+                
+                $data = tag_modul($exp);
+                $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($data));
+                
+            }
         public function pengguna()
         {
             $data['title']      = 'Pengguna';
@@ -191,5 +217,141 @@
             // Load the data list view 
             $this->load->view(backend() . '/ajax/ajax-pengguna', $data, false);
         }
-    
-    }                                                                                                                                                                                      
+        public function load_data()
+        {
+            $getid   = decrypt_url($this->input->post('id',TRUE));
+            $get_data = $this->model_app->view_where('gtbl_user',['id_user'=>$getid])->result_array();
+            $data = [
+            "id"                 => encrypt_url($get_data[0]['id_user']),
+            "title"              => $get_data[0]['nama_lengkap'],
+            "mail"               => $get_data[0]['email'],
+            "phone"              => $get_data[0]['no_hp'],
+            "tgldaftar"          => tanggal($get_data[0]['tgl_daftar']),
+            "aktif"            => $get_data[0]['aktif'],
+            ];
+            // print_r($array);
+            $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($data));
+        }
+        function simpan_pengguna(){
+			$type 		= $this->input->post('type',TRUE);
+			if($type=='new'){
+				$data ='';
+				if(!empty($this->input->post('data',TRUE))){
+					$data_cat	= $this->input->post('data',TRUE);
+					$data		= implode(',',$data_cat);
+				}
+				$query = $this->db->get_where('hak_akses',['id_level'=>$this->input->post('id_level',TRUE)]);
+				$row = $query->row_array();
+				if($this->input->post('password',TRUE))
+				{
+					$password = password_hash($this->input->post('password',TRUE), PASSWORD_DEFAULT);
+					$data_post 	= [
+					"nama_lengkap"	=> $this->input->post('title',TRUE),
+					"password"	    => $password,
+					"email"	        => $this->input->post('mail',TRUE),
+					"no_hp"	        => $this->input->post('phone',TRUE),
+					"tgl_daftar"	=> $this->input->post('daftar',TRUE),
+					"aktif"	        => $this->input->post('aktif',TRUE),
+					"level"	    	=> $row['level'],
+					"id_level"	    => $this->input->post('id_level',TRUE),
+					"parent"	    => $this->iduser,
+					"idmenu"	    => $data
+					];
+				}
+				else
+				{
+					$data_post 	= [
+					"nama_lengkap"	=> $this->input->post('title',TRUE),
+					"email"	        => $this->input->post('mail',TRUE),
+					"no_hp"	        => $this->input->post('phone',TRUE),
+					"tgl_daftar"	=> $this->input->post('daftar',TRUE),
+					"aktif"	        => $this->input->post('aktif',TRUE),
+					"level"	    	=> $row['level'],
+					"id_level"	    => $this->input->post('id_level',TRUE),
+					"parent"	    => $this->iduser,
+					"idmenu"	    => $data
+					];
+				}
+				$insert = $this->model_app->input('gtbl_user',$data_post);
+				if($insert['status']=='ok')
+				{
+					$arr = [
+					'status'=>200,
+					'title' =>'Input data',
+					'msg'   =>'Data berhasil Input'
+					];
+				}
+				else
+				{
+					$arr = [
+					'status'=>201,
+					'title' =>'Input data',
+					'msg'   =>'Data gagal Input'
+					];
+				}
+			}
+			if($type=='edit'){
+				$postid 	= decrypt_url($this->input->post('id',TRUE));
+				$data ='';
+				$query = $this->db->get_where('hak_akses',['id_level'=>$this->input->post('id_level',TRUE)]);
+				$row = $query->row_array();
+				if(!empty($this->input->post('data',TRUE))){
+					$data_cat	= $this->input->post('data',TRUE);
+					$data		= implode(',',$data_cat);
+				}
+				if($this->input->post('password',TRUE))
+				{
+					$password = password_hash($this->input->post('password',TRUE), PASSWORD_DEFAULT);
+					$data_post 	= [
+					"nama_lengkap"	=> $this->input->post('title',TRUE),
+					"password"	    => $password,
+					"email"	        => $this->input->post('mail',TRUE),
+					"no_hp"	        => $this->input->post('phone',TRUE),
+					"tgl_daftar"	=> $this->input->post('daftar',TRUE),
+					"aktif"	        => $this->input->post('aktif',TRUE),
+					"level"	    	=> $row['level'],
+					"idlevel"	    => '2,3,4',
+					"id_level"	    => $this->input->post('id_level',TRUE),
+					"idmenu"	    => $data
+					];
+				}
+				else
+				{
+					$data_post 	= [
+					"nama_lengkap"	=> $this->input->post('title',TRUE),
+					"email"	        => $this->input->post('mail',TRUE),
+					"no_hp"	        => $this->input->post('phone',TRUE),
+					"tgl_daftar"	=> $this->input->post('daftar',TRUE),
+					"aktif"	        => $this->input->post('aktif',TRUE),
+					"level"	    	=> $row['level'],
+					"idlevel"	    => '2,3,4',
+					"id_level"	    => $this->input->post('id_level',TRUE),
+					"idmenu"	    => $data
+					];
+				}
+				
+				$update = $this->model_app->update('gtbl_user',$data_post, ['id_user'=>$postid]);
+				if($update['status']=='ok')
+				{
+					$arr = [
+					'status'=>200,
+					'title' =>'Update data',
+					'msg'   =>'Data berhasil diupdate'
+					];
+				}
+				else
+				{
+					$arr = [
+					'status'=>201,
+					'title' =>'Update data',
+					'msg'   =>'Data gagal diupdate'
+					];
+				}
+			}
+			$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($arr));
+		}
+    }                                                                                                                                                                                          

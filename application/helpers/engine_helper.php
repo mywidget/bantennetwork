@@ -851,3 +851,14 @@
 		}
 		return $arrt;
 	}
+	
+	
+	function cek_posting($id){
+		$ci = & get_instance();
+		$query = $ci->db->query("SELECT id_publisher FROM `posting` where id_publisher='$id'");
+		if ($query->num_rows() > 0){
+			return true;
+			}else{
+			return false;
+		}
+	}
