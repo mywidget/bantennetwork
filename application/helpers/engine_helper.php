@@ -428,7 +428,7 @@
 		$ci = & get_instance();
 		$img = "";
 		$alt = tag_key('site_name');
-		$qry = $ci->db->query("SELECT * from banner WHERE posisi=".$val['id']);
+		$qry = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id']);
 		if($qry->num_rows() >0){
 			$row = $qry->row();
 			if($val['status']=='header'){
