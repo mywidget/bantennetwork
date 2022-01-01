@@ -103,11 +103,6 @@
 							<select id="cat" name="cat[]" class="form-control select2" multiple="multiple">
 								<?php
 									foreach($kategori as $rowz){
-										// if($row->id_cat==$post->id_cat){
-										// echo '<option value="'.$row->id_cat.'" selected>'.$row->nama_kategori.'</option>';    
-										// }else{
-										// echo '<option value="'.$row->id_cat.'">'.$row->nama_kategori.'</option>';    
-										// }
 										$dataTz[$rowz['id_parent']][] = $rowz;
 									}
 									echo select_kbox($dataTz,0,0,$post->id_cat);
