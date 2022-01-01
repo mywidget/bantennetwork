@@ -201,7 +201,7 @@
 	searchField: 'name',
 	plugins: ['remove_button'],
 	options: [],
-	create: false,
+	create: true,
 	load: function(query, callback) {
 	if (!query.length) return callback();
 	// console.log(csfrData);
