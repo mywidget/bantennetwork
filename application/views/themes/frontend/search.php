@@ -81,9 +81,11 @@
 			<div class="clearfix"></div></div>
 		</div>
 		<div class="td-pb-span4 td-main-sidebar">
-		<div class="td-ss-main-sidebar" style="width: 339px; position: static; top: auto; bottom: auto; z-index: 1;"><div class="clearfix">
+		<div class="td-ss-main-sidebar" style="width: 339px; position: static; top: auto; bottom: auto; z-index: 1;">
+		<div class="clearfix"></div>
+		 <?=iklan(['status'=>'detail','id'=>5]);?>
+		<div class="clearfix"></div>
 		</div>
-		<div class="clearfix"></div></div>
 		</div>
 	</div> <!-- /.td-pb-row -->
 </div>
