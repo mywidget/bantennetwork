@@ -118,6 +118,7 @@
                                         ?>
                                     </select>
                                 </div>
+                                
                                 <div class="form-group">
                                     <label>Publish</label>
                                     <select name="publish" id="publish" class="form-control">
@@ -126,8 +127,17 @@
                                         <option value="N">Tidak</option>
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label>Show on</label>
+                                    <select name="show_on" id="show_on" class="form-control">
+                                        <option value="">-- Pilih ---</option>
+                                        <option value="0">Mobile & Desktop</option>
+                                        <option value="1">Mobile</option>
+                                        <option value="2">Desktop</option>
+                                    </select>
+                                </div>
                             </div>
-                            
+                           
                             <div class="col-md-6">
                                 <div class="text-center"> 
                                     <img style="width: 360px; height: 180px; object-fit: cover;" src="#" id="avatar" class="rounded" height="180">
@@ -167,6 +177,7 @@
             // Untuk Eksekusi Data Yang Ingin di Edit atau Di Hapus 
             if(id)
             {
+                
                 $.ajax({
                     type: "POST",
                     url: "iklan/edit",
@@ -187,6 +198,7 @@
             // Untuk Tambahkan Data
             else
             {
+                $('#avatar').attr('src', '/assets/no_photo.jpg');
                 $("#bannerModal").modal("show");
                 $("#myModalLabel").html("Tambah Banner");
                 $("#type").val("new"); 
@@ -207,6 +219,8 @@
             $('#avatar').attr('src', '/assets/banner/'+data.gambar);
             $("#publish").val(data.publish);
             $("#posisi").val(data.posisi);
+            $("#show_on").val(data.show_on);
+            $("#urutan").val(data.urutan);
             $("#bannerModal").modal("show");
             
         }
@@ -275,6 +289,8 @@
             $("#img_url").val("").removeAttr( "disabled" );
             $("#input_img").val("").removeAttr( "disabled" );
             $("#img_del").val("").removeAttr( "disabled" );
+            $("#show_on").val("").removeAttr( "disabled" );
+            $("#urutan").val("").removeAttr( "disabled" );
             $('#avatar').attr('src', '');
             $("#type").val("");
         }
