@@ -149,18 +149,19 @@
 		
 		$('button').on('click', function () {
 			var fired_button = $(this).val();
+			var dataString = {};
 			if(fired_button=='site_name_save'){
-				var dataString = {type : "site_name",site_val : $("#site_name").val()};
+				dataString = {type : "site_name",site_val : $("#site_name").val()};
 				}else if(fired_button=='site_url_save'){
-				var dataString = {type : "site_url",site_val : $("#site_url").val()};
+				dataString = {type : "site_url",site_val : $("#site_url").val()};
 				}else if(fired_button=='site_title_save'){
-				var dataString = {type : "site_title",site_val : $("#site_title").val()};
+				dataString = {type : "site_title",site_val : $("#site_title").val()};
 				}else if(fired_button=='site_keys_save'){
-				var dataString = {type : "site_keys",site_val : $("#site_keys").val()};
+				dataString = {type : "site_keys",site_val : $("#site_keys").val()};
 				}else if(fired_button=='site_desc_save'){
-				var dataString = {type : "site_desc",site_val : $("#site_desc").val()};
+				dataString = {type : "site_desc",site_val : $("#site_desc").val()};
 				}else if(fired_button=='site_company_save'){
-				var dataString = {type : "site_company",site_val : $("#site_company").val()};
+				dataString = {type : "site_company",site_val : $("#site_company").val()};
 			}
 			
 			$.ajax({
@@ -168,8 +169,6 @@
 				dataType: 'json',  
 				data: dataString,                         
 				type: 'POST',
-				processData: false,
-				contentType: false,
 				beforeSend: function (xhr) {
 					NProgress.start();
 					$(".se-pre-con").fadeIn();
