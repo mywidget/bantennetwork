@@ -34,55 +34,63 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 			<?php echo json_encode($json,JSON_UNESCAPED_SLASHES); ?>
 		</script>
 		<script type="text/javascript" >
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-L2N7LVLVVF"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
 			
+			gtag('config', 'G-L2N7LVLVVF');
 		</script>
+	</script>
+	
+	<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+	<link rel="alternate" type="application/rss+xml" title="bantennetwork.co.id -Berita Banten Hari Ini &raquo; Feed" href="<?=base_url(); ?>feed/" />
+	
+	<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/style.min.css?ver=5.7.2' type='text/css' media='all' />
+	<style id='wp-block-library-inline-css' type='text/css'>
+		.has-text-align-justify{text-align:justify;}
+	</style>
+	<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/mediaelementplayer-legacy.min.css?ver=4.2.16' type='text/css' media='all' />
+	<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/wp-mediaelement.min.css?ver=5.7.2' type='text/css' media='all' />
+	<link rel='stylesheet'  href='https://fonts.googleapis.com/css?family=Open+Sans%3A400%2C600%2C700%7CRoboto+Condensed%3A400%2C500%2C700&#038;display=swap&#038;ver=4.9.6' type='text/css' media='all' />
+	<link rel='stylesheet'  href='<?=base_url('assets/frontend/'); ?>css/js_composer.min.css?ver=5.4.7' type='text/css' media='all' />
+	<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/style.css?ver=4.9.6' type='text/css' media='all' />
+	<style id='td-theme-inline-css' type='text/css'>
 		
-		<link rel='dns-prefetch' href='//fonts.googleapis.com' />
-		<link rel="alternate" type="application/rss+xml" title="bantennetwork.co.id -Berita Banten Hari Ini &raquo; Feed" href="<?=base_url(); ?>feed/" />
+		@media (max-width: 767px) {
+		.td-header-desktop-wrap {
+		display: none;
+		}
+		}
+		@media (min-width: 767px) {
+		.td-header-mobile-wrap {
+		display: none;
+		}
+		}
 		
-		<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/style.min.css?ver=5.7.2' type='text/css' media='all' />
-		<style id='wp-block-library-inline-css' type='text/css'>
-			.has-text-align-justify{text-align:justify;}
-		</style>
-		<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/mediaelementplayer-legacy.min.css?ver=4.2.16' type='text/css' media='all' />
-		<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/wp-mediaelement.min.css?ver=5.7.2' type='text/css' media='all' />
-		<link rel='stylesheet'  href='https://fonts.googleapis.com/css?family=Open+Sans%3A400%2C600%2C700%7CRoboto+Condensed%3A400%2C500%2C700&#038;display=swap&#038;ver=4.9.6' type='text/css' media='all' />
-		<link rel='stylesheet'  href='<?=base_url('assets/frontend/'); ?>css/js_composer.min.css?ver=5.4.7' type='text/css' media='all' />
-		<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/style.css?ver=4.9.6' type='text/css' media='all' />
-		<style id='td-theme-inline-css' type='text/css'>
-			
-			@media (max-width: 767px) {
-            .td-header-desktop-wrap {
-			display: none;
-            }
-			}
-			@media (min-width: 767px) {
-            .td-header-mobile-wrap {
-			display: none;
-            }
-			}
-			
-			
-		</style>
-		<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/td_legacy_main.css?ver=b37a2d185c66e85a9217ef5895023b06' type='text/css' media='all' />
-		<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/jetpack.css?ver=10.3' type='text/css' media='all' />
-		<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/jquery.min.js?ver=3.5.1'></script>
-		<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/jquery-migrate.min.js?ver=3.3.2'></script>
-		<script src="<?=base_url('assets/frontend/'); ?>js/lottie.min.js"></script>
-		<script src="<?=base_url('assets/frontend/'); ?>js/jquery.jscroll.min.js"></script>
-		<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/dotdotdot.js' id='td-site-min-js'></script>
-		<meta property="fb:pages" content="" />
 		
-        <meta name="generator" content="Site Kit by Google 1.45.0" />	
-		
-		<!-- Google AdSense snippet added by Site Kit -->
-		<meta name="google-adsense-platform-account" content="">
-		<meta name="google-adsense-platform-domain" content="sitekit.withgoogle.com">
-		
-		<link rel="icon" href="<?=base_url('assets/frontend/'); ?>images/logo-32x32.png" sizes="32x32" />
-		<link rel="icon" href="<?=base_url('assets/frontend/'); ?>images/logo-192x192.png" sizes="192x192" />
-		<link rel="apple-touch-icon" href="<?=base_url('assets/frontend/'); ?>images/logo-180x180.png" />
-		<meta name="msapplication-TileImage" content="<?=base_url('assets/frontend/'); ?>images/logo-270x270.png" />
+	</style>
+	<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/td_legacy_main.css?ver=b37a2d185c66e85a9217ef5895023b06' type='text/css' media='all' />
+	<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/jetpack.css?ver=10.3' type='text/css' media='all' />
+	<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/jquery.min.js?ver=3.5.1'></script>
+	<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/jquery-migrate.min.js?ver=3.3.2'></script>
+	<script src="<?=base_url('assets/frontend/'); ?>js/lottie.min.js"></script>
+	<script src="<?=base_url('assets/frontend/'); ?>js/jquery.jscroll.min.js"></script>
+	<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/dotdotdot.js' id='td-site-min-js'></script>
+	<meta property="fb:pages" content="" />
+	
+	<meta name="generator" content="Site Kit by Google 1.45.0" />	
+	
+	<!-- Google AdSense snippet added by Site Kit -->
+	<meta name="google-adsense-platform-account" content="">
+	<meta name="google-adsense-platform-domain" content="sitekit.withgoogle.com">
+	
+	<link rel="icon" href="<?=base_url('assets/frontend/'); ?>images/logo-32x32.png" sizes="32x32" />
+	<link rel="icon" href="<?=base_url('assets/frontend/'); ?>images/logo-192x192.png" sizes="192x192" />
+	<link rel="apple-touch-icon" href="<?=base_url('assets/frontend/'); ?>images/logo-180x180.png" />
+	<meta name="msapplication-TileImage" content="<?=base_url('assets/frontend/'); ?>images/logo-270x270.png" />
 	</head>
 	<body class="archive category category-artis category-46 global-block-template-1 td_category_template_1 td_category_top_posts_style_1 wpb-js-composer js-comp-ver-5.4.7 vc_responsive td-full-layout td-js-loaded">
 		
