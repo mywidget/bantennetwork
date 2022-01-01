@@ -78,10 +78,15 @@
                             <div itemprop="articleBody" class="dable-content-wrapper">
                                 <?=$isi;?>
                             </div>
-                            
-                            
-                            <footer>
-                                <div class="td-post-sharing-bottom td-pb-padding-side">
+                          
+                               
+                    
+                        </article> <!-- /.post -->
+                        
+                        
+                        <div class="clearfix"></div>
+                    </div>
+                     <div class="td-post-sharing-bottom td-pb-padding-side">
                                     <div id="td_social_sharing_article_bottom" class="td-post-sharing td-ps-bg td-ps-notext td-post-sharing-style1 ">
                                         <div class="td-post-sharing-visible">
                                             <a class="td-social-sharing-button td-social-sharing-button-js td-social-network td-social-facebook" href="https://www.facebook.com/sharer.php?u=<?=$seo;?>" style="transition: opacity 0.2s ease 0s; opacity: 1;">
@@ -111,13 +116,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </footer>
-                            
-                        </article> <!-- /.post -->
-                        
-                        
-                        <div class="clearfix"></div>
-                    </div>
                 </div>
                 <div class="td-pb-span4 td-main-sidebar" role="complementary">
                     <div class="td-ss-main-sidebar" style="width: 339px; position: static; top: auto; bottom: auto; z-index: 1;">
