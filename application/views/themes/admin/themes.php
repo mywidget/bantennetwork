@@ -19,7 +19,7 @@
 		<meta name="description" content="<?=$description;?>">
 		<meta name="keywords" content="<?=$keywords;?>">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
+		<meta content="#FABA23" name="theme-color">
 		<link rel="icon" href="<?=base_url('assets/backend/');?>img/ico/favicon.ico" type="image/x-icon" />
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@200;400&display=swap" rel="stylesheet">   
