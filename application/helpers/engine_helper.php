@@ -288,6 +288,24 @@
 		return $html;
 	}
 	
+	function list_sosmed()
+	{
+		$ci = & get_instance();
+		$html = '';
+		$data = $ci->model_app->view_where_ordering('sosmed',['publish'=>'Y'],'urutan','ASC');
+		if($data->num_rows() >0){
+			foreach ($data->result_array() as $row)
+			{
+				$html .= '<span class="td-social-icon-wrap">
+							<a target="_blank" href="'.$row['link'].'" title="'.$row['judul'].'">
+								<i class="td-icon-font td-icon-'.$row['idkey'].'"></i>
+							</a>
+						</span>';
+			}
+		}
+		return $html;
+	}
+	
 	function sosmed()
 	{
 		$ci = & get_instance();
