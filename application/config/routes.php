@@ -59,6 +59,7 @@ $route['sosmed']                   = 'sosmed';
 $route['widget']                   = 'widget';
 $route['portal']                   = 'Portal/index';
 $route['search']                   = 'Search/index';
+$route['feed']                     = 'Feed/index';
 $route['logout']                   = 'Logout';
 $route['rubrik/(:any)']	           = 'rubrik/index';
 $route['tag/(:any)']	           = 'Tag/index';
