@@ -6,6 +6,7 @@
         public function __construct()
         {
             parent::__construct();
+			 cek_session_login();
 			$this->perPage = 10;
 			$this->title =  pengaturan('site_title');
             $this->description =  pengaturan('site_desc');
