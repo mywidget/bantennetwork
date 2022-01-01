@@ -1,4 +1,18 @@
 <?php 
+	function tag_modul($arr){
+		$ci = & get_instance();
+		$jumlah_tag = array_count_values($arr);
+		ksort($jumlah_tag);
+		$output = array();
+		foreach($jumlah_tag as $key=>$val) {
+			$querys=$ci->db->query("SELECT * FROM `cat` WHERE id='$key'");
+			foreach($querys->result_array() AS $row){
+				$output[] = array("id"=>$row['id'],"name"=>$row['nama_kategori']);
+			}
+		}
+		
+		return $output;
+	}
 	function blok_widget(array $val){
 		$ci = & get_instance();
 		
@@ -840,16 +854,13 @@
 			redirect(base_url());
 		}
 	}    
-	function data_style($id){
+	function data_cat($id){
 		$ci = & get_instance();
-		$rows = $ci->db->query("SELECT * FROM `data_style` where id_user='$id'")->row_array();
-		$arrs = $rows['data_json'];
-		$dataJson = $rows['data_json'];
-		$data = json_decode($dataJson,true);
-		if(!empty($data)){
-			$arrt = $data['theme'];
+		$rows = $ci->db->query("SELECT * FROM `cat` where id_cat='$id'")->row_array();
+		if(!empty($rows)){
+			$arrt = $rows['nama_kategori'];
 			}else{
-			$arrt = array('limit'=>6,'kolom'=>4,'klass'=>'tiga');
+			$arrt = '-';
 		}
 		return $arrt;
-	}    																																																							
+	}
