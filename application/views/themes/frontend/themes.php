@@ -33,7 +33,6 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 		<script type="application/ld+json" class="aioseo-schema">
 			<?php echo json_encode($json,JSON_UNESCAPED_SLASHES); ?>
 		</script>
-		<script type="text/javascript" >
 			<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-L2N7LVLVVF"></script>
 		<script>
@@ -43,7 +42,6 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 			
 			gtag('config', 'G-L2N7LVLVVF');
 		</script>
-	</script>
 	
 	<link rel='dns-prefetch' href='//fonts.googleapis.com' />
 	<link rel="alternate" type="application/rss+xml" title="bantennetwork.co.id -Berita Banten Hari Ini &raquo; Feed" href="<?=base_url(); ?>feed/" />
