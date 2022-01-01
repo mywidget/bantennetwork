@@ -145,10 +145,11 @@
 								<?php } ?>
 								
 							</div><!--./row-fluid-->
-							
+							<div class="clearfix"></div>
 							<div class="page-nav td-pb-padding-side">
 								<?php echo $this->paging_rubrik->create_links(); ?>
 							</div>
+							<div class="clearfix"></div>
 						</div>
 						<div class="clearfix"></div>
 					</div>
