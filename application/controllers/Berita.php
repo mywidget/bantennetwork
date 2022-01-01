@@ -492,7 +492,7 @@
 		{
 			// echo $this->uri->segment(1);
 			cek_menu_akses();
-			$data['title']       = 'Kategori Blog';
+			$data['title']       = 'Kategori Berita';
 			$data['description'] = 'description';
 			$data['keywords']    = 'keywords';
 			$data['hakakses']    = $this->model_app->view_where('hak_akses',['publish'=>'Y'])->result_array();
@@ -504,7 +504,7 @@
 			$type    = $this->input->get('type', TRUE);
 			$id      = $this->input->get('id', TRUE);('id');
 			$label   = $this->input->get('label', TRUE);
-			$link    = $this->input->get('link', TRUE);
+			$link    = slugify($this->input->get('link', TRUE));
 			$eclass  = $this->input->get('eclass', TRUE);
 			$aktif   = $this->input->get('aktif', TRUE);
 			$submenu = $this->input->get('submenu', TRUE);
@@ -568,7 +568,7 @@
 			$gdata    = $this->input->get('data', TRUE);
 			$id       = $this->input->get('id', TRUE);('id');
 			$label    = $this->input->get('label', TRUE);
-			$link     = $this->input->get('link', TRUE);
+			$link     = slugify($this->input->get('link', TRUE));
 			$eclass   = $this->input->get('eclass', TRUE);
 			$treeview = $this->input->get('parentc', TRUE);
 			$aktif    = $this->input->get('aktif', TRUE);
