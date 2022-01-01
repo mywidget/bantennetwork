@@ -117,7 +117,7 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 		<div class="td-search-background"></div>
 		<div class="td-search-wrap-mob">
 			<div class="td-drop-down-search">
-				<form method="get" class="td-search-form" action="#">
+				<form method="get" class="td-search-form" action="/cari/">
 					<!-- close button -->
 					<div class="td-search-close">
 						<a href="#"><i class="td-icon-close-mobile"></i></a>
@@ -183,7 +183,7 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 							<div class="header-search-wrap">
 								<div class="dropdown header-search">
 									<div class="td-drop-down-search">
-										<form method="get" class="td-search-form" action="#">
+										<form method="get" class="td-search-form" action="/search/">
 											<div role="search" class="td-head-form-search-wrap">
 												<input class="needsclick" id="td-header-search" type="text" value="" name="s" autocomplete="off" /><input class="wpb_button wpb_btn-inverse btn" type="submit" id="td-header-search-top" value="pencarian" />
 											</div>
