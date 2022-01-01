@@ -81,7 +81,7 @@
 									<div class="input-group mb-3">
 										<input type="text" name="site_phone" value="<?=$setting['site_phone'];?>" class="form-control" id="site_phone" required>
 										<div class="input-group-append">
-											<button class="btn btn-success" type="button" value="site_desc_save">Simpan</button>
+											<button class="btn btn-success" type="button" value="site_phone_save">Simpan</button>
 										</div>
 									</div>
 								</div>
@@ -91,7 +91,7 @@
 									<div class="input-group mb-3">
 										<input type="text" name="site_mail" value="<?=$setting['site_mail'];?>" class="form-control" id="site_mail" placeholder="site_mail">
 										<div class="input-group-append">
-											<button class="btn btn-success" type="button" value="site_company_save">Simpan</button>
+											<button class="btn btn-success" type="button" value="site_mail_save">Simpan</button>
 										</div>
 									</div>
 								</div>
