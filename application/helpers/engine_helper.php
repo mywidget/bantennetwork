@@ -561,7 +561,7 @@
 		foreach($sqlp->result_array() AS $row){
 			$judul = $row['judul'];
 			$tanggal = tgl_post($row['tanggal']);
-			$judul_seo = base_url('detail/').$row['judul_seo'];
+			$judul_seo = base_url().$row['judul_seo'];
 				$html .=' <li><a class="rsswidget" href="'.$judul_seo.'">'.$judul.'</a> <span class="rss-date">'.$tanggal.'</span> 
 				<cite>Irwandi</cite>
                 </li>';
