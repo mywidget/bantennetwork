@@ -74,10 +74,9 @@
 					$data['kategori'] = $this->model_app->view('cat')->result_array();
 					$data['nama_kategori'] = strtolower($rowcat['nama_kategori']);
 					$data['kategori_seo'] = strtolower($rowcat['nama_kategori']);
-					$data['item'] = $query;
+					$data['populer'] = populer();
 					$data['terkait'] = terkait($query['judul'],$query['id_post']);
-					// $data['populer'] = populer();
-					// $data['terbaru'] = terbaru();
+					$data['item'] = $query;
 					$this->template->load(template().'/themes',template().'/detail_berita',$data);
 					}else{
 					$data = error_page();
