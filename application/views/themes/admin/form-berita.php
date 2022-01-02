@@ -182,74 +182,93 @@
 <script>
 	
 	function paste() {
-	var pasteText = $("#copy").text();
-	// console.log(pasteText);
-	$("#youtube").val(pasteText);
+		var pasteText = $("#copy").text();
+		// console.log(pasteText);
+		$("#youtube").val(pasteText);
 	}
 	$('form').submit(function ()
 	{
-	// e.preventDefault();
-	var messageLength = CKEDITOR.instances['editor'].getData().replace(/<[^>]*>/gi, '').length;
-	if($("#judul").val()==""){
-	showNotif('top-center','Input Data','Judul Harus diisi','warning');
-	$("#judul").focus();
-	return false;
-	}else if(!messageLength){
-	showNotif('top-center','Input Data','Berita masih kosong','warning');
-	CKEDITOR.instances['editor'].focus();
-	return false;
-	}else if($("#img_url").val()==""){
-	showNotif('top-center','Input Data','Gambar belum dipilih','warning');
-	return false;
-	}
-	// console.log(editor);
-	$(".forms-update").submit();
+		// e.preventDefault();
+		var messageLength = CKEDITOR.instances['editor'].getData().replace(/<[^>]*>/gi, '').length;
+		if($("#judul").val()==""){
+			showNotif('top-center','Input Data','Judul Harus diisi','warning');
+			$("#judul").focus();
+			return false;
+			}else if(!messageLength){
+			showNotif('top-center','Input Data','Berita masih kosong','warning');
+			CKEDITOR.instances['editor'].focus();
+			return false;
+			}else if($("#img_url").val()==""){
+			showNotif('top-center','Input Data','Gambar belum dipilih','warning');
+			return false;
+		}
+		// console.log(editor);
+		$(".forms-update").submit();
 	}); 
 	$('document').ready(function () 
 	{
-	
-	$('#chosen-tags').selectize({
-	labelField: 'name',
-	valueField: 'id',
-	searchField: 'name',
-	plugins: ['remove_button'],
-	persist: true,
-	create: true,
-	options: [],
-	load: function(query, callback) {
-	if (!query.length) return callback();
-	$.ajax({
-	url: base_url+'berita/tag/',
-	type: 'POST',
-	dataType: 'json',
-	data: {
-	name: query,
-	},
-	error: function() {
-	callback();
-	},
-	success: function(res) {
-	callback(res);
-	}
-	});
-	}
-	});
-	$('.file-upload-browse').on('click', function() {
-	var file = $(this).parent().parent().parent().find('.file-upload-default');
-	file.trigger('click');
-	});
-	$('.file-upload-default').on('change', function() {
-	$(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
-	});
-	$('#input_img').on("change", function () {
-	
-	var oFReader = new FileReader();
-	oFReader.readAsDataURL(document.getElementById("input_img").files[0]);
-	
-	oFReader.onload = function(oFREvent) {
-	document.getElementById("avatar").src = oFREvent.target.result;
-	};
-	});
+		
+		$('#chosen-tags').selectize({
+			labelField: 'name',
+			valueField: 'id',
+			searchField: 'name',
+			plugins: ['remove_button'],
+			persist: true,
+			create: true,
+			options: [],
+			onBlur: function () {
+				var tags = $("#chosen-tags").val();
+				$.ajax({
+					type: "POST",
+					url: "/berita/post_tag",
+					dataType: 'json',
+					data: {tag: tags},
+					beforeSend: function (xhr) {
+						$(".se-pre-con").fadeIn();
+					},
+					success: function(res) {
+						$(".se-pre-con").fadeOut();
+						// showNotif('bottom-right','Input','tag berhasil di simpan','success');
+						} ,error: function(xhr, status, error) {
+						showNotif('bottom-right','Update',error,'error');
+						$(".se-pre-con").fadeOut('slow');
+					}
+				});
+			},
+			load: function(query, callback) {
+				if (!query.length) return callback();
+				$.ajax({
+					url: base_url+'berita/tag/',
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						name: query,
+					},
+					error: function() {
+						callback();
+					},
+					success: function(res) {
+						callback(res);
+					}
+				});
+			}
+		});
+		$('.file-upload-browse').on('click', function() {
+			var file = $(this).parent().parent().parent().find('.file-upload-default');
+			file.trigger('click');
+		});
+		$('.file-upload-default').on('change', function() {
+			$(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+		});
+		$('#input_img').on("change", function () {
+			
+			var oFReader = new FileReader();
+			oFReader.readAsDataURL(document.getElementById("input_img").files[0]);
+			
+			oFReader.onload = function(oFREvent) {
+				document.getElementById("avatar").src = oFREvent.target.result;
+			};
+		});
 	});
 </script>		
 <style>

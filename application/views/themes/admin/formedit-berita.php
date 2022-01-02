@@ -204,11 +204,17 @@
 	<script src="<?=base_url('assets/backend/');?>ckeditor/configs.js"></script>
 <?php } ?>
 <script>
+
+	// $("#chosen-tags").click(function(){
+		// var tag = $("#chosen-tags").val();
+		
+	// }); 
 	var tagid = "<?=$post->id_post;?>";
 	var tag = "<?=$post->tag;?>";
 	var label = "<?=$post->label;?>";
 	$('document').ready(function () {
 	//tag
+	
 	$('#chosen-tags').selectize({
 	labelField: 'name',
 	valueField: 'id',
@@ -216,6 +222,25 @@
 	plugins: ['remove_button'],
 	options: [],
 	create: true,
+	onBlur: function () {
+	var tags = $("#chosen-tags").val();
+       $.ajax({
+			type: "POST",
+			url: "/berita/post_tag",
+			dataType: 'json',
+			data: {tag: tags},
+			beforeSend: function (xhr) {
+				$(".se-pre-con").fadeIn();
+			},
+			success: function(res) {
+				$(".se-pre-con").fadeOut();
+				// showNotif('bottom-right','Input','tag berhasil di simpan','success');
+				} ,error: function(xhr, status, error) {
+				showNotif('bottom-right','Update',error,'error');
+				$(".se-pre-con").fadeOut('slow');
+			}
+		});
+    },
 	load: function(query, callback) {
 	if (!query.length) return callback();
 	// console.log(csfrData);

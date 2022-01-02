@@ -243,8 +243,8 @@
 				
 				$deskripsi = getFirstPar($this->input->post('deskripsi',TRUE));
 				if(empty($deskripsi)){
-				$getPar = getFirstPar($this->input->post('summernote',TRUE));
-				$deskripsi = cleanString($getPar);
+					$getPar = getFirstPar($this->input->post('summernote',TRUE));
+					$deskripsi = cleanString($getPar);
 				}
 				if(!empty($_FILES['input_img']['name']))
 				{
@@ -705,29 +705,53 @@
 			->set_content_type('application/json')
 			->set_output(json_encode($data));
 		}
+		public function post_tag(){
+			$tag = $this->input->post('tag',TRUE);
+			// $tag = implode(",",$tag);
+			$arr = array();
+			if(!empty($tag)){
+				foreach($tag as $val){
+					$slug = slugify($val);
+					$cek = $this->model_app->view_where('tag',['tag_seo'=>$slug]);
+					if($cek->num_rows() == 0){
+						$insert = $this->model_app->input('tag', ['nama_tag'=>$val,'tag_seo'=>$slug]);
+						if($insert['status']=='ok')
+						{
+							$arr = ['status'=>'ok'];
+							}else{
+							$arr = ['status'=>'error'];
+						}
+					}
+				}
+			}
+				
+				$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($arr));
+		}
 		public function page()
 		{
 			$data['title']       = 'Page | '.$this->title;
-			$data['description'] = 'description';
-			$data['keywords']    = 'keywords';
-			$seo = $this->uri->segment(3);
-			if(empty($seo)){
-				$data['posts'] =  $this->model_app->view('page')->result_array();
-				$this->template->load(backend().'/themes',backend().'/list-page',$data);
-				
-				//add
-				}elseif($seo      =='addpost'){
-				$data['author']   = $this->model_app->view('gtbl_user')->result();
-				$data['tanggal']  = date('Y-m-d');
-				$data['jam']      = date('H:i');
-				$this->template->load(backend().'/themes',backend().'/form-add-page',$data);
-				//edit
-				}elseif($seo      =='editpost'){
-				$getid            = decrypt_url($this->uri->segment(4));
-				$data['post']     = $this->model_app->view_where('page',['id_page'=>$getid])->row();
-				$this->template->load(backend().'/themes',backend().'/form-edit-page',$data);
-			}
+		$data['description'] = 'description';
+		$data['keywords']    = 'keywords';
+		$seo = $this->uri->segment(3);
+		if(empty($seo)){
+			$data['posts'] =  $this->model_app->view('page')->result_array();
+			$this->template->load(backend().'/themes',backend().'/list-page',$data);
 			
+			//add
+			}elseif($seo      =='addpost'){
+			$data['author']   = $this->model_app->view('gtbl_user')->result();
+			$data['tanggal']  = date('Y-m-d');
+			$data['jam']      = date('H:i');
+			$this->template->load(backend().'/themes',backend().'/form-add-page',$data);
+			//edit
+			}elseif($seo      =='editpost'){
+			$getid            = decrypt_url($this->uri->segment(4));
+			$data['post']     = $this->model_app->view_where('page',['id_page'=>$getid])->row();
+			$this->template->load(backend().'/themes',backend().'/form-edit-page',$data);
+		}
+		
 		}
 		public function deletepage()
 		{
@@ -755,4 +779,4 @@
 			->set_content_type('application/json')
 			->set_output(json_encode($arr));
 		}
-	}				
+	}							
