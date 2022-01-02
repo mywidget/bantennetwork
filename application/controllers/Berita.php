@@ -120,6 +120,7 @@
 			'id_publisher' => $this->iduser
 			);
             unset($conditions['returnType']);
+            $data['offset'] = $offset;
             $data['posts'] = $this->model_data->getBlog($conditions);
             
             

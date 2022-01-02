@@ -15,13 +15,13 @@
                 </thead>  
                 <tbody> 
                     <?php
-                        $no =1;
+                        $no =$offset + 1;
                         foreach($posts as $aRow){
                             $kode = encrypt_url($aRow['id_post']);
                             $tgl_posting=dtimes($aRow['tanggal'], false,false);
                         ?>
                         <tr>  
-                            <td><?=$no++;?></td>  
+                            <td><?=$no;?></td>  
                             <td><a href="javascript:editpost('<?=$kode;?>');" data-href="<?=base_url();?>artikel/post/editpost<?=$kode;?>" class="openPopup"><?=$aRow['judul'];?></a></td>
                             <td><?=$aRow['nama_kategori']; ?></td>
                             <td align="left"><?=$tgl_posting; ?></td>  
@@ -32,7 +32,7 @@
                                 <a href="javascript:deletepost('<?=$kode;?>');" class="text-red hint--left" aria-label="Hapus"><i class='ik ik-trash'> Hapus</i></a>
                             </td>
                         </tr> 
-                    <?php }  ?>
+                    <?php $no++; }  ?>
                 </tbody>  
                 <tfoot>
                     <tr>

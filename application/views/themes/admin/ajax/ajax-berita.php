@@ -35,7 +35,7 @@
                             }
                         ?>
                         <tr>  
-                            <td><?=$no++;?></td>  
+                            <td><?=$no;?></td>  
                             <td><a  href="<?=base_url();?>artikel/edit-post/<?=$kode;?>"><?=$aRow['judul'];?></a></td>
                             <td><?=$aRow['nama_kategori'];?></td>
                             <td><?=$status; ?></td>
@@ -46,7 +46,7 @@
                             <a href="<?=base_url();?>artikel/edit-post/<?=$kode;?>"><i class='ik ik-edit'></i> Edit</a></a> | <a href="javascript:deleteberita('<?=$kode;?>');" class="text-red hint--left" aria-label="Hapus"><i class='ik ik-trash'> Hapus</i></a>
                         </td>
                     </tr> 
-                <?php }  ?>
+                <?php $no ++;}  ?>
             </tbody>  
             <tfoot>
                 <tr>
