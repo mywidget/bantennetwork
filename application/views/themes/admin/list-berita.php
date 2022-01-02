@@ -1,30 +1,6 @@
-<div class="page-header">
-    <div class="row align-items-end">
-        <div class="col-lg-8">
-            <div class="page-header-title">
-                <i class="ik ik-edit bg-blue"></i>
-                <div class="d-inline">
-                    <h5>Berita</h5>
-                    <span>Kelola data Berita</span>
-					</div>
-            </div>
-        </div>
-        <div class="col-lg-4 d-sm-none d-md-block">
-            <nav class="breadcrumb-container" aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="/"><i class="ik ik-home"></i></a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">Data Berita</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-</div>
-
+<?=page_header(['title'=>'Berita']);?>
 <div class="row">
     <div class="col-md-12">
-        
         <div class="card">
             <?=card_header(['title'=>'Kelola Berita','nama_app'=>'addpost','info'=>'info','toltip'=>'Tambah data']);?>
             <div class="card-body">
@@ -32,8 +8,8 @@
                     <div class="col-md-2">
                         <select id="sortBy" class="form-control" onchange="searchFilter()">
                             <option value="">Sort By</option>
-                                    <option value="desc">DESC</option>
-                                    <option value="asc">ASC</option>
+                            <option value="desc">DESC</option>
+                            <option value="asc">ASC</option>
                         </select>
                     </div>
                     <div class="col-md-2">
@@ -115,26 +91,44 @@
         </div><!-- /.card -->
     </div>
 </div>
-
+<?php
+    $status = '';
+    if(!empty($this->session->flashdata('message')))
+    {
+        if($this->session->flashdata('message')=='update'){
+            $status = 'update';
+            }elseif($this->session->flashdata('message')=='insert'){
+            $status = 'insert';
+        }
+    }
+?>
 <script>
+    $('document').ready(function () {
+        var status = '<?=$status;?>';
+        if(status=='update'){
+            showNotif('bottom-right','Udate sukses','Berita berhasil di update','success');
+            }else if(status=='insert'){
+            showNotif('bottom-right','Input sukses','Berita berhasil di simpan','success');
+            }
+    });
     function searchFilter(page_num){
-	page_num = page_num?page_num:0;
-	var keywords = $('#keywords').val();
-	var sortBy = $('#sortBy').val();
-	var cat = $('#cat').val();
-	$.ajax({
-		type: 'POST',
-		url: base_url+'berita/ajaxBlog/'+page_num,
-		data:'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy+'&cat='+cat,
-		beforeSend: function(){
-			$('.loading').show();
-		},
-		success: function(html){
-			$('#posts_content').html(html);
-			$('.loading').fadeOut("slow");
-		}
-	});
-}
+        page_num = page_num?page_num:0;
+        var keywords = $('#keywords').val();
+        var sortBy = $('#sortBy').val();
+        var cat = $('#cat').val();
+        $.ajax({
+            type: 'POST',
+            url: base_url+'berita/ajaxBlog/'+page_num,
+            data:'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy+'&cat='+cat,
+            beforeSend: function(){
+                $('.loading').show();
+            },
+            success: function(html){
+                $('#posts_content').html(html);
+                $('.loading').fadeOut("slow");
+            }
+        });
+    }
     function addpost()
     {
         window.location.href='/berita/post/addpost';

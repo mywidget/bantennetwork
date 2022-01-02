@@ -111,9 +111,9 @@
 						</select>
 					</div>
 					<div class="form-group row">
-						<label for="exampleInputUsername2" class="col-sm-3 col-form-label">Kategori</label>
+						<label for="cat" class="col-sm-3 col-form-label">Rubrik</label>
 						<div class="col-sm-9">
-							<select id="cat" name="cat[]" class="form-control select2" placeholder="pilih kategori">
+							<select id="cat" name="cat" class="form-control" placeholder="pilih kategori">
 								<?php
 									foreach($kategori as $row){
 										echo '<option value="'.$row->id_cat.'">'.$row->nama_kategori.'</option>';    

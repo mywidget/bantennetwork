@@ -8,9 +8,7 @@
         }else{
         $gambar = base_url()."assets/no_photo.jpg";
     }
-    foreach($kategori as $rowz){
-        $dataTz[$rowz['id_parent']][] = $rowz;
-    }
+    
     $seo = base_url().$item['judul_seo'];
     $judul = $item['judul'];
     $caption = $item['caption'];

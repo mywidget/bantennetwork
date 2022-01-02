@@ -27,20 +27,20 @@
 			<div class="card">
 				<div class="card-header"><h3>Form edit</h3></div>
 				<div class="card-body">
-				<div class="row">
-					<div class="col-md-9">
-						<div class="form-group mb-2">
-							<label for="judul">Judul</label>
-							<input type="hidden" class="form-control" id="id" name="id" value="<?=encrypt_url($post->id_post);?>">
-							<input type="text" class="form-control" id="judul" name="judul" value="<?=$post->judul;?>">
+					<div class="row">
+						<div class="col-md-9">
+							<div class="form-group mb-2">
+								<label for="judul">Judul</label>
+								<input type="hidden" class="form-control" id="id" name="id" value="<?=encrypt_url($post->id_post);?>">
+								<input type="text" class="form-control" id="judul" name="judul" value="<?=$post->judul;?>">
+							</div>
 						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="form-group">
-							<label for="dibaca">Viewer</label>
-							<input type="number" class="form-control" id="dibaca" name="dibaca" value="<?=$post->dibaca;?>">
+						<div class="col-md-3">
+							<div class="form-group">
+								<label for="dibaca">Viewer</label>
+								<input type="number" class="form-control" id="dibaca" name="dibaca" value="<?=$post->dibaca;?>">
+							</div>
 						</div>
-					</div>
 					</div>
 					
 					<div class="row">
@@ -83,7 +83,15 @@
 				<div class="card-header"><h3>Pengaturan</h3></div>
 				<div class="card-body">
 					<div class="text-center"> 
-						<img src="<?=base_url('assets/post/').folderthn($post->tanggal).'/'.folderbln($post->tanggal).'/341x200_'.$post->gambar;?>" id="avatar" class="rounded" height="200">
+						<?php
+							$size = @getimagesize($opathFile);
+							if($size !== false){
+								$gambar = base_url().'assets/post/'.folderthn($post->tanggal).'/'.folderbln($post->tanggal).'/341x200_'.$post['gambar'];
+								}else{
+								$gambar = base_url()."assets/no_photo.jpg";
+							}
+						?>
+						<img src="<?=$gambar;?>" id="avatar" class="rounded" style="width: 290px; height: 200px; object-fit: cover;" >
 					</div>
 					<div class="form-group row mt-2">
 						<label for="caption" class="col-sm-3 col-form-label">caption</label>
@@ -95,12 +103,12 @@
 					<div class="text-center"> 
 						<div class="form-group col-xs-12 mt-3">
 							<div class="input-group">
-								<input type="file" id="input_img" name="input_img" class="file-upload-default"  accept="image/*">
-								<input type="text" id="img_url" name="img_url" value="<?=$post->gambar;?>" class="form-control file-upload-info" readonly="" placeholder="Upload Image" accept="image/*">
-								<input type="hidden" id="img_del" name="img_del" value="<?=$post->gambar;?>" readonly="">
-								<span class="input-group-append">
-									<button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-								</span>
+							<input type="file" id="input_img" name="input_img" class="file-upload-default"  accept="image/*">
+							<input type="text" id="img_url" name="img_url" value="<?=$post->gambar;?>" class="form-control file-upload-info" readonly="" placeholder="Upload Image" accept="image/*">
+							<input type="hidden" id="img_del" name="img_del" value="<?=$post->gambar;?>" readonly="">
+							<span class="input-group-append">
+							<button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+							</span>
 							</div>
 						</div>
 					</div>
@@ -112,9 +120,9 @@
 					</div>
 					
 					<div class="form-group row">
-						<label for="cat" class="col-sm-3 col-form-label">Kategori</label>
+						<label for="cat" class="col-sm-3 col-form-label">Rubrik</label>
 						<div class="col-sm-9">
-							<select id="cat" name="cat[]" class="form-control select2">
+							<select id="cat" name="cat" class="form-control">
 								<?php
 									foreach($kategori as $rowz){
 										$dataTz[$rowz['id_parent']][] = $rowz;
@@ -204,10 +212,10 @@
 	<script src="<?=base_url('assets/backend/');?>ckeditor/configs.js"></script>
 <?php } ?>
 <script>
-
+	
 	// $("#chosen-tags").click(function(){
-		// var tag = $("#chosen-tags").val();
-		
+	// var tag = $("#chosen-tags").val();
+	
 	// }); 
 	var tagid = "<?=$post->id_post;?>";
 	var tag = "<?=$post->tag;?>";
@@ -224,22 +232,22 @@
 	create: true,
 	onBlur: function () {
 	var tags = $("#chosen-tags").val();
-       $.ajax({
-			type: "POST",
-			url: "/berita/post_tag",
-			dataType: 'json',
-			data: {tag: tags},
-			beforeSend: function (xhr) {
-				$(".se-pre-con").fadeIn();
-			},
-			success: function(res) {
-				$(".se-pre-con").fadeOut();
-				// showNotif('bottom-right','Input','tag berhasil di simpan','success');
-				} ,error: function(xhr, status, error) {
-				showNotif('bottom-right','Update',error,'error');
-				$(".se-pre-con").fadeOut('slow');
-			}
-		});
+	$.ajax({
+	type: "POST",
+	url: "/berita/post_tag",
+	dataType: 'json',
+	data: {tag: tags},
+	beforeSend: function (xhr) {
+	$(".se-pre-con").fadeIn();
+	},
+	success: function(res) {
+	$(".se-pre-con").fadeOut();
+	// showNotif('bottom-right','Input','tag berhasil di simpan','success');
+	} ,error: function(xhr, status, error) {
+	showNotif('bottom-right','Update',error,'error');
+	$(".se-pre-con").fadeOut('slow');
+	}
+	});
     },
 	load: function(query, callback) {
 	if (!query.length) return callback();
@@ -268,28 +276,28 @@
 	var selected_items = [];
 	$.each(data, function( i, obj) {
 	selected_items.push(obj.id);
-});
-selectize.setValue(selected_items); //this will set option values as default
-});
-}
-}
-});
-
-$('.file-upload-browse').on('click', function() {
+	});
+	selectize.setValue(selected_items); //this will set option values as default
+	});
+	}
+	}
+	});
+	
+	$('.file-upload-browse').on('click', function() {
 	var file = $(this).parent().parent().parent().find('.file-upload-default');
 	file.trigger('click');
-});
-$('.file-upload-default').on('change', function() {
+	});
+	$('.file-upload-default').on('change', function() {
 	$(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
-});
-$('#input_img').on("change", function () {
+	});
+	$('#input_img').on("change", function () {
 	
 	var oFReader = new FileReader();
 	oFReader.readAsDataURL(document.getElementById("input_img").files[0]);
 	
 	oFReader.onload = function(oFREvent) {
-		document.getElementById("avatar").src = oFREvent.target.result;
+	document.getElementById("avatar").src = oFREvent.target.result;
 	};
-});
-});
+	});
+	});
 </script>
