@@ -38,7 +38,7 @@
                     </div>
                     <div class="col-md-2">
                         <select id="cat" class="form-control" onchange="searchFilter()">
-                            <option value="">Kategori</option>
+                            <option value="">Semua rubrik</option>
                             <?php
                                 foreach($kategori as $row){
                                     echo '<option value="'.$row->id_cat.'">'.$row->nama_kategori.'</option>';    
