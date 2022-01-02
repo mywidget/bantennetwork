@@ -456,10 +456,8 @@
 	<script src="<?=base_url('assets/backend/');?>ckeditor/configs.js"></script>
 <?php } ?>
 <script>
-	
 	function paste() {
 		var pasteText = $("#copy").text();
-		// console.log(pasteText);
 		$("#youtube").val(pasteText);
 	}
 	$('form').submit(function ()
