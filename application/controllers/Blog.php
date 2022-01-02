@@ -22,7 +22,7 @@
 					$thnt = folderthn($query['folder']);
 					$blnt = folderbln($query['folder']);
 					$data['title'] = $query['judul'].' | '.tag_key('site_title');
-					$data['description'] = tag_key('site_desc');
+					$data['description'] = !empty($query['deskripsi'])?$query['deskripsi']:tag_key('site_desc');
 					$data['keywords'] = tag_key('site_keys');
 					$data['canonical']=base_url().$query['judul_seo'];
 					$data['url_image'] = base_url().'assets/post/'.$thnt.'/'.$blnt.'/'.$query['gambar'];

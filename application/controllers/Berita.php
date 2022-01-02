@@ -91,8 +91,8 @@
 				);
 			}
 			$conditions['where'] = array(
-				'id_publisher' => $this->iduser
-				);
+			'id_publisher' => $this->iduser
+			);
             // Get record count 
             $conditions['returnType'] = 'count';
             $totalRec = $this->model_data->getBlog($conditions);
@@ -117,8 +117,8 @@
 				);
 			}
 			$conditions['where'] = array(
-				'id_publisher' => $this->iduser
-				);
+			'id_publisher' => $this->iduser
+			);
             unset($conditions['returnType']);
             $data['posts'] = $this->model_data->getBlog($conditions);
             
@@ -130,6 +130,7 @@
 		{
 			$id     = decrypt_url($this->input->post('id',TRUE));
 			$file   = $this->input->post('img_del',TRUE);
+			
 			$youtube   = $this->input->post('youtube',TRUE);
 			if($youtube=='https://www.youtube.com/watch?v='){
 				$youtube   = '';
@@ -183,6 +184,8 @@
 							'judul_seo'      => slugify($this->input->post('judul',TRUE)),
 							'publish'        => $this->input->post('pub',TRUE),
 							'postingan'      => $this->input->post('summernote',TRUE),
+							'kata_kunci'	 => $this->input->post('kata_kunci',TRUE),
+							'deskripsi'		 => $this->input->post('deskripsi',TRUE),
 							'status'         => $this->input->post('status',TRUE),
 							'tanggal'        => $date,
 							'folder'         => $date,
@@ -214,11 +217,13 @@
 					'id_publisher'   => $this->input->post('author',TRUE),
 					'judul'          => $this->input->post('judul',TRUE),
 					'publish'        => $this->input->post('pub',TRUE),
-					'postingan'      => $this->input->post('summernote',TRUE),
+					'postingan'      => $_POST['summernote'],
 					'status'         => $this->input->post('status',TRUE),
 					'tanggal'        => $date,
 					'dateModified'	 => date('Y-m-d H:i:s'),
 					'caption'        => $this->input->post('caption',TRUE),
+					'kata_kunci'	 => $this->input->post('kata_kunci',TRUE),
+					'deskripsi'		 => $this->input->post('deskripsi',TRUE),
 					'tag'            => $tag,
 					'youtube'        => $youtube,
 					'durasi'         => $this->input->post('durasi',TRUE),
@@ -235,6 +240,12 @@
 				}
 				}else{
 				//insert
+				
+				$deskripsi = getFirstPar($this->input->post('deskripsi',TRUE));
+				if(empty($deskripsi)){
+				$getPar = getFirstPar($this->input->post('summernote',TRUE));
+				$deskripsi = cleanString($getPar);
+				}
 				if(!empty($_FILES['input_img']['name']))
 				{
 					if ($this->upload->do_upload('input_img'))
@@ -254,6 +265,8 @@
 						'dateModified'	 => date('Y-m-d H:i:s'),
 						'gambar'         => $gbr['file_name'],
 						'caption'        => $this->input->post('caption',TRUE),
+						'kata_kunci'	 => $this->input->post('kata_kunci',TRUE),
+						'deskripsi'		 => $deskripsi,
 						'tag'            => $tag,
 						'youtube'        => $youtube,
 						'durasi'         => $this->input->post('durasi',TRUE),
@@ -286,6 +299,8 @@
 					'folder'         => $date,
 					'dateModified'	 => date('Y-m-d H:i:s'),
 					'caption'        => $this->input->post('caption',TRUE),
+					'kata_kunci'	 => $this->input->post('kata_kunci',TRUE),
+					'deskripsi'		 => $deskripsi,
 					'tag'            => $tag,
 					'youtube'        => $youtube,
 					'durasi'         => $this->input->post('durasi',TRUE),
@@ -307,6 +322,7 @@
 		{
 			$id     = decrypt_url($this->input->post('id',TRUE));
 			$file   = $this->input->post('img_del',TRUE);
+			
 			
 			// print_r($_POST);
 			$config['upload_path']   = './assets/page'; //path folder
@@ -739,4 +755,4 @@
 			->set_content_type('application/json')
 			->set_output(json_encode($arr));
 		}
-	}			
+	}				

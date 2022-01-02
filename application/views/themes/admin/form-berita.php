@@ -62,6 +62,20 @@
 					<div class="form-group mt-2">
 						<textarea class="form-control" id="editor" name="summernote" rows="5"></textarea>
 					</div>
+					<div class="row">
+						<div class="col-md-5">
+							<div class="form-group">
+								<label for="keyword">Keyword : pisahkan dengan koma</label>
+								<textarea class="form-control" id="keyword" name="keyword" rows="2"></textarea>
+							</div>
+						</div>
+						<div class="col-md-7">
+							<div class="form-group">
+								<label for="deskripsi">Deskripsi</label>
+								<textarea class="form-control" id="deskripsi" name="deskripsi" rows="2"></textarea>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			
@@ -70,8 +84,8 @@
 			<div class="card">
 				<div class="card-header"><h3>Pengaturan</h3></div>
 				<div class="card-body">
-					<div class="text-center"> 
-						<img src="" id="avatar" class="rounded" height="150">
+					<div class="text-center mb-2"> 
+						<img src="" id="avatar" class="rounded" height="210">
 					</div>
 					<div class="form-group row">
 						<label for="caption" class="col-sm-3 col-form-label">caption</label>

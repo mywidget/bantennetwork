@@ -1,4 +1,14 @@
 <?php 
+	function getFirstPar($string){
+        $string = substr($string,0, strpos($string, "</p>")+4);
+        return $string;
+    }
+	
+	function getFirstParp($string){
+        $string = substr($string,0, strpos($string, "</p>")+4);
+        $string = str_replace("<p>", "", str_replace("<p/>", "", $string));
+        return $string;
+    }
 	function rp($angka){
 		$konversi = ''.number_format($angka, 0, ',', '.');
 		return $konversi;

@@ -60,6 +60,20 @@
 					<div class="form-group mt-2">
 						<textarea class="form-control" id="editor" name="summernote" rows="6"><?=$post->postingan;?></textarea>
 					</div>
+					<div class="row">
+						<div class="col-md-5">
+							<div class="form-group">
+								<label for="keyword">Keyword : pisahkan dengan koma</label>
+								<textarea class="form-control" id="keyword" name="keyword" rows="2"><?=$post->kata_kunci;?></textarea>
+							</div>
+						</div>
+						<div class="col-md-7">
+							<div class="form-group">
+								<label for="deskripsi">Deskripsi</label>
+								<textarea class="form-control" id="deskripsi" name="deskripsi" rows="2"><?=$post->deskripsi;?></textarea>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			
@@ -69,7 +83,7 @@
 				<div class="card-header"><h3>Pengaturan</h3></div>
 				<div class="card-body">
 					<div class="text-center"> 
-						<img src="<?=base_url('assets/post/').folderthn($post->tanggal).'/'.folderbln($post->tanggal).'/341x200_'.$post->gambar;?>" id="avatar" class="rounded" height="150">
+						<img src="<?=base_url('assets/post/').folderthn($post->tanggal).'/'.folderbln($post->tanggal).'/341x200_'.$post->gambar;?>" id="avatar" class="rounded" height="200">
 					</div>
 					<div class="form-group row mt-2">
 						<label for="caption" class="col-sm-3 col-form-label">caption</label>
