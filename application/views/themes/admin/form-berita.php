@@ -401,7 +401,7 @@
 					<div class="form-group row">
 						<label for="status" class="col-sm-3 col-form-label">Status</label>
 						<div class="col-sm-9">
-							<select name="status" id="status" class="custom-select">
+							<select name="status" id="status" class="form-control">
 								<option value="0" selected>Terbaru</option>
 								<option value="2" selected>Headline</option>
 							</select>
