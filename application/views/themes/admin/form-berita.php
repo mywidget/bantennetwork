@@ -268,6 +268,4 @@
 			};
 		});
 	});
-</script>		
-<style>
-</style>		
+</script>
