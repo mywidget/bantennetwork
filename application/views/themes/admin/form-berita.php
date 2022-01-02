@@ -183,7 +183,6 @@
 	
 	function paste() {
 		var pasteText = $("#copy").text();
-		// console.log(pasteText);
 		$("#youtube").val(pasteText);
 	}
 	$('form').submit(function ()
