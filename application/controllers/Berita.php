@@ -85,11 +85,11 @@
 			}
 			$cat = $this->input->post('cat');
 			
-            if (!empty($cat)) {
-				$conditions['where'] = array(
-				'posting.id_cat' => $cat
-				);
-			}
+            // if (!empty($cat)) {
+				// $conditions['where'] = array(
+				// 'posting.id_cat' => $cat
+				// );
+			// }
 			$conditions['where'] = array(
 			'id_publisher' => $this->iduser
 			);
@@ -116,9 +116,9 @@
 				'posting.id_cat' => $cat
 				);
 			}
-			$conditions['where'] = array(
-			'id_publisher' => $this->iduser
-			);
+			// $conditions['where'] = array(
+			// 'id_publisher' => $this->iduser
+			// );
             unset($conditions['returnType']);
             $data['offset'] = $offset;
             $data['posts'] = $this->model_data->getBlog($conditions);
