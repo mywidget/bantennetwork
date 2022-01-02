@@ -103,12 +103,12 @@
 					<div class="text-center"> 
 						<div class="form-group col-xs-12 mt-3">
 							<div class="input-group">
-							<input type="file" id="input_img" name="input_img" class="file-upload-default"  accept="image/*">
-							<input type="text" id="img_url" name="img_url" value="<?=$post->gambar;?>" class="form-control file-upload-info" readonly="" placeholder="Upload Image" accept="image/*">
-							<input type="hidden" id="img_del" name="img_del" value="<?=$post->gambar;?>" readonly="">
-							<span class="input-group-append">
-							<button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-							</span>
+								<input type="file" id="input_img" name="input_img" class="file-upload-default"  accept="image/*">
+								<input type="text" id="img_url" name="img_url" value="<?=$post->gambar;?>" class="form-control file-upload-info" readonly="" placeholder="Upload Image" accept="image/*">
+								<input type="hidden" id="img_del" name="img_del" value="<?=$post->gambar;?>" readonly="">
+								<span class="input-group-append">
+									<button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+								</span>
 							</div>
 						</div>
 					</div>
@@ -221,83 +221,83 @@
 	var tag = "<?=$post->tag;?>";
 	var label = "<?=$post->label;?>";
 	$('document').ready(function () {
-	//tag
-	
-	$('#chosen-tags').selectize({
-	labelField: 'name',
-	valueField: 'id',
-	searchField: 'name',
-	plugins: ['remove_button'],
-	options: [],
-	create: true,
-	onBlur: function () {
-	var tags = $("#chosen-tags").val();
-	$.ajax({
-	type: "POST",
-	url: "/berita/post_tag",
-	dataType: 'json',
-	data: {tag: tags},
-	beforeSend: function (xhr) {
-	$(".se-pre-con").fadeIn();
-	},
-	success: function(res) {
-	$(".se-pre-con").fadeOut();
-	// showNotif('bottom-right','Input','tag berhasil di simpan','success');
-	} ,error: function(xhr, status, error) {
-	showNotif('bottom-right','Update',error,'error');
-	$(".se-pre-con").fadeOut('slow');
-	}
-	});
-    },
-	load: function(query, callback) {
-	if (!query.length) return callback();
-	// console.log(csfrData);
-	$.ajax({
-	url: base_url+'berita/tag/',
-	type: 'POST',
-	dataType: 'json',
-	data: {
-	type: 'modul',
-	name: query
-	},
-	error: function() {
-	callback();
-	},
-	success: function(res) {
-	callback(res);
-	}
-	});
-	},
-	onInitialize: function(){
-	var selectize = this;
-	if(tagid!=""){
-	$.post(base_url+"berita/cari_tag",{tag:tag,id:tagid}, function( data ) {
-	selectize.addOption(data); // This is will add to option
-	var selected_items = [];
-	$.each(data, function( i, obj) {
-	selected_items.push(obj.id);
-	});
-	selectize.setValue(selected_items); //this will set option values as default
-	});
-	}
-	}
-	});
-	
-	$('.file-upload-browse').on('click', function() {
-	var file = $(this).parent().parent().parent().find('.file-upload-default');
-	file.trigger('click');
-	});
-	$('.file-upload-default').on('change', function() {
-	$(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
-	});
-	$('#input_img').on("change", function () {
-	
-	var oFReader = new FileReader();
-	oFReader.readAsDataURL(document.getElementById("input_img").files[0]);
-	
-	oFReader.onload = function(oFREvent) {
-	document.getElementById("avatar").src = oFREvent.target.result;
-	};
-	});
+		//tag
+		
+		$('#chosen-tags').selectize({
+			labelField: 'name',
+			valueField: 'id',
+			searchField: 'name',
+			plugins: ['remove_button'],
+			options: [],
+			create: true,
+			onBlur: function () {
+				var tags = $("#chosen-tags").val();
+				$.ajax({
+					type: "POST",
+					url: "/berita/post_tag",
+					dataType: 'json',
+					data: {tag: tags},
+					beforeSend: function (xhr) {
+						$(".se-pre-con").fadeIn();
+					},
+					success: function(res) {
+						$(".se-pre-con").fadeOut();
+						// showNotif('bottom-right','Input','tag berhasil di simpan','success');
+						} ,error: function(xhr, status, error) {
+						showNotif('bottom-right','Update',error,'error');
+						$(".se-pre-con").fadeOut('slow');
+					}
+				});
+			},
+			load: function(query, callback) {
+				if (!query.length) return callback();
+				// console.log(csfrData);
+				$.ajax({
+					url: base_url+'berita/tag/',
+					type: 'POST',
+					dataType: 'json',
+					data: {
+						type: 'modul',
+						name: query
+					},
+					error: function() {
+						callback();
+					},
+					success: function(res) {
+						callback(res);
+					}
+				});
+			},
+			onInitialize: function(){
+				var selectize = this;
+				if(tagid!=""){
+					$.post(base_url+"berita/cari_tag",{tag:tag,id:tagid}, function( data ) {
+						selectize.addOption(data); // This is will add to option
+						var selected_items = [];
+						$.each(data, function( i, obj) {
+							selected_items.push(obj.id);
+						});
+						selectize.setValue(selected_items); //this will set option values as default
+					});
+				}
+			}
+		});
+		
+		$('.file-upload-browse').on('click', function() {
+			var file = $(this).parent().parent().parent().find('.file-upload-default');
+			file.trigger('click');
+		});
+		$('.file-upload-default').on('change', function() {
+			$(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+		});
+		$('#input_img').on("change", function () {
+			
+			var oFReader = new FileReader();
+			oFReader.readAsDataURL(document.getElementById("input_img").files[0]);
+			
+			oFReader.onload = function(oFREvent) {
+				document.getElementById("avatar").src = oFREvent.target.result;
+			};
+		});
 	});
 </script>
