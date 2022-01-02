@@ -6,13 +6,6 @@
 			$this->load->helper('string');
 		}
 		function index(){
-			$google_client = new Google_Client();
-            $google_client->setClientId('527145062514-21nc4gbubb83ckqnij6vl3b3i63mfhe3.apps.googleusercontent.com'); //masukkan ClientID anda 
-            $google_client->setClientSecret('9DUj8Av1C_YLfilNFH54y9d2'); //masukkan Client Secret Key anda
-            $google_client->setRedirectUri('https://'.$_SERVER['HTTP_HOST'].'/auth/'); //Masukkan Redirect Uri anda
-			$google_client->addScope('email');
-            $google_client->addScope('profile');
-			$login_button = '<a href="'.$google_client->createAuthUrl().'" class="btn mb-1 font-medium-4 border-danger"><i class="icon-google text-danger"></i><span class="px-1 text-danger">google</span> </a>';
 			$data['login_button'] = '';
 			// echo json_encode($this->session->userdata('access_token')); 
 			if (isset($_POST['submit'])){

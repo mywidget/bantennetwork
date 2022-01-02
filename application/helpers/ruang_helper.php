@@ -152,6 +152,33 @@
 			return $html;
 		}
 	}
+    function page_header(array $data){
+	$html = "";
+	$html .= '<div class="page-header">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <i class="ik ik-edit bg-blue"></i>
+                <div class="d-inline">
+                    <h5>'.$data['title'].'</h5>
+                    <span>Kelola data '.$data['title'].'</span>
+					</div>
+            </div>
+        </div>
+        <div class="col-lg-4 d-sm-none d-md-block">
+            <nav class="breadcrumb-container" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="/"><i class="ik ik-home"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Data '.$data['title'].'</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>';
+return $html;
+	}
     function card_header(array $data){
 		$toltip = '';
 		if(!empty($data['toltip'])){
@@ -164,7 +191,7 @@
 			$tambah = '';
 		}
 		if(!empty($data['info'])){
-			$info = '<li><a href="#" onClick="'.$data['nama_app'].'()" data-toggle="tooltip" data-placement="left" title="" data-original-title="Info"><i class="ik ik-info"></i></a></li>';
+			$info = '<li><a href="#" onClick="'.$data['info'].'()" data-toggle="tooltip" data-placement="left" title="" data-original-title="Info"><i class="ik ik-info"></i></a></li>';
 			}else{
 			$info = '';
 		}

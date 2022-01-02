@@ -12,6 +12,7 @@
             $this->description =  pengaturan('site_desc');
             $this->keywords =  pengaturan('site_keys');
 			$this->iduser = $this->session->g_id; 
+			$this->level = $this->session->g_level; 
 		}
         
         public function post()
@@ -20,13 +21,19 @@
 			$data['description'] = 'description';
 			$data['keywords']    = 'keywords';
 			$seo = $this->uri->segment(3);
-			if(empty($seo)){
-				$conditions['where'] = array(
-				'id_publisher' => $this->iduser
-				);
-				// echo $this->uri->segment(3);
+			
+			//query list berita
+			if(empty($seo))
+			{
+				if($this->level!='admin'){	
+					$conditions['where'] = array(
+					'id_publisher' => $this->iduser
+					);
+				}
+				
 				$conditions['returnType'] = 'count';
 				$totalRec = $this->model_data->getBlog($conditions);
+				
 				// Pagination configuration 
 				$config['target']      = '#posts_content';
 				$config['base_url']    = base_url('berita/ajaxBlog');
@@ -41,14 +48,12 @@
 				$conditions = array(
 				'limit' => $this->perPage
 				);
-				$conditions['where'] = array(
-				'id_publisher' => $this->iduser
-				);
+				
 				$data['kategori'] = $this->model_app->view_where('cat',['pub'=>'Y'])->result();
 				$data['posts']    = $this->model_data->getBlog($conditions);
 				
 				$this->template->load(backend().'/themes',backend().'/list-berita',$data);
-				//add
+				//add post
 				}elseif($seo      =='addpost'){
 				$data['kategori'] = $this->model_app->view('cat')->result();
 				$data['label']    = $this->model_app->view('label')->result();
@@ -56,7 +61,7 @@
 				$data['tanggal']  = date('Y-m-d');
 				$data['jam']      = date('H:i');
 				$this->template->load(backend().'/themes',backend().'/form-berita',$data);
-				//edit
+				//edit post
 				}elseif($seo      =='editpost'){
 				$getid            = decrypt_url($this->uri->segment(4));
 				$data['kategori'] = $this->model_app->view('cat')->result_array();
@@ -66,102 +71,113 @@
 				$this->template->load(backend().'/themes',backend().'/formedit-berita',$data);
 			}
 		}
+		
 		function ajaxBlog()
-        {
-            // Define offset 
-            $page = $this->input->post('page');
-            if (!$page) {
-                $offset = 0;
-                } else {
-                $offset = $page;
+		{
+			// Define offset 
+			$page = $this->input->post('page');
+			if (!$page) {
+				$offset = 0;
+				} else {
+				$offset = $page;
 			}
-            $keywords = $this->input->post('keywords');
-            if (!empty($keywords)) {
-                $conditions['search']['keywords'] = $keywords;
+			$keywords = $this->input->post('keywords');
+			if (!empty($keywords)) {
+				$conditions['search']['keywords'] = $keywords;
 			}
-            $sortBy = $this->input->post('sortBy');
-            if (!empty($sortBy)) {
-                $conditions['search']['sortBy'] = $sortBy;
+			$sortBy = $this->input->post('sortBy');
+			if (!empty($sortBy)) {
+				$conditions['search']['sortBy'] = $sortBy;
 			}
 			$cat = $this->input->post('cat');
 			
-            // if (!empty($cat)) {
-				// $conditions['where'] = array(
-				// 'posting.id_cat' => $cat
-				// );
-			// }
-			$conditions['where'] = array(
-			'id_publisher' => $this->iduser
-			);
-            // Get record count 
-            $conditions['returnType'] = 'count';
-            $totalRec = $this->model_data->getBlog($conditions);
-            
-            // Pagination configuration 
-            $config['target']      = '#posts_content';
-            $config['base_url']    = base_url('berita/ajaxBlog');
-            $config['total_rows']  = $totalRec;
-            $config['per_page']    = $this->perPage;
-            $config['link_func']   = 'searchFilter';
-            
-            // Initialize pagination library 
-            $this->ajax_pagination->initialize($config);
-            
-            // Get records 
-            $conditions['start'] = $offset;
-            $conditions['limit'] = $this->perPage;
-            
+			if($this->level!='admin'){
+				$conditions['where'] = array(
+				'id_publisher' => $this->iduser
+				);
+			}
+			
+			// Get record count 
+			$conditions['returnType'] = 'count';
+			$totalRec = $this->model_data->getBlog($conditions);
+			
+			// Pagination configuration 
+			$config['target']      = '#posts_content';
+			$config['base_url']    = base_url('berita/ajaxBlog');
+			$config['total_rows']  = $totalRec;
+			$config['per_page']    = $this->perPage;
+			$config['link_func']   = 'searchFilter';
+			
+			// Initialize pagination library 
+			$this->ajax_pagination->initialize($config);
+			
+			// Get records 
+			$conditions['start'] = $offset;
+			$conditions['limit'] = $this->perPage;
+			
+			//sort berdasarkan rubrik
 			if (!empty($cat)) {
 				$conditions['where'] = array(
 				'posting.id_cat' => $cat
 				);
 			}
-			// $conditions['where'] = array(
-			// 'id_publisher' => $this->iduser
-			// );
-            unset($conditions['returnType']);
-            $data['offset'] = $offset;
-            $data['posts'] = $this->model_data->getBlog($conditions);
-            
-            
-            // Load the data list view 
-            $this->load->view(backend() . '/ajax/ajax-blog', $data, false);
+			
+			unset($conditions['returnType']);
+			$data['offset'] = $offset;
+			$data['posts'] = $this->model_data->getBlog($conditions);
+			
+			// Load the data list view 
+			$this->load->view(backend() . '/ajax/ajax-blog', $data, false);
 		}
+		
+		//query update berita
 		public function update_blog()
 		{
+			//dekript id berita
 			$id     = decrypt_url($this->input->post('id',TRUE));
 			$file   = $this->input->post('img_del',TRUE);
 			
+			
 			$youtube   = $this->input->post('youtube',TRUE);
+			//jika id youutbe kosong
 			if($youtube=='https://www.youtube.com/watch?v='){
 				$youtube   = '';
 			}
+			
+			//post rubrik
 			$id_cat    = $this->input->post('cat',TRUE);
-			if(!empty($id_cat)){
-				$id_cat=implode(',',$id_cat);
-			}
+			
+			//post tag array
 			$tag    = $this->input->post('tag',TRUE);
 			
 			if(!empty($tag)){
 				$tag=implode(',',$tag);
 			}
+			//post tanggal
 			$tanggal = $this->input->post('tanggal',TRUE);
+			//post jam
 			$jam     = $this->input->post('jam',TRUE);
+			//gabung tanggal dan jam
 			$date    = $tanggal.' '.$jam;
+			//folder berdasarkan tahun
 			$tahun   = folderthn($tanggal);
+			//folder berdasarkan bulan
 			$bulan   = folderbln($tanggal);
+			//buat jika folder tidak ada
 			if (!is_dir('assets/post/'.$tahun.'/'.$bulan)) {
 				mkdir('./assets/post/' . $tahun.'/'.$bulan, 0777, TRUE);
 			}
-			
+			//confih upload
 			$config['upload_path']   = './assets/post/'.$tahun.'/'.$bulan; //path folder
 			$config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang image yang dizinkan
 			$config['max_size']		 = 2048;
 			$config['encrypt_name']  = TRUE; //enkripsi nama file
 			
 			$this->upload->initialize($config);
-			//update
+			
+			//jika id kosong lakukan update
 			if($id > 0){
+				//update jika file di ganti
 				if(!empty($_FILES['input_img']['name']))
 				{
 					if ($this->upload->do_upload('input_img'))
@@ -202,17 +218,20 @@
 							$update = $this->model_app->update('posting', $data, ['id_post'=>$id]);
 							if($update['status']=='ok')
 							{
+								$this->session->set_flashdata('message', "update");
 								$this->_create_thumbs($tahun,$bulan,$gbr['file_name']);
 								redirect('berita/post');
 								}else{
-								redirect('berita/post');
+								redirect('berita/post/editpost/'.$this->input->post('id',TRUE));
 							}
 							}else{
 						}
 						}else{
 						echo $this->upload->display_errors();
 					}
+					//udate jika tidak file tidak di ganti
 					}else{
+					//array data dan post requet
 					$data            = [
 					'id_cat'         => $id_cat,
 					'id_publisher'   => $this->input->post('author',TRUE),
@@ -230,29 +249,30 @@
 					'durasi'         => $this->input->post('durasi',TRUE),
 					'dibaca'         => $this->input->post('dibaca',TRUE),
 					];
-					
+					//query update
 					$update = $this->model_app->update('posting', $data, ['id_post'=>$id]);
 					if($update['status']=='ok')
 					{
+						$this->session->set_flashdata('message', "update");
 						redirect('berita/post');
 						}else{
-						redirect('berita/post');
+						redirect('berita/post/editpost/'.$this->input->post('id',TRUE));
 					}
 				}
 				}else{
 				//insert
 				
-				$deskripsi = getFirstPar($this->input->post('deskripsi',TRUE));
+				$deskripsi 		= getFirstPar($this->input->post('deskripsi',TRUE));
 				if(empty($deskripsi)){
-					$getPar = getFirstPar($this->input->post('summernote',TRUE));
-					$deskripsi = cleanString($getPar);
+					$getPar 	= getFirstPar($this->input->post('summernote',TRUE));
+					$deskripsi 	= cleanString($getPar);
 				}
+				
 				if(!empty($_FILES['input_img']['name']))
 				{
 					if ($this->upload->do_upload('input_img'))
 					{
 						$gbr             = $this->upload->data();
-						//Compress Image
 						$data            = [
 						'id_cat'         => $id_cat,
 						'id_publisher'   => $this->input->post('author',TRUE),
@@ -274,10 +294,10 @@
 						'dibaca'         => $this->input->post('dibaca',TRUE),
 						];
 						
-						// print_r($data);
 						$insert = $this->model_app->input('posting', $data);
 						if($insert['status']=='ok')
 						{
+							$this->session->set_flashdata('message', "insert");
 							$this->_create_thumbs($tahun,$bulan,$gbr['file_name']);
 							redirect('berita/post');
 							}else{
@@ -308,10 +328,10 @@
 					'dibaca'         => $this->input->post('dibaca',TRUE),
 					];
 					
-					// print_r($data);
 					$insert = $this->model_app->input('posting', $data);
 					if($insert['status']=='ok')
 					{
+						$this->session->set_flashdata('message', "insert");
 						redirect('berita/post');
 						}else{
 						redirect('berita/post/addpost');
@@ -324,14 +344,12 @@
 			$id     = decrypt_url($this->input->post('id',TRUE));
 			$file   = $this->input->post('img_del',TRUE);
 			
-			
-			// print_r($_POST);
 			$config['upload_path']   = './assets/page'; //path folder
 			$config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang image yang dizinkan
 			$config['encrypt_name']  = TRUE; //enkripsi nama file
 			
 			$this->upload->initialize($config);
-			//update
+			//update halaman
 			if($id > 0){
 				if(!empty($_FILES['input_img']['name']))
 				{
@@ -371,6 +389,7 @@
 						echo $this->upload->display_errors();
 					}
 					}else{
+					
 					$data       = [
 					'judul'     => $this->input->post('judul',TRUE),
 					'judul_seo' => slugify($this->input->post('judul',TRUE)),
@@ -404,7 +423,6 @@
 						'photo'    	=> $gbr['file_name']
 						];
 						
-						// print_r($data);
 						$insert = $this->model_app->input('page', $data);
 						if($insert['status']=='ok')
 						{
@@ -418,7 +436,7 @@
 					}
 					
 					}else{
-					echo "image kosong atau type image tidak";
+					echo "image kosong atau type image tidak sesuai";
 					redirect('berita/page/addpost');
 				}
 			}
@@ -725,34 +743,34 @@
 					}
 				}
 			}
-				
-				$this->output
-				->set_content_type('application/json')
-				->set_output(json_encode($arr));
+			
+			$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($arr));
 		}
 		public function page()
 		{
 			$data['title']       = 'Page | '.$this->title;
-		$data['description'] = 'description';
-		$data['keywords']    = 'keywords';
-		$seo = $this->uri->segment(3);
-		if(empty($seo)){
-			$data['posts'] =  $this->model_app->view('page')->result_array();
-			$this->template->load(backend().'/themes',backend().'/list-page',$data);
+			$data['description'] = 'description';
+			$data['keywords']    = 'keywords';
+			$seo = $this->uri->segment(3);
+			if(empty($seo)){
+				$data['posts'] =  $this->model_app->view('page')->result_array();
+				$this->template->load(backend().'/themes',backend().'/list-page',$data);
+				
+				//add
+				}elseif($seo      =='addpost'){
+				$data['author']   = $this->model_app->view('gtbl_user')->result();
+				$data['tanggal']  = date('Y-m-d');
+				$data['jam']      = date('H:i');
+				$this->template->load(backend().'/themes',backend().'/form-add-page',$data);
+				//edit
+				}elseif($seo      =='editpost'){
+				$getid            = decrypt_url($this->uri->segment(4));
+				$data['post']     = $this->model_app->view_where('page',['id_page'=>$getid])->row();
+				$this->template->load(backend().'/themes',backend().'/form-edit-page',$data);
+			}
 			
-			//add
-			}elseif($seo      =='addpost'){
-			$data['author']   = $this->model_app->view('gtbl_user')->result();
-			$data['tanggal']  = date('Y-m-d');
-			$data['jam']      = date('H:i');
-			$this->template->load(backend().'/themes',backend().'/form-add-page',$data);
-			//edit
-			}elseif($seo      =='editpost'){
-			$getid            = decrypt_url($this->uri->segment(4));
-			$data['post']     = $this->model_app->view_where('page',['id_page'=>$getid])->row();
-			$this->template->load(backend().'/themes',backend().'/form-edit-page',$data);
-		}
-		
 		}
 		public function deletepage()
 		{
@@ -780,4 +798,4 @@
 			->set_content_type('application/json')
 			->set_output(json_encode($arr));
 		}
-	}							
+	}																
