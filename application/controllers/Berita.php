@@ -217,7 +217,7 @@
 					'id_publisher'   => $this->input->post('author',TRUE),
 					'judul'          => $this->input->post('judul',TRUE),
 					'publish'        => $this->input->post('pub',TRUE),
-					'postingan'      => base64_encode($_POST['summernote']),
+					'postingan'      => $this->input->post('summernote',TRUE),
 					'status'         => $this->input->post('status',TRUE),
 					'tanggal'        => $date,
 					'dateModified'	 => date('Y-m-d H:i:s'),
