@@ -83,5 +83,5 @@
 			$data['title'] = 'Lupa sandi';
 			$this->load->view('themes/admin/lupa_sandi', $data);
 		}
-	}
+	} 
 ?>
