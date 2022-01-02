@@ -431,7 +431,7 @@
 					<div class="form-group row">
 						<label for="pub" class="col-sm-3 col-form-label">Publish</label>
 						<div class="col-sm-9">
-							<select name="pub" id="pub" class="custom-select">
+							<select name="pub" id="pub" class="form-control">
 								<option value="Y" selected>Ya</option>
 								<option value="N">Tidak</option>
 							</select>
