@@ -693,6 +693,39 @@
 			return 'Administrator';
 		}
 	}
+	function tagshow2($id){
+		$ci = & get_instance();
+		$res = $ci->db->query("SELECT tag FROM `posting` WHERE id_post=".$id);
+		$TampungData = array();
+		$data_tags = $res->row_array();
+		$tags = explode(',',strtolower(trim($data_tags['tag'])));
+		if(empty($data_tags['tag'])){echo'';}else{
+			foreach($tags as $val) {
+			$ress = $ci->db->query("SELECT * FROM `tag` WHERE nama_tag like '%$val%'");
+			foreach($ress->result() as $val) {
+				$TampungData[] = ['nama'=>$val->nama_tag,'seo'=>$val->tag_seo];
+			}
+			}
+		}
+		if (!empty($TampungData)){
+			$tagss = '';
+			$output = array();
+			$tagss .= '<ul class="td-tags td-post-small-box clearfix">';
+			$tagss .= '<li><span>LABEL</span></li>';
+			foreach($TampungData as $key=>$val) {
+				$output[] = '<li><a href="/tag/'.slugify($val['seo']).'">'.strtoupper($val['nama']).'</a></li>';
+			}
+			$tagss .= implode(' ',$output);
+			$tagss .= '</ul>';
+			return $tagss;
+		}
+		
+	}
+	function pilihtag($val){
+		$ci = & get_instance();
+		$title = $ci->db->query("SELECT * FROM tag where tag_seo='$val'")->row_array();
+		return $title['nama_tag'];
+	}
 	function tagshow($id){
 		$ci = & get_instance();
 		$res = $ci->db->query("SELECT tag FROM `posting` WHERE id_post=".$id);
@@ -712,7 +745,7 @@
 			$tagss .= '<ul class="td-tags td-post-small-box clearfix">';
 			$tagss .= '<li><span>LABEL</span></li>';
 			foreach($jumlah_tag as $key=>$val) {
-				$output[] = '<li><a href="/tag/'.seo_title($key).'">'.strtoupper($key).'</a></li>';
+				$output[] = '<li><a href="/tag/'.slugify($key).'">'.strtoupper($key).'</a></li>';
 			}
 			$tagss .= implode(' ',$output);
 			$tagss .= '</ul>';
@@ -916,4 +949,4 @@
 			}else{
 			return false;
 		}
-	}								
+	}									

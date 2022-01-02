@@ -19,7 +19,7 @@
 		$judul = $row['judul'];
 		$seo = base_url().$row['judul_seo'];
 		$isi =cleanString($row['postingan']);
-		$isi =kalimat($isi,100);
+		// $isi =kalimat($isi,100);
 		$tanggal =tgl_post($row['tanggal']);
 		$datePub = standard_date('DATE_ATOM', strtotime($row['tanggal']));
 		$dateMod = standard_date('DATE_ATOM', strtotime($row['tanggal']));
@@ -42,7 +42,7 @@
 				</span>
 			</div>
 			
-			<div class="td-excerpt">
+			<div class="td-excerpt entry-isi">
 				<?=$isi;?>
 			</div>
 		</div>
@@ -57,5 +57,6 @@
 <script>
 	(function($){
 		$(".entry-title").dotdotdot({	height: 70,	fallbackToLetter: true,	watch: true});
+		$(".entry-isi").dotdotdot({	height: 80,	fallbackToLetter: true,	watch: true});
 	})(jQuery);
 </script>

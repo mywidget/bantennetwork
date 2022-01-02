@@ -13,7 +13,8 @@
 		public function index()
 		{
 			$seo = $this->uri->segment(2);
-			$data['title'] = 'Topik - ' .ucwords(cleanTag($seo)).' | '.tag_key('site_title');
+			$pilihtag = pilihtag($seo);
+			$data['title'] = 'Topik - ' .ucwords($pilihtag).' | '.tag_key('site_title');
 			$data['description'] = tag_key('site_desc');
 			$data['keywords'] = tag_key('site_desc');
 			$data['canonical']=base_url('search/');
@@ -32,7 +33,7 @@
 			if (!empty($seo)) {
 				$type = $this->input->get('type');
 				
-				$conditions['search']['keywords'] = cleanTag($seo);
+				$conditions['search']['keywords'] = $pilihtag;
 				if (!empty($type)) {
 					$conditions['where'] = array(
 					'cat.kategori_seo' => $type
@@ -55,7 +56,7 @@
 				'limit' => $this->perPage
 				);
 				
-				$conditions['search']['keywords'] = cleanTag($seo);
+				$conditions['search']['keywords'] = $pilihtag;
 				if (!empty($type)) {
 					$conditions['where'] = array(
 					'cat.kategori_seo' => $type
@@ -63,7 +64,7 @@
 				}
 				$data['rubrik'] = $this->model_app->view_where('cat',['pub'=>'Y']);
 				$data['tags']    = $seo;
-				$data['tag']    = cleanTag($seo);
+				$data['tag']    = $pilihtag;
 				$data['populer'] = populer();
 				$data['terbaru'] = terbaru();
 				$data['posts']  = $this->model_data->getTag($conditions);
@@ -85,16 +86,9 @@
 			}
             $keywords = $this->input->post('keywords');
             if (!empty($keywords)) {
-                $conditions['search']['keywords'] = cleanTag($keywords);
+                $conditions['search']['keywords'] = ($keywords);
 			}
-            $sortBy = $this->input->post('sortBy');
-			
-			
-            if (!empty($sortBy)) {
-				$conditions['where'] = array(
-				'cat.kategori_seo' => $sortBy
-				);
-			}
+             
             // Get record count 
             $conditions['returnType'] = 'count';
             $totalRec = $this->model_data->getTag($conditions);
@@ -113,12 +107,9 @@
             $conditions['start'] = $offset;
             $conditions['limit'] = $this->perPage;
             
-			if (!empty($sortBy)) {
-				$conditions['where'] = array(
-				'cat.kategori_seo' => $sortBy
-				);
+			if (!empty($keywords)) {
+                $conditions['search']['keywords'] = $keywords;
 			}
-			
             unset($conditions['returnType']);
 			
             $data['posts'] = $this->model_data->getTag($conditions);
@@ -141,17 +132,7 @@
             if (!empty($keywords)) {
                 $conditions['search']['keywords'] = $keywords;
 			}
-            $sortBy = $this->input->post('sortBy');
-            // if (!empty($sortBy)) {
-			// $conditions['search']['sortBy'] = $sortBy;
-			// }
-			
-			
-            if (!empty($sortBy) AND $sortBy!=0) {
-				$conditions['where'] = array(
-				'posting.id_cat' => $sortBy
-				);
-			}
+            
             // Get record count 
             $conditions['returnType'] = 'count';
             $totalRec = $this->model_data->getTag($conditions);
@@ -169,13 +150,9 @@
             // Get records 
             $conditions['start'] = $offset;
             $conditions['limit'] = $this->perPage;
-            
-			if (!empty($sortBy) AND $sortBy!=0) {
-				$conditions['where'] = array(
-				'posting.id_cat' => $sortBy
-				);
+            if (!empty($keywords)) {
+                $conditions['search']['keywords'] = $keywords;
 			}
-			
             unset($conditions['returnType']);
 			
 			$data['tab'] = $sortBy;

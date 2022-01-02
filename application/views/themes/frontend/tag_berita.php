@@ -8,25 +8,26 @@
                         <div class="entry-crumbs"><span><a title="" class="entry-crumb" href="/">Beranda</a></span> <i class="td-icon-right td-bread-sep td-bred-no-url-last"></i> <span class="td-bred-no-url-last">Label</span> <i class="td-icon-right td-bread-sep td-bred-no-url-last"></i> <span class="td-bred-no-url-last"><?=ucwords($tag);?></span></div>
                         <h1 class="entry-title td-page-title">
                             <span>Label: <?=ucwords($tag);?></span>
-                        </h1>
-                    </div>
+						</h1>
+					</div>
                     
                     
-                    <div class="td-block-row">
+                    <div class="td-block-row icon-container">
+                        <div id="icon-container" style="height:200px"></div>
                         <div id="postTag"></div>
-                    </div><!--./row-fluid-->
+					</div><!--./row-fluid-->
                     
-                <div class="clearfix"></div></div>
-            </div>
+				<div class="clearfix"></div></div>
+			</div>
             <div class="td-pb-span4 td-main-sidebar" role="complementary">
                 <div class="td-ss-main-sidebar" style="width: 339px; position: static; top: auto; bottom: auto;"><div class="clearfix"></div>
                     
                     <?=iklan(['status'=>'detail','id'=>5]);?>
                     <!-- end A --> 
-                <div class="clearfix"></div></div>
-            </div>
-        </div> <!-- /.td-pb-row -->
-    </div>
+				<div class="clearfix"></div></div>
+			</div>
+		</div> <!-- /.td-pb-row -->
+	</div>
 </div>
 
 <script>
@@ -44,12 +45,22 @@
 			url: '/tag/ajaxtagdesktop/'+page_num,
 			data:'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy,
 			beforeSend: function(){
-				$('.loading').fadeIn("slow");
-            },
+				$('#postTag').html("");
+				$('#icon-container').fadeIn("slow");
+			},
 			success: function(html){
+				$('#icon-container').fadeOut("fast");
 				$('#postTag').html(html);
-				$('.loading').fadeOut("slow");
-            }
-        });
-    }
+				// $('#icon-container').removeAttr('id');
+			}
+		});
+	}
+	var animation = bodymovin.loadAnimation({
+		container: document.getElementById("icon-container"), // required
+		path: "/loading.json", // required
+		renderer: "svg", // required
+		loop: true, // optional
+		autoplay: true, // optional
+		name: "Banten Network", // optional
+	});
 </script>
