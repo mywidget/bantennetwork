@@ -180,7 +180,6 @@
 	<script src="<?=base_url('assets/backend/');?>ckeditor/configs.js"></script>
 <?php } ?>
 <script>
-	
 	function paste() {
 		var pasteText = $("#copy").text();
 		$("#youtube").val(pasteText);
