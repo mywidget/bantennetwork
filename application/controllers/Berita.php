@@ -167,11 +167,15 @@
 			if (!is_dir('assets/post/'.$tahun.'/'.$bulan)) {
 				mkdir('./assets/post/' . $tahun.'/'.$bulan, 0777, TRUE);
 			}
+			$fileExt = pathinfo($_FILES["input_img"]["name"], PATHINFO_EXTENSION);
+			$newName = slugify($this->input->post('judul',TRUE)).'.'.$fileExt; 
+			
 			//confih upload
 			$config['upload_path']   = './assets/post/'.$tahun.'/'.$bulan; //path folder
 			$config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang image yang dizinkan
 			$config['max_size']		 = 2048;
-			$config['encrypt_name']  = TRUE; //enkripsi nama file
+			$config['encrypt_name']  = FALSE; //enkripsi nama file
+			$config['file_name']  = $newName; //enkripsi nama file
 			
 			$this->upload->initialize($config);
 			
@@ -185,6 +189,8 @@
 						$cek = $this->model_app->view_where('posting', ['id_post'=>$id]);
 						if($cek->num_rows() > 0)
 						{
+							
+							
 							$gambar = FCPATH.'assets/post/'.$tahun.'/'.$bulan.'/'.$file;
 							if(file_exists($gambar)){
 								@unlink('./assets/post/'.$tahun.'/'.$bulan.'/'.$file);
@@ -201,13 +207,13 @@
 							'judul_seo'      => slugify($this->input->post('judul',TRUE)),
 							'publish'        => $this->input->post('pub',TRUE),
 							'postingan'      => $this->input->post('summernote',TRUE),
-							'kata_kunci'	 => $this->input->post('kata_kunci',TRUE),
+							'kata_kunci'	 => $this->input->post('keyword',TRUE),
 							'deskripsi'		 => $this->input->post('deskripsi',TRUE),
 							'status'         => $this->input->post('status',TRUE),
 							'tanggal'        => $date,
 							'folder'         => $date,
 							'dateModified'	 => date('Y-m-d H:i:s'),
-							'gambar'         => $gbr['file_name'],
+							'gambar'         => $newName,
 							'caption'        => $this->input->post('caption',TRUE),
 							'tag'            => $tag,
 							'youtube'        => $youtube,
@@ -219,7 +225,7 @@
 							if($update['status']=='ok')
 							{
 								$this->session->set_flashdata('message', "update");
-								$this->_create_thumbs($tahun,$bulan,$gbr['file_name']);
+								$this->_create_thumbs($tahun,$bulan,$newName);
 								redirect('berita/post');
 								}else{
 								redirect('berita/post/editpost/'.$this->input->post('id',TRUE));
@@ -242,7 +248,7 @@
 					'tanggal'        => $date,
 					'dateModified'	 => date('Y-m-d H:i:s'),
 					'caption'        => $this->input->post('caption',TRUE),
-					'kata_kunci'	 => $this->input->post('kata_kunci',TRUE),
+					'kata_kunci'	 => $this->input->post('keyword',TRUE),
 					'deskripsi'		 => $this->input->post('deskripsi',TRUE),
 					'tag'            => $tag,
 					'youtube'        => $youtube,
@@ -272,6 +278,7 @@
 				{
 					if ($this->upload->do_upload('input_img'))
 					{
+						 
 						$gbr             = $this->upload->data();
 						$data            = [
 						'id_cat'         => $id_cat,
@@ -284,9 +291,9 @@
 						'tanggal'        => $date,
 						'folder'         => $date,
 						'dateModified'	 => date('Y-m-d H:i:s'),
-						'gambar'         => $gbr['file_name'],
+						'gambar'         => $newName,
 						'caption'        => $this->input->post('caption',TRUE),
-						'kata_kunci'	 => $this->input->post('kata_kunci',TRUE),
+						'kata_kunci'	 => $this->input->post('keyword',TRUE),
 						'deskripsi'		 => $deskripsi,
 						'tag'            => $tag,
 						'youtube'        => $youtube,
@@ -298,7 +305,7 @@
 						if($insert['status']=='ok')
 						{
 							$this->session->set_flashdata('message', "insert");
-							$this->_create_thumbs($tahun,$bulan,$gbr['file_name']);
+							$this->_create_thumbs($tahun,$bulan,$newName);
 							redirect('berita/post');
 							}else{
 							redirect('berita/post/addpost');
@@ -320,7 +327,7 @@
 					'folder'         => $date,
 					'dateModified'	 => date('Y-m-d H:i:s'),
 					'caption'        => $this->input->post('caption',TRUE),
-					'kata_kunci'	 => $this->input->post('kata_kunci',TRUE),
+					'kata_kunci'	 => $this->input->post('keyword',TRUE),
 					'deskripsi'		 => $deskripsi,
 					'tag'            => $tag,
 					'youtube'        => $youtube,
@@ -798,4 +805,4 @@
 			->set_content_type('application/json')
 			->set_output(json_encode($arr));
 		}
-	}																
+	}																			
