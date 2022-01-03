@@ -21,8 +21,8 @@
             
             $data = [
             'title'=>tag_key('site_title'),
-            'description' => tag_key('site_desc'),
-            'keywords' => tag_key('site_keys'),
+            'description' => descHome('desc'),
+            'keywords' => descHome('site_keys'),
             'canonical'=>base_url(),
             'url_image'=>base_url('assets/thumb.jpg'),
             'publisher'=>sosmed_single('FB'),
