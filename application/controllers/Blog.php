@@ -22,14 +22,12 @@
 					$thnt = folderthn($query['folder']);
 					$blnt = folderbln($query['folder']);
 					$data['title'] = $query['judul'].' | '.tag_key('site_title');
-					$data['description'] = !empty($query['deskripsi'])?$query['deskripsi']:tag_key('site_desc');
-					$data['keywords'] = tag_key('site_keys');
+					$paragraph = getFirstPar($query['postingan']);
+					$data['description'] = !empty($query['deskripsi'])?$query['deskripsi']:cleanString($paragraph);
+					$data['keywords'] = !empty($query['kata_kunci'])?$query['kata_kunci']:tag_key('site_keys');
 					$data['canonical']=base_url().$query['judul_seo'];
-					$data['url_image'] = base_url().'assets/post/'.$thnt.'/'.$blnt.'/'.$query['gambar'];
+					$data['url_image'] = imgDetail($query['id_post']);
 					$data['publisher']=sosmed_single('FB');
-					$start = strpos($query['postingan'], '<p>');
-					$end = strpos($query['postingan'], '</p>', $start);
-					$paragraph = substr($query['postingan'], $start, $end-$start+4);
 					
 					$data['json']=[
 					"@context"=>"http://schema.org",
@@ -47,7 +45,7 @@
 					"@type"=>"Person",
 					"name"=>"Administrator"
 					],
-					"keywords"=>!empty($query['kata_kunci'])?$query['kata_kunci'] : "berita terkini",
+					"keywords"=>!empty($query['kata_kunci'])?$query['kata_kunci'] : tag_key('site_keys'),
 					"image"=>[
 					"@type"=>"ImageObject",
 					"url"=>base_url().'assets/post/'.$thnt.'/'.$blnt.'/'.$query['gambar'],
