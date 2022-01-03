@@ -7,7 +7,7 @@
                         <th style="width:2%;">No.</th>
                         <th>Judul</th>
                         <th>Kategori</th>
-                        <th>Tanggal</th>
+                        <th  style="width:15%;text-align:left">Tanggal</th>
                         <th style="text-align:center">Viewer</th>
                         <th style="width:2%;text-align:center">Status</th>
                         <th style="width:12%;text-align:right">Aksi</th>
@@ -18,7 +18,7 @@
                         $no =$offset + 1;
                         foreach($posts as $aRow){
                             $kode = encrypt_url($aRow['id_post']);
-                            $tgl_posting=dtimes($aRow['tanggal'], false,false);
+                            $tgl_posting=tgl_tiket($aRow['tanggal'], true);
                         ?>
                         <tr>  
                             <td><?=$no;?></td>  
@@ -39,7 +39,7 @@
                         <th style="width:2%;">No.</th>
                         <th>Judul</th>
                         <th>Kategori</th>
-                        <th>Tanggal</th>
+                        <th  style="width:15%;text-align:left">Tanggal</th>
                         <th style="text-align:center">Viewer</th>
                         <th style="width:2%;text-align:center">Status</th>
                         <th style="width:12%;text-align:right">Aksi</th>
