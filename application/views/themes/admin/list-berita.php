@@ -38,7 +38,7 @@
                                         <th style="width:2%;">No.</th>
                                         <th>Judul</th>
                                         <th>Kategori</th>
-                                        <th>Tanggal</th>
+                                        <th  style="width:15%;text-align:left">Tanggal</th>
                                         <th style="text-align:center">Viewer</th>
                                         <th style="width:2%;text-align:center">Status</th>
                                         <th style="width:12%;text-align:right">Aksi</th>
@@ -49,15 +49,20 @@
                                         $no =1;
                                         foreach($posts as $aRow){
                                             $kode = encrypt_url($aRow['id_post']);
-                                            $tgl_posting=dtimes($aRow['tanggal'], false,false);
+                                            $tgl_posting=tgl_tiket($aRow['tanggal'], true);
+                                            if($aRow['publish']=='Y'){
+                                                $aktif = '<span class="badge badge-pill badge-success mb-1">Aktif</span>';
+                                                }else{
+                                                $aktif = '<span class="badge badge-pill badge-danger mb-1">Tidak</span>';
+                                            }
                                         ?>
                                         <tr>  
                                             <td><?=$no++;?></td>  
-                                            <td><a href="javascript:editpost('<?=$kode;?>');" data-href="<?=base_url();?>artikel/post/editpost<?=$kode;?>" class="openPopup"><?=$aRow['judul'];?></a></td>
+                                            <td><a href="javascript:editpost('<?=$kode;?>');" data-href="<?=base_url();?>artikel/post/editpost<?=$kode;?>" class="openPopup" title="<?=$aRow['judul'];?>"><?=kata($aRow['judul'],70);?></a></td>
                                             <td><?=$aRow['nama_kategori']; ?></td>
                                             <td align="left"><?=$tgl_posting; ?></td>  
                                             <td align="center"><?=$aRow['dibaca']; ?></td>  
-                                            <td align="center"><?=$aRow['publish']; ?></td>  
+                                            <td align="center"><?=$aktif; ?></td>  
                                             <td align='right'>
                                                 <a href="javascript:editpost('<?=$kode;?>');" class="text-green hint--left" aria-label="Edit data"><i class='ik ik-edit'></i> Edit</a> | 
                                                 <a href="javascript:deletepost('<?=$kode;?>','<?=$aRow['gambar'];?>');" class="text-red hint--left" aria-label="Hapus"><i class='ik ik-trash'> Hapus</i></a>
@@ -70,7 +75,7 @@
                                         <th style="width:2%;">No.</th>
                                         <th>Judul</th>
                                         <th>Kategori</th>
-                                        <th>Tanggal</th>
+                                        <th  style="width:15%;text-align:left">Tanggal</th>
                                         <th style="text-align:center">Viewer</th>
                                         <th style="width:2%;text-align:center">Status</th>
                                         <th style="width:12%;text-align:right">Aksi</th>
