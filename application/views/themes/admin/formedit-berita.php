@@ -84,12 +84,14 @@
 				<div class="card-body">
 					<div class="text-center"> 
 						<?php
+							$opathFile = FCPATH.'assets/post/'.folderthn($post->folder).'/'.folderbln($post->folder).'/341x200_'.$post->gambar;
 							$size = @getimagesize($opathFile);
 							if($size !== false){
-								$gambar = base_url().'assets/post/'.folderthn($post->tanggal).'/'.folderbln($post->tanggal).'/341x200_'.$post['gambar'];
+								$gambar = base_url().'assets/post/'.folderthn($post->folder).'/'.folderbln($post->folder).'/341x200_'.$post->gambar;
 								}else{
 								$gambar = base_url()."assets/no_photo.jpg";
 							}
+							
 						?>
 						<img src="<?=$gambar;?>" id="avatar" class="rounded" style="width: 290px; height: 200px; object-fit: cover;" >
 					</div>
