@@ -55,7 +55,7 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 	<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/wp-mediaelement.min.css?ver=5.7.2' type='text/css' media='all' />
 	<link rel='stylesheet'  href='https://fonts.googleapis.com/css?family=Open+Sans%3A400%2C600%2C700%7CRoboto+Condensed%3A400%2C500%2C700&#038;display=swap&#038;ver=4.9.6' type='text/css' media='all' />
 	<link rel='stylesheet'  href='<?=base_url('assets/frontend/'); ?>css/js_composer.min.css?ver=5.4.7' type='text/css' media='all' />
-	<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/style.css?ver=4.9.6' type='text/css' media='all' />
+	<link rel='stylesheet' href='<?=base_url('assets/frontend/'); ?>css/style.css?ver=4.9.77' type='text/css' media='all' />
 	<style id='td-theme-inline-css' type='text/css'>
 		
 		@media (max-width: 767px) {
