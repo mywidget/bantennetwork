@@ -86,10 +86,10 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 	<meta name="google-adsense-platform-account" content="">
 	<meta name="google-adsense-platform-domain" content="sitekit.withgoogle.com">
 	
-	<link rel="icon" href="<?=base_url('assets/frontend/'); ?>images/logo-32x32.png" sizes="32x32" />
-	<link rel="icon" href="<?=base_url('assets/frontend/'); ?>images/logo-192x192.png" sizes="192x192" />
-	<link rel="apple-touch-icon" href="<?=base_url('assets/frontend/'); ?>images/logo-180x180.png" />
-	<meta name="msapplication-TileImage" content="<?=base_url('assets/frontend/'); ?>images/logo-270x270.png" />
+	<link rel="icon" href="<?=base_url('uploads/').tag_key('site_favicon'); ?>" sizes="32x32" />
+	<link rel="icon" href="<?=base_url('uploads/').tag_key('site_favicon'); ?>" sizes="192x192" />
+	<link rel="apple-touch-icon" href="<?=base_url('uploads/').tag_key('site_favicon'); ?>" />
+	<meta name="msapplication-TileImage" content="<?=base_url('uploads/').tag_key('site_favicon'); ?>" />
 	</head>
 	<body class="archive category category-artis category-46 global-block-template-1 td_category_template_1 td_category_top_posts_style_1 wpb-js-composer js-comp-ver-5.4.7 vc_responsive td-full-layout td-js-loaded">
 		
