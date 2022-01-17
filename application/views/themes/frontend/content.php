@@ -39,9 +39,6 @@
                                                                     <a href="<?=$seo;?>" rel="bookmark" title="<?=$row1['judul'];?>"><?=$row1['judul'];?></a>
                                                                 </h3>
                                                                 <div class="td-module-meta-info">
-                                                                    <span class="td-post-author-name">
-                                                                        <a href="https://www.bantennews.co.id/author/redaksi-2/">Bantennews</a> <span>-</span>
-                                                                    </span>
                                                                     <span class="td-post-date">
                                                                         <time class="entry-date updated td-module-date" datetime="<?=$dateatom;?>" ><?=$tanggal;?>
                                                                         </time>
