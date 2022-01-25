@@ -8,7 +8,6 @@
 	$g_email = $this->session->g_email;
 	$User = CekMailUser($g_email);
 	
-	// print_r($User);
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
