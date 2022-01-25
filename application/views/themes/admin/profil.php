@@ -19,7 +19,7 @@
 				<div class="text-center"> 
 					<img src="<?=$user['img']; ?>" id="avatar" class="rounded-circle" width="150">
 					<h4 class="card-title mt-10" id="attr_nama1"><?=$user['nama']; ?></h4>
-					<p class="card-subtitle"><?=ucfirst($user['lv']); ?></p>
+					<p class="card-subtitle"><?=ucfirst($user['level']); ?></p>
 				</div>
 			</div>
 			<hr class="mb-0"> 
