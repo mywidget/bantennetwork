@@ -3,12 +3,11 @@ application/logs/*
 assets/backup_db/*
 assets/banner/*
 assets/post/*
+uploads/*
 application/config/database.php
 
 .htaccess
 *.bak
-uploads/addbb6cfb75c7a8c9807c6009cb65888.png
-backup_db/backup-on_2021-12-31_23-47-44.sql
-*.bak
+uploads/*
+backup_db/*
 index.php
-uploads/8f8d2acc67e1792a43937106aa234b32.png
