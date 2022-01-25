@@ -3,6 +3,7 @@ application/logs/*
 assets/backup_db/*
 assets/banner/*
 assets/post/*
+assets/*
 uploads/*
 application/config/database.php
 
