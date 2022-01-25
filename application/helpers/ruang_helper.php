@@ -312,6 +312,7 @@ return $html;
             'id'=>$rows['id_user'],
             'nama'=>$rows['nama_lengkap'],
             'img'=>$rows['profile_image'],
+            'level'=>$rows['level'],
             'idlv'=>$rows['idlevel'],
             'parent'=>$rows['parent'],
             'alamat'=>$rows['alamat'],
