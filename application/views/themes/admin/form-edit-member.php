@@ -54,7 +54,7 @@
 						echo checkcard($dataTz,0,$rowz['idparent'],$arr->idmenu);
 					?>
 				</div>
-				<?=$arr->level;?>
+				
 				<div class="form-group">
 					<label>Level Akses</label>
 					<select name='id_level' class="form-control custom-select">
@@ -62,19 +62,23 @@
 							if($arr->level=="admin") {
 								$tampil=$this->db->query("SELECT * FROM hak_akses");
 								foreach($tampil->result_array() AS $we){
-									echo "<option value=$we[id_level] selected>$we[nama]</option>"; 
+									if ($arr->id_level==$we['id_level']){
+									echo "<option value=$we[id_level] selected>$we[nama]</option>";
+									}else{
+									echo "<option value=$we[id_level]>$we[nama]</option>"; 
 								}
-								}else{
-								$tampil = $this->db->query("select * FROM hak_akses where id_level IN ($arr->idlevel)");
-								if ($arr->id_level==0){
-									echo "<option value=0 selected>Pilih Level Akses</option>"; 
-								}
-								foreach($tampil->result_array() AS $w){
-									if ($arr->id_level==$w['id_level']){
-									echo "<option value=$w[id_level] selected>$w[nama]</option>";}
-									else{
-									echo "<option value=$w[id_level]>$w[nama]</option>";}}
 							}
+							}else{
+							$tampil = $this->db->query("select * FROM hak_akses where id_level IN ($arr->idlevel)");
+							if ($arr->id_level==0){
+								echo "<option value=0 selected>Pilih Level Akses</option>"; 
+							}
+							foreach($tampil->result_array() AS $w){
+								if ($arr->id_level==$w['id_level']){
+								echo "<option value=$w[id_level] selected>$w[nama]</option>";}
+								else{
+								echo "<option value=$w[id_level]>$w[nama]</option>";}}
+						}
 						?>
 					</select>
 				</div>
