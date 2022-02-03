@@ -63,13 +63,7 @@
 						<textarea class="form-control" id="editor" name="summernote" rows="5"></textarea>
 					</div>
 					<div class="row">
-						<div class="col-md-5">
-							<div class="form-group">
-								<label for="keyword">Keyword : pisahkan dengan koma</label>
-								<textarea class="form-control" id="keyword" name="keyword" rows="2"></textarea>
-							</div>
-						</div>
-						<div class="col-md-7">
+						<div class="col-md-12">
 							<div class="form-group">
 								<label for="deskripsi">Deskripsi</label>
 								<textarea class="form-control" id="deskripsi" name="deskripsi" rows="2"></textarea>
