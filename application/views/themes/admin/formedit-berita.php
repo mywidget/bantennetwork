@@ -61,13 +61,7 @@
 						<textarea class="form-control" id="editor" name="summernote" rows="6"><?=$post->postingan;?></textarea>
 					</div>
 					<div class="row">
-						<div class="col-md-5">
-							<div class="form-group">
-								<label for="keyword">Keyword : pisahkan dengan koma</label>
-								<textarea class="form-control" id="keyword" name="keyword" rows="2"><?=$post->kata_kunci;?></textarea>
-							</div>
-						</div>
-						<div class="col-md-7">
+						<div class="col-md-12">
 							<div class="form-group">
 								<label for="deskripsi">Deskripsi</label>
 								<textarea class="form-control" id="deskripsi" name="deskripsi" rows="2"><?=$post->deskripsi;?></textarea>
@@ -161,7 +155,7 @@
 							<select id="author" name="author" class="form-control">
 								<?php
 									foreach($author as $row){
-										if($row->id_user==$post->id_user){
+										if($row->id_user==$post->id_publisher){
 											echo '<option value="'.$row->id_user.'" selected>'.$row->nama_lengkap.'</option>';    
 											}else{
 											echo '<option value="'.$row->id_user.'">'.$row->nama_lengkap.'</option>';    

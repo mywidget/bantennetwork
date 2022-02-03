@@ -7,6 +7,6 @@
 		public function index()
 		{
 			session_destroy();
-			redirect('/');
+			redirect('/portal');
 		}
 	}
