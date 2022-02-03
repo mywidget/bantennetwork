@@ -94,7 +94,7 @@
 					
 					foreach ($qryberita as $row)
 					{
-						$penulis = 'Bantennetwork';
+						$penulis = $row->alias;
 						$judul = $row->judul;
 						$seo = $row->judul_seo;
 						$tanggal = tgl_post($row->tanggal);
@@ -258,7 +258,7 @@
 					
 					foreach ($qryberita as $row)
 					{
-						$penulis = 'Bantennetwork';
+						$penulis = $row->judul;
 						$judul = $row->judul;
 						$seo = $row->judul_seo;
 						$tanggal = tgl_post($row->tanggal);
@@ -799,6 +799,31 @@
 				$tagss .= implode(' ',$output);
 				$tagss .= '</ul>';
 				return $tagss;
+			}
+			
+		}
+		
+		function tag_show($id){
+			$ci = & get_instance();
+			$res = $ci->db->query("SELECT tag FROM `posting` WHERE id_post=".$id);
+			$TampungData = array();
+			foreach($res->result_array() AS $data_tags){
+				$tags = explode(',',strtolower(trim($data_tags['tag'])));
+				if(empty($data_tags['tag'])){echo'';}else{
+					foreach($tags as $val) {
+						$TampungData[] = $val;
+					}}
+			}
+			$jumlah_tag = array_count_values($TampungData);
+			ksort($jumlah_tag);
+			if ($jumlah_tag){
+				$tagss = '';
+				$output = array();
+				foreach($jumlah_tag as $key=>$val) {
+					$output[] = ['seo'=>slugify($key),'title'=>$key];
+				}
+				 
+				return $output;
 			}
 			
 		}

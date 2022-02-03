@@ -153,7 +153,7 @@ a.more-link {
 </style>
 
 <h1>404 Error Page</h1>
-<p class="zoom-area"><b>BANTENNETWORK.CO.ID</b> maaf halaman tidak ditemukan. </p>
+<p class="zoom-area"><b><?=tag_key('site_name');?></b> maaf halaman tidak ditemukan. </p>
 <section class="error-container">
   <span class="four"><span class="screen-reader-text">4</span></span>
   <span class="zero"><span class="screen-reader-text">0</span></span>

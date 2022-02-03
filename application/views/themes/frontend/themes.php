@@ -78,6 +78,7 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 	<script src="<?=base_url('assets/frontend/'); ?>js/lottie.min.js"></script>
 	<script src="<?=base_url('assets/frontend/'); ?>js/jquery.jscroll.min.js"></script>
 	<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/dotdotdot.js' id='td-site-min-js'></script>
+	<script type='text/javascript' src='<?=base_url('assets/frontend/'); ?>js/linkit.js'></script>
 	<meta property="fb:pages" content="" />
 	
 	<meta name="generator" content="Site Kit by Google 1.45.0" />	
