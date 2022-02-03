@@ -94,7 +94,7 @@
 					
 					foreach ($qryberita as $row)
 					{
-						$penulis = $row->alias;
+						$penulis = penulis($row->id_publisher);
 						$judul = $row->judul;
 						$seo = $row->judul_seo;
 						$tanggal = tgl_post($row->tanggal);
@@ -258,7 +258,7 @@
 					
 					foreach ($qryberita as $row)
 					{
-						$penulis = $row->judul;
+						$penulis = penulis($row->id_publisher);
 						$judul = $row->judul;
 						$seo = $row->judul_seo;
 						$tanggal = tgl_post($row->tanggal);
@@ -415,6 +415,21 @@
 		{
 			$html = base_url('uploads/').tag_key('site_logo');
 			return $html;
+		}
+		
+		function penulis($val)
+		{
+			$ci = & get_instance();
+			$value='';
+			$query = $ci->model_app->view_where('gtbl_user',['id_user'=>$val]);
+			$row = $query->row();
+			if (isset($row))
+			{
+				$value = $row->nama_lengkap;
+				}else{
+				$value = "Administrator";
+			}
+			return $value;
 		}
 		
 		function tag_key($val)
