@@ -206,7 +206,7 @@
 							'judul'          => $this->input->post('judul',TRUE),
 							'judul_seo'      => slugify($this->input->post('judul',TRUE)),
 							'publish'        => $this->input->post('pub',TRUE),
-							'postingan'      => $this->input->post('summernote',TRUE),
+							'postingan'      => $this->input->post('summernote',FALSE),
 							'kata_kunci'	 => $this->input->post('keyword',TRUE),
 							'deskripsi'		 => $this->input->post('deskripsi',TRUE),
 							'status'         => $this->input->post('status',TRUE),
@@ -243,7 +243,7 @@
 					'id_publisher'   => $this->input->post('author',TRUE),
 					'judul'          => $this->input->post('judul',TRUE),
 					'publish'        => $this->input->post('pub',TRUE),
-					'postingan'      => $this->input->post('summernote',TRUE),
+					'postingan'      => $this->input->post('summernote',FALSE),
 					'status'         => $this->input->post('status',TRUE),
 					'tanggal'        => $date,
 					'dateModified'	 => date('Y-m-d H:i:s'),
@@ -286,7 +286,7 @@
 						'judul'          => $this->input->post('judul',TRUE),
 						'judul_seo'      => slugify($this->input->post('judul',TRUE)),
 						'publish'        => $this->input->post('pub',TRUE),
-						'postingan'      => $this->input->post('summernote',TRUE),
+						'postingan'      => $this->input->post('summernote',FALSE),
 						'status'         => $this->input->post('status',TRUE),
 						'tanggal'        => $date,
 						'folder'         => $date,
@@ -321,7 +321,7 @@
 					'judul'          => $this->input->post('judul',TRUE),
 					'judul_seo'      => slugify($this->input->post('judul',TRUE)),
 					'publish'        => $this->input->post('pub',TRUE),
-					'postingan'      => $this->input->post('summernote',TRUE),
+					'postingan'      => $this->input->post('summernote',FALSE),
 					'status'         => $this->input->post('status',TRUE),
 					'tanggal'        => $date,
 					'folder'         => $date,
@@ -375,7 +375,7 @@
 							$data       = [
 							'judul'     => $this->input->post('judul',TRUE),
 							'judul_seo' => slugify($this->input->post('judul',TRUE)),
-							'isi'       => $this->input->post('summernote',TRUE),
+							'isi'       => $this->input->post('summernote',FALSE),
 							'pub'       => $this->input->post('pub',TRUE),
 							'status'    => $this->input->post('status',TRUE),
 							'photo'    	=> $gbr['file_name']
@@ -400,7 +400,7 @@
 					$data       = [
 					'judul'     => $this->input->post('judul',TRUE),
 					'judul_seo' => slugify($this->input->post('judul',TRUE)),
-					'isi'       => $this->input->post('summernote',TRUE),
+					'isi'       => $this->input->post('summernote',FALSE),
 					'pub'       => $this->input->post('pub',TRUE),
 					'status'    => $this->input->post('status',TRUE)
 					];
@@ -424,7 +424,7 @@
 						$data       = [
 						'judul'     => $this->input->post('judul',TRUE),
 						'judul_seo' => slugify($this->input->post('judul',TRUE)),
-						'isi'       => $this->input->post('summernote',TRUE),
+						'isi'       => $this->input->post('summernote',FALSE),
 						'pub'       => $this->input->post('pub',TRUE),
 						'status'    => $this->input->post('status',TRUE),
 						'photo'    	=> $gbr['file_name']
