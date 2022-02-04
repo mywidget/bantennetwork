@@ -351,7 +351,7 @@
 		'2'=>'Selasa',
 		'3'=>'Rabu',
 		'4'=>'Kamis',
-		'5'=>'Jum`at',
+		'5'=>'Jumat',
 		'6'=>'Sabtu'
 		);
 		$hari 	= @$hari_arr[date('w',$tanggal)];
@@ -385,7 +385,7 @@
 		'2'=>'Selasa',
 		'3'=>'Rabu',
 		'4'=>'Kamis',
-		'5'=>'Jum`at',
+		'5'=>'Jumat',
 		'6'=>'Sabtu'
 		);
 		$hari 	= @$hari_arr[date('w',$tanggal)];
@@ -404,7 +404,7 @@
 		'2'=>'Selasa',
 		'3'=>'Rabu',
 		'4'=>'Kamis',
-		'5'=>'Jum`at',
+		'5'=>'Jumat',
 		'6'=>'Sabtu'
 		);
 		$hari 	= @$hari_arr[date('w',$tanggal)];
