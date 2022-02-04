@@ -1,38 +1,62 @@
-<?php if(!empty($posts)){ ?>
-	<div id="postTag">
-		<main class="" id="berita-terkini" style="margin-bottom:20px">
-			<?php foreach($posts AS $row){ 
-				$postID = $row['id_post'];
-				$thnt = folderthn($row['folder']);
-				$blnt = folderbln($row['folder']);
-				$opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
-				$size = @getimagesize($opathFile);
-				if($size !== false){
-					$gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
-					}else{
-					$gambar = base_url()."assets/no_photo.jpg";
-				}
-				$durasi = formatDate($row['durasi']);
-				if(!empty($durasi)){
-					$label = '<span style="background:#ff0000">VIDEO</span>';
-					}else{
-					$label = '<span style="background:#000040;border-radius:15px;padding:2px 5px;color:#fff">'.$row['nama_kategori'].'</span>';
-				}
-			?>
-			<section class="row">
-				<a class="col-xs-4 col-sm-4 col-md-4 col-lg-4" href="<?=base_url('detail/').$row['judul_seo'];?>"><img alt="Image" src="<?=$gambar;?>" width="143"></a>
-				<article class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-					<header>
-						<div class="info">
-							<p class="categori"><?=$label;?></p>
-							<time datetime="<?=dtimes($row['tanggal'],true,false);?>"><?=datetimes($row['tanggal'],true,true);?></time>
-							</div><a href="<?=base_url();?>detail/<?=$row['judul_seo'];?>">
-						<h5><?=$row['judul'];?></h5></a>
-					</header>
-				</article>
-			</section>
-			<?php } ?>
-			<?php echo $this->ajax_pagemobile->create_links(); ?>
-		</main>
+<?php 
+	
+	if(!empty($posts)){ ?>
+	
+	<?php foreach($posts AS $row){ 
+		$postID = $row['id_post'];
+		$thnt = folderthn($row['folder']);
+		$blnt = folderbln($row['folder']);
+		$opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row['gambar'];
+		$size = @getimagesize($opathFile);
+		if($size !== false){
+			$gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/341x200_'.$row['gambar'];
+			}else{
+			$gambar = base_url()."assets/no_photo.jpg";
+		}
+		
+		$nama_kategori = $row['nama_kategori'];
+		$kategori_seo = $row['kategori_seo'];
+		$judul = $row['judul'];
+		$seo = base_url().$row['judul_seo'];
+		$isi =cleanString($row['postingan']);
+		// $isi =kalimat($isi,100);
+		$tanggal =tgl_post($row['tanggal']);
+		$datePub = standard_date('DATE_ATOM', strtotime($row['tanggal']));
+		$dateMod = standard_date('DATE_ATOM', strtotime($row['tanggal']));
+	?>
+	<div class="td-block-span6">
+		<!-- module -->
+		<div class="td_module_4 td_module_wrap td-animation-stack">
+			<div class="td-module-image">
+				<div class="td-module-thumb"><a href="<?=$seo;?>" rel="bookmark" class="td-image-wrap " title="<?=$judul;?>"><img class="entry-thumb td-animation-stack-type0-2" src="<?=$gambar;?>" alt="" title="<?=$judul;?>" data-type="image_tag" data-img-url="<?=$gambar;?>" width="300" height="194"></a></div>
+				<a href="/rubrik/<?=$kategori_seo;?>" class="td-post-category"><?=$nama_kategori;?></a>
+			</div>
+			
+			<h3 class="entry-title td-module-title"><a href="<?=$seo;?>" rel="bookmark" title="<?=$judul;?>"><?=$judul;?></a></h3>
+			<div class="meta-info">
+				<span class="td-post-author-name">
+					<a href="#"><?=editor($row['id_publisher']);?></a> 
+				<span>-</span> </span>
+				<span class="td-post-date">
+					<time class="entry-date updated td-module-date" datetime="<?=$datePub;?>"><?=$tanggal;?></time>
+				</span>
+			</div>
+			
+			<div class="td-excerpt entry-isi">
+				<?=$isi;?>
+			</div>
+		</div>
+	</div> <!-- ./td-block-span6 -->
+	<?php } ?>
+	<div class="clearfix"></div>
+	<div class="page-nav td-pb-padding-side">
+		<?php echo $this->paging_rubrik->create_links(); ?>
 	</div>
+	<div class="clearfix"></div>
 <?php }else{ echo "Data tidak ditemukan";} ?>
+<script>
+	(function($){
+		$(".entry-title").dotdotdot({	height: 70,	fallbackToLetter: true,	watch: true});
+		$(".entry-isi").dotdotdot({	height: 80,	fallbackToLetter: true,	watch: true});
+	})(jQuery);
+</script>

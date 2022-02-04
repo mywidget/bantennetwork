@@ -27,7 +27,7 @@
                         }else{
                         $label = '<a href="'.base_url('detail/').$row['judul_seo'].'"><i class="fa fa-newspaper-o"></i> &nbsp;DETAIL</a>';
                     }
-                    ?>
+                ?>
                 <div>
                     <div style="top: 0px; left: 0px; width: 1064px; height: 500px; position: absolute; display: block; overflow: hidden; background-color:#000; background-image: none;">
                         <img data-u="image" src="<?=$gambar;?>" alt="detail/dua-badak-jawa-lahir-terekam-video-trap-di-tnuk-pandeglang" class="lazy" data-src="<?=$gambar;?>" style="top: 0px; left: 0px; width: 1300px; height: 670px; position: absolute; display: block; max-width: 10000px; z-index: 1;" data-events="auto" data-display="block" border="0"></div><div style="top: 0px; left: 0px; width: 1300px; height: 670px; position: absolute; display: block; transform-style: preserve-3d; z-index: 1;" data-events="auto" data-display="block">
@@ -102,8 +102,9 @@
         <div class="col w-100" style="background:#EDEDED;float:left !important;border-radius:10px">
             <section id="update" class="list list-type-1" style="margin-bottom:15px;padding:0 10px">
                 <div class="wrapper">
-                    <a href="#" class="box-title red-500" style="position:relative;top:-15px;z-index: 2;border-radius:10px;float:right;">
-                    News</a>
+                    
+                    <a href="#" class="box-title blue-500" style="position:relative;top:-15px;z-index: 2;border-radius:15px;font-size:12pt">
+                    Program</a>
                     <div class="post-list" id="dataList">
                         <!-- Display posts list -->
                         <?php if(!empty($posts)){ foreach($posts as $row){ 
@@ -137,10 +138,11 @@
                         <?php } }else{ ?>
                         <p>Post(s) not found...</p>
                         <?php } ?>
-                        <div class="w-50">
-                            <?php echo $this->ajax_paging->create_links(); ?>
-                        </div>
+                       <div class="w-50">
+                        <?php echo $this->ajax_paging->create_links(); ?>
                     </div>
+                    </div>
+                   
                 </div>
                 
             </section>
@@ -148,12 +150,81 @@
     </div>
     
     <div class="col w-70" style="float:right !important;">
-        <div class="col w-100" style="background:#fff;margin-top:0;border-bottom:3px solid #000">
+        <div class="col w-60" style="float:left !important;background:#EDEDED;border-radius: 10px;padding:10px;margin-bottom:10px">
+            <section id="berita-pilihan" class="berita-pilihan">
+                <a href="/sorotan" class="box-title blue-500 populer" style="margin-left:20px">
+                    SOROTAN
+                </a>
+                
+                <div class="row clearfix">
+                    <?php 
+                        foreach($sorotan AS $row):
+                        $thnt = folderthn($row['folder']);
+                        $blnt = folderbln($row['folder']);
+                        $opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
+                        $size = @getimagesize($opathFile);
+                        if($size !== false){
+                            $gambar = '/assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
+                            }else{
+                            $gambar = "/assets/no_photo_2.jpg";
+                        }
+                    ?>
+                    <li class="col w-30" style="position:relative">
+                        <div class="card card-type-4">
+                            <div class="wrapper clearfix">
+                                <a class="col populer" href="<?=base_url('detail/').$row['judul_seo'];?>">
+                                    <img loading="lazy" src="<?=$gambar;?>" alt="<?=potdesc($row['judul'],50);?>" width="400">
+                                </a>
+                                <a class="col populer" href="<?=base_url('detail/').$row['judul_seo'];?>">
+                                    <h2 class="title"><?=kata($row['judul'],30);?></h2>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <?php endforeach; ?>
+                </div>
+                <!-- end berita pilihan -->
+            </section>
+            <section id="berita-pilihan" class="berita-pilihan">
+                <a href="/populer" class="box-title blue-500 populer" style="margin-left:20px">
+                    POPULER
+                </a>
+                
+                <div class="row clearfix">
+                    <?php 
+                        foreach($populer AS $row):
+                        $thnt = folderthn($row['folder']);
+                        $blnt = folderbln($row['folder']);
+                        $opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
+                        $size = @getimagesize($opathFile);
+                        if($size !== false){
+                            $gambar = '/assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
+                            }else{
+                            $gambar = "/assets/no_photo_2.jpg";
+                        }
+                    ?>
+                    <li class="col w-30" style="position:relative">
+                        <div class="card card-type-4">
+                            <div class="wrapper clearfix">
+                                <a class="col populer" href="<?=base_url('detail/').$row['judul_seo'];?>">
+                                    <img loading="lazy" src="<?=$gambar;?>" alt="<?=potdesc($row['postingan'],50);?>" width="400">
+                                </a>
+                                <a class="col populer" href="<?=base_url('detail/').$row['judul_seo'];?>">
+                                    <h2 class="title"><?=kata($row['judul'],30);?></h2>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <?php endforeach; ?>
+                    
+                </div>
+                <!-- end berita pilihan -->
+            </section>
             <a href="#" class="box-title red-500" style="border-radius:5px;position:relative;top:20px;left:20px">Artikel</a>
             <nav class="border">
                 <div class="col w-100 "></div>
             </nav>
-            <div class="col w-50" style="float:left !important;margin-top:20px;border-right:3px solid #000;margin-bottom:10px;">
+            <div class="col w-100" style="float:left !important;margin-top:20px;margin-bottom:10px;">
                 <section id="update" class="list list-type-1">
                     <div class="wrapper" style="padding:0!important">
                         <?php 
@@ -187,76 +258,43 @@
                     </div>
                 </section>
             </div>
-            <div class="col w-45" style="float:right !important;">
-                <section id="berita-video" class="berita-pilihan" style="background:url('assets/frontend/images/bg.jpg') #660000;padding:10px;color:#fff;margin:0 0 20px 0;margin-top:20px;">
-                    <a href="#" class="box-title putih-500 populer tengah" >
-                        editor choice
-                    </a>
-                    <div class="row clearfix">
-                        <?php 
-                            foreach($pilihan AS $row):
-                            $thnt = folderthn($row['folder']);
-                            $blnt = folderbln($row['folder']);
-                            $opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
-                            $size = @getimagesize($opathFile);
-                            if($size !== false){
-                                $gambar = '/assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
-                                }else{
-                                $gambar = "/assets/no_photo_2.jpg";
-                            }
-                        ?>
-                        <li class="col w-100" style="position:relative">
-                            <div class="card card-type-4 putih">
-                                <div class="wrapper clearfix" style="padding:5px;">
-                                    <a class="col populer"  href="<?=base_url('detail/').$row['judul_seo'];?>">
-                                        <img class="bayangan" loading="lazy" src="<?=$gambar;?>" alt="<?=$row['judul'];?>" width="400" style="border-radius:5px">
-                                    </a>
-                                    <a class="col populer" href="<?=base_url('detail/').$row['judul_seo'];?>">
-                                        <h2 class="title"><?=$row['judul'];?></h2>
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                        <?php endforeach; ?>
-                    </div>
-                </section>
-            </div>
         </div>
-        <div class="col w-100" style="background:#fff;margin-top:20px;">
-            
-            <section id="berita-video" class="berita-pilihan" style="background:url('assets/frontend/images/bg.jpg') #660000;padding:10px;color:#fff;border-radius:10px;margin:0 0 20px 0">
-                <a href="/video" class="box-title putih-500 populer">
-                    video
-                </a>
-                <div class="row clearfix" style="overflow:hidden">
+        <div class="col w-30" style="float:right !important;">
+            <section class="berita-pilihan" style="background:url('assets/frontend/images/bg.jpg') #660000;padding:10px;color:#fff;margin:0 0 20px 0;margin-top:20px;">
+                <a href="#" class="box-title" style="font-size:10pt;">#editor choice</a>
+                <div class="row clearfix">
                     <?php 
-                        foreach($video AS $row):
+                        foreach($pilihan AS $row):
                         $thnt = folderthn($row['folder']);
                         $blnt = folderbln($row['folder']);
                         $opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
                         $size = @getimagesize($opathFile);
                         if($size !== false){
-                            $gambar = base_url().'assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
+                            $gambar = '/assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
                             }else{
-                            $gambar = "/assets/no_video.jpg";
+                            $gambar = "/assets/no_photo_2.jpg";
                         }
                     ?>
-                    <li class="col w-30" style="position:relative">
+                    <li class="col w-100" style="position:relative">
                         <div class="card card-type-4 putih">
-                            <div class="wrapper clearfix" style="padding:5px">
-                                <a class="col populer" href="<?=base_url('detail/').$row['judul_seo'];?>">
-                                    <img class="bayangan" loading="lazy" src="<?=$gambar;?>" alt="<?=$row['judul'];?>" width="400">
+                            <div class="wrapper clearfix" style="padding:5px;">
+                                <a class="col populer"  href="<?=base_url('detail/').$row['judul_seo'];?>">
+                                    <img class="bayangan" loading="lazy" src="<?=$gambar;?>" alt="<?=$row['judul'];?>" width="400" style="border-radius:5px">
                                 </a>
-                                <a class="col populer" href="<?=base_url('detail/').$row['judul_seo'];?>">
+                                <a class="col populer" href="<?=base_url('detail/').$row['judul_seo'];?>" style="background:#000066;border-radius:10px;padding:0 5px;margin-top:10px">
                                     <h2 class="title"><?=$row['judul'];?></h2>
                                 </a>
                             </div>
                         </div>
+                        <div class="dottedd"></div>
                     </li>
                     <?php endforeach; ?>
-                    
                 </div>
             </section>
+        </div>
+        
+        <div class="col w-100" style="background:#fff;margin-top:20px;">
+            
             <section id="tabs popular" class="tab tab-type-1 terpopuler  " style="border:3px solid #000040;border-radius:10px;padding:10px">
                 <a href="/program" class="col box-title red-500 berita-pilihan" style="margin-left:20px">PROGRAM</a>
                 <nav class="tab-pagination program">
@@ -301,7 +339,7 @@
                                         </div>
                                     </li>
                                     <?php }else{ 
-                                        $label='';
+                                         $label='';
                                         if(!empty($row['label'])){
                                             $query = $this->model_app->view_where('label',['id'=>$row['label']])->row();
                                             $color = $query->color;
