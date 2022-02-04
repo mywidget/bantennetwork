@@ -976,9 +976,9 @@
 			$ci = & get_instance();
 			if ($ci->agent->is_mobile())
 			{ 
-				$query = $ci->db->query("SELECT * FROM `themes` where publish='Y'");
+				$query = $ci->db->query("SELECT * FROM `themes` where posisi='mobile'");
 				}else{
-				$query = $ci->db->query("SELECT * FROM `themes` where publish='Y'");
+				$query = $ci->db->query("SELECT * FROM `themes` where posisi='frontend'");
 			}
 			if ($query->num_rows()>=1){
 				$tmp = $query->row_array();
