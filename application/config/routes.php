@@ -61,6 +61,7 @@ $route['portal']                   = 'Portal/index';
 $route['search']                   = 'Search/index';
 $route['feed']                     = 'Feed/index';
 $route['logout']                   = 'Logout';
+$route['cari']                     = 'dashboard/cari';
 $route['rubrik/(:any)']	           = 'rubrik/index';
 $route['tag/(:any)']	           = 'Tag/index';
 $route['page/(:any)']	           = 'page/index';
