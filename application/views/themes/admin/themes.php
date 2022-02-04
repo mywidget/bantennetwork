@@ -149,7 +149,7 @@
 							<div class="dropdown">
 								<a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="avatar" src="<?=$User['img']; ?>" alt=""></a>
 								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-									<a class="dropdown-item" href="<?=base_url('profil');?>"><i class="ik ik-user dropdown-icon"></i> Profile</a>
+									<a class="dropdown-item" href="<?=base_url('akun/profil');?>"><i class="ik ik-user dropdown-icon"></i> Profile</a>
 									<a class="dropdown-item" href="<?=base_url('pesan-masuk');?>"><i class="ik ik-mail dropdown-icon"></i> Pesan Masuk</a>
 									<a class="dropdown-item" href="<?=base_url();?>logout"><i class="ik ik-power dropdown-icon"></i> Logout</a>
 								</div>
