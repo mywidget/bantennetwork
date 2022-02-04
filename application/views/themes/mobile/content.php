@@ -126,7 +126,7 @@
                                                     }
                                                 ?>
                                                 <div class="td-block-span6">
-                                                    <div class="td_module_7 td_module_wrap td-animation-stack">
+                                                    <div class="td_module_6 td_module_wrap td-animation-stack">
                                                         <div class="td-module-thumb">
                                                             <a href="<?=$seo;?>" rel="bookmark" class="td-image-wrap " title="<?=$judul;?>" ><img  style="width: 100px; height: 75px; object-fit: cover;" src="<?=$gambar;?>" title="<?=$judul;?>" data-type="image_tag" data-img-url="<?=$gambar;?>" width="100" height="75">
                                                                 <noscript>
