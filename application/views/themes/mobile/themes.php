@@ -34,6 +34,7 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 		<script type="application/ld+json" class="aioseo-schema">
 			<?php echo json_encode($json,JSON_UNESCAPED_SLASHES); ?>
 		</script>
+		<meta name="google-site-verification" content="O3eO02JzK5_PbGU81ViihOtF35SWqpD0l3IWCyU9Wa8" />
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-L2N7LVLVVF"></script>
 		<script>
