@@ -148,7 +148,7 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 						<div class="td-header-sp-logo">
 							<h1 class="td-logo">
 								<a class="td-main-logo" href="<?=tag_key('site_url');?>">
-									<img src="<?=logo();?>" alt=""/>
+									<img src="<?=logo();?>" alt="logo" style=""/>
 									<span class="td-visual-hidden"><?=tag_key('site_name');?></span>
 								</a>
 							</h1>
@@ -167,10 +167,10 @@ prefix="og: https://ogp.me/ns#" > <!--<![endif]-->
 								<i class="td-icon-font td-icon-mobile text-black"></i></a></div>
 								<div class="td-main-menu-logo td-logo-in-header">
 									<a class="td-mobile-logo td-sticky-mobile" href="<?=tag_key('site_url');?>">
-										<img src="<?=logo();?>" alt=""/>
+										<img src="<?=logo();?>" alt="" style="width:250px"/>
 									</a>
 									<a class="td-header-logo td-sticky-mobile" href="<?=tag_key('site_url');?>">
-										<img src="<?=logo();?>" alt=""/>
+										<img src="<?=logo();?>" alt="" style="width:250px"/>
 									</a>
 								</div>
 								<div class="menu-td-demo-header-menu-container">
