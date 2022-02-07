@@ -172,7 +172,7 @@
 			
 			//confih upload
 			$config['upload_path']   = './assets/post/'.$tahun.'/'.$bulan; //path folder
-			$config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang image yang dizinkan
+			$config['allowed_types'] = 'gif|jpg|png|jpeg'; //type yang image yang dizinkan
 			$config['max_size']		 = 2048;
 			$config['encrypt_name']  = FALSE; //enkripsi nama file
 			$config['file_name']  = $newName; //enkripsi nama file
@@ -351,9 +351,10 @@
 		{
 			$id     = decrypt_url($this->input->post('id',TRUE));
 			$file   = $this->input->post('img_del',TRUE);
+			$isi_page   = $this->input->post('summernote',FALSE);
 			
 			$config['upload_path']   = './assets/page'; //path folder
-			$config['allowed_types'] = 'gif|jpg|png|jpeg|bmp'; //type yang image yang dizinkan
+			$config['allowed_types'] = 'gif|jpg|png|jpeg'; //type yang image yang dizinkan
 			$config['encrypt_name']  = TRUE; //enkripsi nama file
 			
 			$this->upload->initialize($config);
@@ -376,7 +377,7 @@
 							$data       = [
 							'judul'     => $this->input->post('judul',TRUE),
 							'judul_seo' => slugify($this->input->post('judul',TRUE)),
-							'isi'       => $this->input->post('summernote',FALSE),
+							'isi'       => $isi_page,
 							'pub'       => $this->input->post('pub',TRUE),
 							'status'    => $this->input->post('status',TRUE),
 							'photo'    	=> $gbr['file_name']
@@ -401,7 +402,7 @@
 					$data       = [
 					'judul'     => $this->input->post('judul',TRUE),
 					'judul_seo' => slugify($this->input->post('judul',TRUE)),
-					'isi'       => $this->input->post('summernote',FALSE),
+					'isi'       => $isi_page,
 					'pub'       => $this->input->post('pub',TRUE),
 					'status'    => $this->input->post('status',TRUE)
 					];
@@ -425,7 +426,7 @@
 						$data       = [
 						'judul'     => $this->input->post('judul',TRUE),
 						'judul_seo' => slugify($this->input->post('judul',TRUE)),
-						'isi'       => $this->input->post('summernote',FALSE),
+						'isi'       => $isi_page,
 						'pub'       => $this->input->post('pub',TRUE),
 						'status'    => $this->input->post('status',TRUE),
 						'photo'    	=> $gbr['file_name']
