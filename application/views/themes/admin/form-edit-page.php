@@ -33,7 +33,7 @@
 						<input type="text" class="form-control" id="judul" name="judul" value="<?=$post->judul;?>">
 					</div>
 					<div class="form-group mt-2">
-						<textarea class="form-control" id="editor" name="summernote" rows="5"><?=$post->isi;?></textarea>
+						<textarea class="form-control" id="editor" name="isi_halaman" rows="5"><?=$post->isi;?></textarea>
 					</div>
 					
 				</div>

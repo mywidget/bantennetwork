@@ -33,7 +33,7 @@
 						<input type="text" class="form-control" id="judul" name="judul">
 					</div>
 					<div class="form-group mt-2">
-						<textarea class="form-control" id="editor" name="summernote" rows="5"></textarea>
+						<textarea class="form-control" id="editor" name="isi_halaman" rows="5"></textarea>
 					</div>
 					
 				</div>

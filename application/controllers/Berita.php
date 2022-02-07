@@ -351,7 +351,7 @@
 		{
 			$id     = decrypt_url($this->input->post('id',TRUE));
 			$file   = $this->input->post('img_del',TRUE);
-			$isi_page   = $this->input->post('summernote',FALSE);
+			$isi_page   = $this->input->post('isi_halaman',FALSE);
 			
 			$config['upload_path']   = './assets/page'; //path folder
 			$config['allowed_types'] = 'gif|jpg|png|jpeg'; //type yang image yang dizinkan
