@@ -489,13 +489,48 @@
 		}
 		
 		function iklan(array $val){
-			$ci = & get_instance();
-			$img = "";
-			$alt = tag_key('site_name');
+		$ci = & get_instance();
+		$img = "";
+		$alt = tag_key('site_name');
+		
+		if($val['status']=='header'){
 			$qry = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id']);
 			if($qry->num_rows() >0){
 				$row = $qry->row();
-				if($val['status']=='header'){
+				if($row->show_on == 0){
+					$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+					}elseif($row->show_on == 1){
+					if ($ci->agent->is_mobile())
+					{
+						$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+					}
+					}elseif($row->show_on == 2){
+					if (!$ci->agent->is_mobile())
+					{
+						$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+					}
+				}
+			}
+			}elseif($val['status']=='home'){
+			$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
+			foreach($data AS $val){
+				if($val->show_on == 0){
+					$img .= '<a href="'.$val->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$val->gambar.'" alt="'.$alt.'"  /></a>';
+					}elseif($val->show_on == 1){
+					if ($ci->agent->is_mobile())
+					{
+						$img .= '<a href="'.$val->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$val->gambar.'" alt="'.$alt.'"  /></a>';
+					}
+					}elseif($val->show_on == 2){
+					if (!$ci->agent->is_mobile())
+					{
+						$img .= '<a href="'.$val->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$val->gambar.'" alt="'.$alt.'"  /></a>';
+					}
+				}
+				}
+				}elseif($val['status']=='homeatas'){
+				$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
+				foreach($data AS $row){
 					if($row->show_on == 0){
 						$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
 						}elseif($row->show_on == 1){
@@ -509,80 +544,46 @@
 							$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
 						}
 					}
-					
-					}elseif($val['status']=='home'){
-					$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
-					foreach($data AS $val){
-						if($row->show_on == 0){
+				}
+				}elseif($val['status']=='homebawah'){
+				$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
+				foreach($data AS $row){
+					if($row->show_on == 0){
+						$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+						}elseif($row->show_on == 1){
+						if ($ci->agent->is_mobile())
+						{
 							$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
-							}elseif($row->show_on == 1){
-							if ($ci->agent->is_mobile())
-							{
-								$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
-							}
-							}elseif($row->show_on == 2){
-							if (!$ci->agent->is_mobile())
-							{
-								$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
-							}
+						}
+						}elseif($row->show_on == 2){
+						if (!$ci->agent->is_mobile())
+						{
+							$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
 						}
 					}
-					}elseif($val['status']=='homeatas'){
-					$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
-					foreach($data AS $val){
-						if($row->show_on == 0){
+				}
+				}elseif($val['status']=='cat'){
+				$row = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->row();
+				$img .= '<a href="'.$row->link.'" target="_blank" style="width:300px !important;height:100% !important"><img src="/assets/banner/'.$row->gambar.'" width="300" alt="'.$alt.'"  /></a>';
+				}elseif($val['status']=='detail'){
+				$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
+				foreach($data AS $row){
+					if($row->show_on == 0){
+						$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
+						}elseif($row->show_on == 1){
+						if ($ci->agent->is_mobile())
+						{
 							$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
-							}elseif($row->show_on == 1){
-							if ($ci->agent->is_mobile())
-							{
-								$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
-							}
-							}elseif($row->show_on == 2){
-							if (!$ci->agent->is_mobile())
-							{
-								$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
-							}
 						}
-					}
-					}elseif($val['status']=='homebawah'){
-					$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
-					foreach($data AS $val){
-						if($row->show_on == 0){
+						}elseif($row->show_on == 2){
+						if (!$ci->agent->is_mobile())
+						{
 							$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
-							}elseif($row->show_on == 1){
-							if ($ci->agent->is_mobile())
-							{
-								$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
-							}
-							}elseif($row->show_on == 2){
-							if (!$ci->agent->is_mobile())
-							{
-								$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
-							}
-						}
-					}
-					}elseif($val['status']=='cat'){
-					$row = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->row();
-					$img .= '<a href="'.$row->link.'" target="_blank" style="width:300px !important;height:100% !important"><img src="/assets/banner/'.$row->gambar.'" width="300" alt="'.$alt.'"  /></a>';
-					}elseif($val['status']=='detail'){
-					$data = $ci->db->query("SELECT * from banner WHERE publish='Y' AND posisi=".$val['id'])->result();
-					foreach($data AS $val){
-						if($row->show_on == 0){
-							$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
-							}elseif($row->show_on == 1){
-							if ($ci->agent->is_mobile())
-							{
-								$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
-							}
-							}elseif($row->show_on == 2){
-							if (!$ci->agent->is_mobile())
-							{
-								$img .= '<a href="'.$row->link.'" target="_blank" style="width:100% !important; !important"><img src="'.base_url().'assets/banner/'.$row->gambar.'" alt="'.$alt.'"  /></a>';
-							}
 						}
 					}
 				}
 			}
+			
 			return $img;
 		}
 		function terbaru(){
