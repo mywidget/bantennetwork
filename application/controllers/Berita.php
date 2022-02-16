@@ -180,7 +180,7 @@
 			$this->upload->initialize($config);
 			$deskripsi 		= getFirstPar($this->input->post('deskripsi',TRUE));
 			if(empty($deskripsi)){
-				$getPar 	= getFirstPar($this->input->post('summernote',TRUE));
+				$getPar 	= getFirstPar($this->input->post('summernote',FALSE));
 				$deskripsi 	= cleanString($getPar);
 			}
 			//jika id kosong lakukan update
