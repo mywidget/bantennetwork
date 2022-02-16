@@ -178,7 +178,11 @@
 			$config['file_name']  = $newName; //enkripsi nama file
 			
 			$this->upload->initialize($config);
-			
+			$deskripsi 		= getFirstPar($this->input->post('deskripsi',TRUE));
+			if(empty($deskripsi)){
+				$getPar 	= getFirstPar($this->input->post('summernote',TRUE));
+				$deskripsi 	= cleanString($getPar);
+			}
 			//jika id kosong lakukan update
 			if($id > 0){
 				//update jika file di ganti
@@ -208,7 +212,7 @@
 							'publish'        => $this->input->post('pub',TRUE),
 							'postingan'      => $this->input->post('summernote',FALSE),
 							'kata_kunci'	 => $tag,
-							'deskripsi'		 => $this->input->post('deskripsi',TRUE),
+							'deskripsi'		 => $deskripsi,
 							'status'         => $this->input->post('status',TRUE),
 							'tanggal'        => $date,
 							'folder'         => $date,
@@ -250,7 +254,7 @@
 					'dateModified'	 => date('Y-m-d H:i:s'),
 					'caption'        => $this->input->post('caption',TRUE),
 					'kata_kunci'	 => $tag,
-					'deskripsi'		 => $this->input->post('deskripsi',TRUE),
+					'deskripsi'		 => $deskripsi,
 					'tag'            => $tag,
 					'youtube'        => $youtube,
 					'durasi'         => $this->input->post('durasi',TRUE),
@@ -269,17 +273,13 @@
 				}else{
 				//insert
 				
-				$deskripsi 		= getFirstPar($this->input->post('deskripsi',TRUE));
-				if(empty($deskripsi)){
-					$getPar 	= getFirstPar($this->input->post('summernote',TRUE));
-					$deskripsi 	= cleanString($getPar);
-				}
+				
 				
 				if(!empty($_FILES['input_img']['name']))
 				{
 					if ($this->upload->do_upload('input_img'))
 					{
-						 
+						
 						$gbr             = $this->upload->data();
 						$data            = [
 						'id_cat'         => $id_cat,
@@ -807,4 +807,4 @@
 			->set_content_type('application/json')
 			->set_output(json_encode($arr));
 		}
-	}																			
+	}																				
