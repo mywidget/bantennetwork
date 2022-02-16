@@ -120,10 +120,10 @@
 										$dateatom = standard_date('DATE_ATOM', strtotime($row['tanggal']));
 										$thnt = folderthn($row['folder']);
 										$blnt = folderbln($row['folder']);
-										$opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
+										$opathFile = FCPATH.'assets/post/'.$thnt.'/'.$blnt.'/681x400_'.$row['gambar'];
 										$size = @getimagesize($opathFile);
 										if($size !== false){
-											$gambar = '/assets/post/'.$thnt.'/'.$blnt.'/316x177_'.$row['gambar'];
+											$gambar = '/assets/post/'.$thnt.'/'.$blnt.'/681x400_'.$row['gambar'];
 											}else{
 											$gambar = "/assets/no_photo.jpg";
 										}
@@ -195,7 +195,7 @@
 			}
 		});
 	}
-	(function($){
-		$(".entry-title").dotdotdot({	height: 70,	fallbackToLetter: true,	watch: true});
-	})(jQuery);
+	// (function($){
+		// $(".entry-title").dotdotdot({	height: 70,	fallbackToLetter: true,	watch: true});
+	// })(jQuery);
 </script>						
