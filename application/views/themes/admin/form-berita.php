@@ -62,14 +62,6 @@
 					<div class="form-group mt-2">
 						<textarea class="form-control" id="editor" name="summernote" rows="5"></textarea>
 					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label for="deskripsi">Deskripsi</label>
-								<textarea class="form-control" id="deskripsi" name="deskripsi" rows="2"></textarea>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 			

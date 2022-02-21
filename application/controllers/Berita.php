@@ -178,11 +178,11 @@
 			$config['file_name']  = $newName; //enkripsi nama file
 			
 			$this->upload->initialize($config);
-			$deskripsi 		= getFirstPar($this->input->post('deskripsi',TRUE));
-			if(empty($deskripsi)){
-				$getPar 	= getFirstPar($this->input->post('summernote',FALSE));
-				$deskripsi 	= cleanString($getPar);
-			}
+			// $deskripsi 		= getFirstPar($this->input->post('deskripsi',TRUE));
+			// if(empty($deskripsi)){
+				// $getPar 	= getFirstPar($this->input->post('summernote',FALSE));
+				// $deskripsi 	= cleanString($getPar);
+			// }
 			//jika id kosong lakukan update
 			if($id > 0){
 				//update jika file di ganti
@@ -212,7 +212,6 @@
 							'publish'        => $this->input->post('pub',TRUE),
 							'postingan'      => $this->input->post('summernote',FALSE),
 							'kata_kunci'	 => $tag,
-							'deskripsi'		 => $deskripsi,
 							'status'         => $this->input->post('status',TRUE),
 							'tanggal'        => $date,
 							'folder'         => $date,
@@ -254,7 +253,6 @@
 					'dateModified'	 => date('Y-m-d H:i:s'),
 					'caption'        => $this->input->post('caption',TRUE),
 					'kata_kunci'	 => $tag,
-					'deskripsi'		 => $deskripsi,
 					'tag'            => $tag,
 					'youtube'        => $youtube,
 					'durasi'         => $this->input->post('durasi',TRUE),
@@ -295,7 +293,6 @@
 						'gambar'         => $newName,
 						'caption'        => $this->input->post('caption',TRUE),
 						'kata_kunci'	 => $tag,
-						'deskripsi'		 => $deskripsi,
 						'tag'            => $tag,
 						'youtube'        => $youtube,
 						'durasi'         => $this->input->post('durasi',TRUE),
@@ -329,7 +326,6 @@
 					'dateModified'	 => date('Y-m-d H:i:s'),
 					'caption'        => $this->input->post('caption',TRUE),
 					'kata_kunci'	 => $tag,
-					'deskripsi'		 => $deskripsi,
 					'tag'            => $tag,
 					'youtube'        => $youtube,
 					'durasi'         => $this->input->post('durasi',TRUE),
