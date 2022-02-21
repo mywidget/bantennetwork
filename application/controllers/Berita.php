@@ -180,8 +180,8 @@
 			$this->upload->initialize($config);
 			// $deskripsi 		= getFirstPar($this->input->post('deskripsi',TRUE));
 			// if(empty($deskripsi)){
-				// $getPar 	= getFirstPar($this->input->post('summernote',FALSE));
-				// $deskripsi 	= cleanString($getPar);
+			// $getPar 	= getFirstPar($this->input->post('summernote',FALSE));
+			// $deskripsi 	= cleanString($getPar);
 			// }
 			//jika id kosong lakukan update
 			if($id > 0){
@@ -193,14 +193,17 @@
 						$cek = $this->model_app->view_where('posting', ['id_post'=>$id]);
 						if($cek->num_rows() > 0)
 						{
+							$row = $cek->row();
+							$_tahun   = folderthn($row->tanggal);
+							//folder berdasarkan bulan
+							$_bulan   = folderbln($row->tanggal);
 							
-							
-							$gambar = FCPATH.'assets/post/'.$tahun.'/'.$bulan.'/'.$file;
+							$gambar = FCPATH.'assets/post/'.$_tahun.'/'.$_bulan.'/'.$row->gambar;
 							if(file_exists($gambar)){
-								@unlink('./assets/post/'.$tahun.'/'.$bulan.'/'.$file);
-								@unlink('./assets/post/'.$tahun.'/'.$bulan.'/341x200_'.$file);
-								@unlink('./assets/post/'.$tahun.'/'.$bulan.'/681x400_'.$file);
-								@unlink('./assets/post/'.$tahun.'/'.$bulan.'/864x467_'.$file);
+								@unlink('./assets/post/'.$_tahun.'/'.$_bulan.'/'.$row->gambar);
+								@unlink('./assets/post/'.$_tahun.'/'.$_bulan.'/341x200_'.$row->gambar);
+								@unlink('./assets/post/'.$_tahun.'/'.$_bulan.'/681x400_'.$row->gambar);
+								@unlink('./assets/post/'.$_tahun.'/'.$_bulan.'/864x467_'.$row->gambar);
 							}
 							$gbr             = $this->upload->data();
 							//Compress Image
@@ -214,7 +217,6 @@
 							'kata_kunci'	 => $tag,
 							'status'         => $this->input->post('status',TRUE),
 							'tanggal'        => $date,
-							'folder'         => $date,
 							'dateModified'	 => date('Y-m-d H:i:s'),
 							'gambar'         => $newName,
 							'caption'        => $this->input->post('caption',TRUE),
@@ -228,8 +230,9 @@
 							if($update['status']=='ok')
 							{
 								$this->session->set_flashdata('message', "update");
-								$this->_create_thumbs($tahun,$bulan,$newName);
+								$this->_create_thumbs($_tahun,$_bulan,$newName);
 								redirect('berita/post');
+						
 								}else{
 								redirect('berita/post/editpost/'.$this->input->post('id',TRUE));
 							}
@@ -803,4 +806,4 @@
 			->set_content_type('application/json')
 			->set_output(json_encode($arr));
 		}
-	}																				
+	}																					
