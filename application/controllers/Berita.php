@@ -175,6 +175,7 @@
 			$config['allowed_types'] = 'gif|jpg|png|jpeg'; //type yang image yang dizinkan
 			$config['max_size']		 = 2048;
 			$config['encrypt_name']  = FALSE; //enkripsi nama file
+			$config['overwrite']  = TRUE;
 			$config['file_name']  = $newName; //enkripsi nama file
 			
 			$this->upload->initialize($config);
