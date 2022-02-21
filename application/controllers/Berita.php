@@ -199,7 +199,7 @@
 							//folder berdasarkan bulan
 							$_bulan   = folderbln($row->tanggal);
 							
-							$gambar = FCPATH.'assets/post/'.$_tahun.'/'.$_bulan.'/'.$row->gambar;
+							$gambar = FCPATH.'assets/post/'.$_tahun.'/'.$_bulan.'/864x467_'.$row->gambar;
 							if(file_exists($gambar)){
 								@unlink('./assets/post/'.$_tahun.'/'.$_bulan.'/'.$row->gambar);
 								@unlink('./assets/post/'.$_tahun.'/'.$_bulan.'/341x200_'.$row->gambar);
