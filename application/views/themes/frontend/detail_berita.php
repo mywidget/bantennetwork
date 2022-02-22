@@ -103,15 +103,15 @@
                                         $tagss .= '<li><span>LABEL</span></li>';
                                         foreach($tagshow as  $val) {
                                             $tagss .= '<li><a href="/tag/'.slugify($val['seo']).'">'.strtoupper($val['title']).'</a></li>';
-                                            $html .= '
-                                            $(".dable-content-wrapper").linkIt({
-                                            link: {
-                                            word: "'.$val['title'].'",
-                                            url: "'.base_url('tag/').'"
-                                            },
-                                            caseSensitive: true
-                                            });
-                                            ';
+                                            // $html .= '
+                                            // $(".dable-content-wrapper").linkIt({
+                                            // link: {
+                                            // word: "'.$val['title'].'",
+                                            // url: "'.base_url('tag/').'"
+                                            // },
+                                            // caseSensitive: true
+                                            // });
+                                            // ';
                                         }
                                         $tagss .= '</ul>';
                                         $tagss .= '<script>';
